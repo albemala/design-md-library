@@ -1,10 +1,15 @@
-author: albemala
-author website: https://albemala.me/
-title: "Lamborghini"
-description: ""
-tags:
-  - automotive
-  - dark
-  - landing-page
-  - light
-  - mobile
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Lamborghini"
+  description: |-
+    
+  tags:
+    - automotive
+    - dark
+    - landing-page
+    - light
+    - mobile

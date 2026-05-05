@@ -1,13 +1,18 @@
-author: albemala
-author website: https://albemala.me/
-title: "Clay"
-description: "A vibrant claymation-meets-data interface for Clay.com (GTM data-orchestration platform). Anchors on white canvas with dark-navy primary CTAs, custom rounded display type, and saturated single-color feature cards \u2014 hot pink, deep teal, lavender, peach, ochre \u2014 that punctuate long-scroll explainer pages. Brand voltage comes from 3D-rendered claymation illustrations (mountains, characters, mascots) used as full-bleed hero artifacts and the bright multi-color card surfaces showing product UI fragments."
-tags:
-  - ai
-  - dark
-  - e-commerce
-  - landing-page
-  - light
-  - mobile
-  - saas
-  - social
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Clay"
+  description: |-
+    A vibrant claymation-meets-data interface for Clay.com (GTM data-orchestration platform). Anchors on white canvas with dark-navy primary CTAs, custom rounded display type, and saturated single-color feature cards \u2014 hot pink, deep teal, lavender, peach, ochre \u2014 that punctuate long-scroll explainer pages. Brand voltage comes from 3D-rendered claymation illustrations (mountains, characters, mascots) used as full-bleed hero artifacts and the bright multi-color card surfaces showing product UI fragments.
+  tags:
+    - ai
+    - dark
+    - e-commerce
+    - landing-page
+    - light
+    - mobile
+    - saas
+    - social

@@ -1,12 +1,17 @@
-author: albemala
-author website: https://albemala.me/
-title: "Ollama"
-description: "|"
-tags:
-  - ai
-  - dark
-  - dashboard
-  - e-commerce
-  - landing-page
-  - light
-  - mobile
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Ollama"
+  description: |-
+    |
+  tags:
+    - ai
+    - dark
+    - dashboard
+    - e-commerce
+    - landing-page
+    - light
+    - mobile

@@ -1,9 +1,14 @@
-author: albemala
-author website: https://albemala.me/
-title: "Spotify"
-description: ""
-tags:
-  - dark
-  - landing-page
-  - light
-  - mobile
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Spotify"
+  description: |-
+    
+  tags:
+    - dark
+    - landing-page
+    - light
+    - mobile

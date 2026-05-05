@@ -1,14 +1,19 @@
-author: albemala
-author website: https://albemala.me/
-title: "Raycast"
-description: "|"
-tags:
-  - ai
-  - dark
-  - dashboard
-  - e-commerce
-  - landing-page
-  - light
-  - mobile
-  - saas
-  - social
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Raycast"
+  description: |-
+    |
+  tags:
+    - ai
+    - dark
+    - dashboard
+    - e-commerce
+    - landing-page
+    - light
+    - mobile
+    - saas
+    - social

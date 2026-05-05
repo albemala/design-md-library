@@ -1,13 +1,18 @@
-author: albemala
-author website: https://albemala.me/
-title: "Cohere"
-description: "Cohere's 2026 web system is a controlled enterprise AI interface built from stark white editorial space, deep green-black product bands, soft mineral surfaces, rounded media cards, and a distinctive type split between monospaced-feeling display headlines and precise Unica77 UI text."
-tags:
-  - ai
-  - dark
-  - dashboard
-  - e-commerce
-  - landing-page
-  - light
-  - mobile
-  - saas
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Cohere"
+  description: |-
+    Cohere's 2026 web system is a controlled enterprise AI interface built from stark white editorial space, deep green-black product bands, soft mineral surfaces, rounded media cards, and a distinctive type split between monospaced-feeling display headlines and precise Unica77 UI text.
+  tags:
+    - ai
+    - dark
+    - dashboard
+    - e-commerce
+    - landing-page
+    - light
+    - mobile
+    - saas

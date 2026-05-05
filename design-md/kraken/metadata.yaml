@@ -1,10 +1,15 @@
-author: albemala
-author website: https://albemala.me/
-title: "Kraken"
-description: ""
-tags:
-  - dark
-  - e-commerce
-  - fintech
-  - landing-page
-  - light
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Kraken"
+  description: |-
+    
+  tags:
+    - dark
+    - e-commerce
+    - fintech
+    - landing-page
+    - light

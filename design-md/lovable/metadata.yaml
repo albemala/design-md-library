@@ -1,11 +1,16 @@
-author: albemala
-author website: https://albemala.me/
-title: "Lovable"
-description: ""
-tags:
-  - ai
-  - dark
-  - landing-page
-  - light
-  - mobile
-  - saas
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Lovable"
+  description: |-
+    
+  tags:
+    - ai
+    - dark
+    - landing-page
+    - light
+    - mobile
+    - saas

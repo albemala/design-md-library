@@ -1,10 +1,15 @@
-author: albemala
-author website: https://albemala.me/
-title: "Wise"
-description: ""
-tags:
-  - dark
-  - fintech
-  - landing-page
-  - light
-  - mobile
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Wise"
+  description: |-
+    
+  tags:
+    - dark
+    - fintech
+    - landing-page
+    - light
+    - mobile

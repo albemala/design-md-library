@@ -1,11 +1,16 @@
-author: albemala
-author website: https://albemala.me/
-title: "Bugatti"
-description: "An austere luxury-automotive interface that uses near-pure black canvas, white uppercase letterspaced display, and full-bleed automotive photography as the only voltage. The system runs three custom Bugatti typefaces \u2014 Bugatti Display, Bugatti Text Regular, and Bugatti Monospace \u2014 and combines them at modest weights with wide tracking to feel European-engineered, hyper-minimal, and quietly expensive. There is no accent color, no decorative element, no chrome \u2014 only photography, typography, and the brand wordmark."
-tags:
-  - automotive
-  - dark
-  - e-commerce
-  - landing-page
-  - light
-  - mobile
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Bugatti"
+  description: |-
+    An austere luxury-automotive interface that uses near-pure black canvas, white uppercase letterspaced display, and full-bleed automotive photography as the only voltage. The system runs three custom Bugatti typefaces \u2014 Bugatti Display, Bugatti Text Regular, and Bugatti Monospace \u2014 and combines them at modest weights with wide tracking to feel European-engineered, hyper-minimal, and quietly expensive. There is no accent color, no decorative element, no chrome \u2014 only photography, typography, and the brand wordmark.
+  tags:
+    - automotive
+    - dark
+    - e-commerce
+    - landing-page
+    - light
+    - mobile

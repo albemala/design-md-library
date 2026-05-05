@@ -1,11 +1,16 @@
-author: albemala
-author website: https://albemala.me/
-title: "Vodafone"
-description: ""
-tags:
-  - dark
-  - dashboard
-  - landing-page
-  - light
-  - mobile
-  - social
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Vodafone"
+  description: |-
+    
+  tags:
+    - dark
+    - dashboard
+    - landing-page
+    - light
+    - mobile
+    - social

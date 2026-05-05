@@ -1,12 +1,17 @@
-author: albemala
-author website: https://albemala.me/
-title: "X.ai"
-description: ""
-tags:
-  - ai
-  - dark
-  - e-commerce
-  - landing-page
-  - light
-  - mobile
-  - saas
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "X.ai"
+  description: |-
+    
+  tags:
+    - ai
+    - dark
+    - e-commerce
+    - landing-page
+    - light
+    - mobile
+    - saas

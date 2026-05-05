@@ -1,12 +1,17 @@
-author: albemala
-author website: https://albemala.me/
-title: "Resend"
-description: "|"
-tags:
-  - dark
-  - dashboard
-  - e-commerce
-  - landing-page
-  - light
-  - mobile
-  - saas
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Resend"
+  description: |-
+    |
+  tags:
+    - dark
+    - dashboard
+    - e-commerce
+    - landing-page
+    - light
+    - mobile
+    - saas

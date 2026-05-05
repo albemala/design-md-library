@@ -1,12 +1,17 @@
-author: albemala
-author website: https://albemala.me/
-title: "Warp"
-description: ""
-tags:
-  - dark
-  - e-commerce
-  - landing-page
-  - light
-  - mobile
-  - saas
-  - social
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "albemala"
+  website: "https://albemala.me/"
+  avatar: ""
+design_md:
+  title: "Warp"
+  description: |-
+    
+  tags:
+    - dark
+    - e-commerce
+    - landing-page
+    - light
+    - mobile
+    - saas
+    - social
