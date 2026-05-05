@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=./metadata.schema.yaml
+# Template for design.md metadata
+
+author:                  # Information about the design author
+  name: "string"         # The name of the design author
+  website: "string"      # The URL to the author's website (URI format)
+  avatar: "string"       # The URL to the author's avatar image (URI format)
+design_md:               # Information about the design file
+  title: "string"        # The title of the design
+  description: "|"       # string - A brief description of the design
+  tags:                  # array[string] - A list of tags categorizing the design
+    - tag1
+    - tag2
+    - tag3

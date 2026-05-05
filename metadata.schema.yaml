@@ -1,0 +1,43 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "Design Metadata Schema"
+type: object
+properties:
+  author:
+    type: object
+    description: "Information about the design author"
+    properties:
+      name:
+        type: string
+        description: "The name of the design author"
+      website:
+        type: string
+        format: uri
+        description: "The URL to the author's website"
+      avatar:
+        type: string
+        format: uri
+        description: "The URL to the author's avatar image"
+    required:
+      - name
+  design_md:
+    type: object
+    description: "Information about the design file"
+    properties:
+      title:
+        type: string
+        description: "The title of the design"
+      description:
+        type: string
+        description: "A brief description of the design"
+      tags:
+        type: array
+        description: "A list of tags categorizing the design"
+        items:
+          type: string
+    required:
+      - title
+      - description
+      - tags
+required:
+  - author
+  - design_md
