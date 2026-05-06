@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=../../metadata.schema.yaml
+
+author:
+  name: "Donald Edinam"
+  website: "https://github.com/Donald-Edinam"
+  avatar: "https://github.com/Donald-Edinam.png"
+
+design_md:
+  title: "Health & Wellness"
+  description: "A calm and accessibility-first design system for telemedicine, patient portals, and wellness products, optimized for trust, clarity, and reduced cognitive load."
+  tags:
+    - healthtech
+    - wellness
+    - accessibility
+    - telemedicine
+    - patient-portal
+    - calm-ui

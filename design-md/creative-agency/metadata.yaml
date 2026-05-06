@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../../metadata.schema.yaml
+author:
+  name: "Donald Edinam"
+  website: "https://github.com/Donald-Edinam"
+  avatar: "https://github.com/Donald-Edinam.png"
+design_md:
+  title: "Creative Agency"
+  description: "Bold, editorial, refined, intentional, and confident design system inspired by Pentagram, Collins, and Base Design."
+  tags:
+    - creative-agency
+    - editorial
+    - portfolio
+    - typography-led
+    - minimal
