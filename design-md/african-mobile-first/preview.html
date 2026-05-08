@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>African Mobile-First — Design System Preview</title>
+  <style>
+    :root {
+      --primary: #005F8E;
+      --primary-hover: #004D73;
+      --primary-light: #E8F4F8;
+      --primary-dark: #003D5C;
+      --accent: #FFB703;
+      --accent-dark: #CC9200;
+      --accent-light: #FFF8E1;
+      --background: #FAFAFA;
+      --surface: #FFFFFF;
+      --surface-warm: #F8F7F4;
+      --border: #E5E5E5;
+      --text-primary: #1A1A1A;
+      --text-secondary: #555555;
+      --text-muted: #888888;
+      --success: #16A34A;
+      --success-light: #F0FDF4;
+      --warning: #CA8A04;
+      --warning-light: #FEFCE8;
+      --error: #DC2626;
+      --error-light: #FEF2F2;
+      --whatsapp: #25D366;
+
+      --font-ui: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --radius-full: 9999px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --page-margin-mobile: 16px;
+      --page-margin-tablet: 24px;
+      --max-mobile: 480px;
+      --max-desktop: 960px;
+      --nav-height: 64px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-ui);
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background:
+        radial-gradient(circle at top right, rgba(255, 183, 3, .16), transparent 280px),
+        linear-gradient(180deg, var(--primary-light), var(--background) 310px);
+      min-height: 100vh;
+      padding-bottom: calc(var(--nav-height) + 18px);
+    }
+
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .app-shell {
+      width: 100%;
+      max-width: var(--max-mobile);
+      margin: 0 auto;
+      padding: var(--space-4) var(--page-margin-mobile) 0;
+    }
+
+    .display { font-size: 28px; font-weight: 700; line-height: 1.2; letter-spacing: -0.3px; }
+    h1 { font-size: 22px; font-weight: 700; line-height: 1.25; letter-spacing: -0.2px; margin: 0; }
+    h2 { font-size: 18px; font-weight: 600; line-height: 1.3; margin: 0; }
+    h3 { font-size: 16px; font-weight: 600; line-height: 1.35; margin: 0; }
+    .small { font-size: 13px; line-height: 1.5; }
+    .tiny { font-size: 11px; font-weight: 600; line-height: 1.4; letter-spacing: .3px; text-transform: uppercase; }
+    .mono { font-family: var(--font-mono); font-size: 14px; font-weight: 500; line-height: 1.4; letter-spacing: .5px; }
+    .muted { color: var(--text-muted); }
+    .secondary { color: var(--text-secondary); }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+      min-height: 48px;
+      margin-bottom: var(--space-4);
+    }
+    .brand-mark {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-weight: 700;
+    }
+    .logo {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius-md);
+      background: var(--primary);
+      color: var(--surface);
+      box-shadow: inset 0 -3px 0 rgba(0,0,0,.12);
+    }
+    .network-pill {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
+      gap: var(--space-2);
+      padding: 0 var(--space-3);
+      border-radius: var(--radius-full);
+      color: var(--primary-dark);
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .signal-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
+
+    .hero {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-5);
+      margin-bottom: var(--space-4);
+    }
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-light);
+      color: #6b4b00;
+      margin-bottom: var(--space-3);
+    }
+    .hero p { margin: var(--space-2) 0 var(--space-4); color: var(--text-secondary); }
+
+    .metric-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); margin-bottom: var(--space-4); }
+    .metric-card, .order-card, .form-card, .component-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-4);
+    }
+    .metric-card strong { display: block; margin-top: var(--space-1); color: var(--primary-dark); }
+    .section-title { display: flex; justify-content: space-between; align-items: end; gap: var(--space-3); margin: var(--space-5) 0 var(--space-3); }
+
+    .order-list { display: grid; gap: var(--space-3); }
+    .order-card { display: grid; gap: var(--space-3); }
+    .order-head { display: flex; justify-content: space-between; gap: var(--space-3); align-items: flex-start; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 11px;
+      font-weight: 600;
+      line-height: 1.4;
+      letter-spacing: .3px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+    .badge.success { color: #0f6b32; background: var(--success-light); border: 1px solid rgba(22,163,74,.22); }
+    .badge.warning { color: #7a5200; background: var(--warning-light); border: 1px solid rgba(202,138,4,.25); }
+    .badge.error { color: #991b1b; background: var(--error-light); border: 1px solid rgba(220,38,38,.20); }
+    .route-row { display: flex; justify-content: space-between; gap: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border); }
+
+    .form-card { margin-top: var(--space-4); background: var(--surface-warm); }
+    .field { display: grid; gap: var(--space-2); margin-top: var(--space-3); }
+    label { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+    input {
+      width: 100%;
+      min-height: 48px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--surface);
+      color: var(--text-primary);
+      outline: none;
+    }
+    input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); }
+    input.invalid { border-color: var(--error); background: var(--error-light); }
+    .error-msg { color: var(--error); min-height: 20px; }
+
+    .btn-row { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
+    .btn {
+      min-height: 48px;
+      width: 100%;
+      border: 0;
+      border-radius: var(--radius-md);
+      padding: 14px 24px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: var(--space-2);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .btn.primary { background: var(--primary); color: var(--surface); }
+    .btn.primary:hover { background: var(--primary-hover); }
+    .btn.primary:active { background: var(--primary-dark); }
+    .btn.secondary { background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); }
+    .btn.accent { background: var(--accent); color: var(--text-primary); }
+    .btn.whatsapp { background: var(--whatsapp); color: var(--surface); }
+
+    .component-grid { display: grid; gap: var(--space-3); margin-top: var(--space-3); }
+    .swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-2); margin-top: var(--space-3); }
+    .swatch { min-height: 48px; border-radius: var(--radius-md); border: 1px solid rgba(0,0,0,.08); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .bottom-nav {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: var(--max-mobile);
+      height: var(--nav-height);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-bottom: 0;
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      box-shadow: 0 -10px 30px rgba(0, 47, 71, .12);
+      z-index: 50;
+      overflow: hidden;
+    }
+    .tab-btn {
+      min-height: 64px;
+      border: 0;
+      background: var(--surface);
+      color: var(--text-muted);
+      display: grid;
+      place-items: center;
+      gap: 0;
+      padding: 7px 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .tab-btn span:first-child { font-size: 20px; line-height: 1; }
+    .tab-btn.active { color: var(--primary); background: var(--primary-light); }
+
+    .sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 31, 46, .28);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease;
+      z-index: 80;
+    }
+    .sheet-backdrop.open { opacity: 1; pointer-events: auto; }
+    .bottom-sheet {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translate(-50%, 110%);
+      width: 100%;
+      max-width: var(--max-mobile);
+      background: var(--surface);
+      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+      padding: 24px 16px calc(24px + env(safe-area-inset-bottom));
+      box-shadow: 0 -18px 50px rgba(0, 47, 71, .22);
+      z-index: 90;
+      transition: transform .22s ease;
+    }
+    .bottom-sheet.open { transform: translate(-50%, 0); }
+    .sheet-handle { width: 44px; height: 4px; border-radius: var(--radius-full); background: var(--border); margin: 0 auto var(--space-5); }
+    .confirm-box { margin: var(--space-4) 0; padding: var(--space-4); border-radius: var(--radius-lg); background: var(--primary-light); border: 1px solid rgba(0,95,142,.16); }
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: calc(var(--nav-height) + 14px);
+      transform: translate(-50%, 20px);
+      opacity: 0;
+      pointer-events: none;
+      width: calc(100% - 32px);
+      max-width: 448px;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      background: var(--primary-dark);
+      color: var(--surface);
+      box-shadow: 0 8px 28px rgba(0,0,0,.18);
+      transition: .2s ease;
+      z-index: 100;
+    }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+    @media (min-width: 760px) {
+      .app-shell { max-width: var(--max-desktop); padding-left: var(--page-margin-tablet); padding-right: var(--page-margin-tablet); }
+      .desktop-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr); gap: var(--space-4); align-items: start; }
+      .metric-grid { grid-template-columns: repeat(4, 1fr); }
+      .component-grid { grid-template-columns: repeat(2, 1fr); }
+      .bottom-nav, .bottom-sheet { max-width: 480px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand-mark"><div class="logo">M</div><span>Mtaa Orders</span></div>
+      <div class="network-pill small"><span class="signal-dot"></span>3G ready</div>
+    </header>
+
+    <section id="home" class="tab-panel active">
+      <div class="hero">
+        <div class="hero-kicker tiny">African Mobile-First</div>
+        <div class="display">Sell, confirm, and deliver with confidence.</div>
+        <p>A clear mobile workspace for SME owners managing orders in bright sunlight and low-bandwidth moments.</p>
+        <button class="btn primary" data-open-sheet>Confirm today’s delivery</button>
+      </div>
+
+      <div class="metric-grid">
+        <article class="metric-card"><span class="tiny muted">Revenue</span><strong class="display">₦84k</strong><span class="small secondary">Today</span></article>
+        <article class="metric-card"><span class="tiny muted">Orders</span><strong class="display">32</strong><span class="small secondary">8 pending</span></article>
+        <article class="metric-card"><span class="tiny muted">Paid</span><strong class="display">24</strong><span class="small secondary">Confirmed</span></article>
+        <article class="metric-card"><span class="tiny muted">Offline</span><strong class="display">3</strong><span class="small secondary">Will retry</span></article>
+      </div>
+
+      <div class="desktop-grid">
+        <section>
+          <div class="section-title"><h1>Orders to act on</h1><span class="small muted">Updated 2 min ago</span></div>
+          <div class="order-list">
+            <article class="order-card">
+              <div class="order-head"><div><h3>Amina Grocery Pack</h3><div class="mono muted">ORD-7K42</div></div><span class="badge warning">Payment pending</span></div>
+              <div class="route-row small"><span class="secondary">Kampala · 2 items</span><strong>UGX 48,000</strong></div>
+            </article>
+            <article class="order-card">
+              <div class="order-head"><div><h3>Kofi Wholesale Rice</h3><div class="mono muted">ORD-9B18</div></div><span class="badge success">Ready to send</span></div>
+              <div class="route-row small"><span class="secondary">Accra · 12 bags</span><strong>GHS 760</strong></div>
+            </article>
+            <article class="order-card">
+              <div class="order-head"><div><h3>Maryam Phone Top-up</h3><div class="mono muted">ORD-2M05</div></div><span class="badge error">Retry needed</span></div>
+              <div class="route-row small"><span class="secondary">Lagos · unstable network</span><strong>₦5,000</strong></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="form-card">
+          <h2>Quick customer note</h2>
+          <p class="small secondary">Validation appears after you leave a field, with plain-language guidance.</p>
+          <div class="field">
+            <label for="phone">Customer phone</label>
+            <input id="phone" inputmode="tel" placeholder="e.g. +254 712 345 678" data-validate="phone" />
+            <div class="error-msg small" id="phone-error"></div>
+          </div>
+          <div class="field">
+            <label for="amount">Amount due</label>
+            <input id="amount" inputmode="numeric" placeholder="e.g. 25000" data-validate="amount" />
+            <div class="error-msg small" id="amount-error"></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn whatsapp">Send WhatsApp update</button>
+            <button class="btn secondary">Save offline copy</button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="orders" class="tab-panel">
+      <div class="section-title"><h1>Components</h1><span class="badge success">Text labels shown</span></div>
+      <div class="component-grid">
+        <article class="component-card"><h2>Buttons</h2><div class="btn-row"><button class="btn primary">Primary action</button><button class="btn accent">Accent highlight</button><button class="btn secondary">Secondary action</button></div></article>
+        <article class="component-card"><h2>Status badges</h2><p class="small secondary">Semantic states always pair color with readable text.</p><div class="btn-row"><span class="badge success">Paid</span><span class="badge warning">Pending</span><span class="badge error">Failed retry</span></div></article>
+      </div>
+    </section>
+
+    <section id="insights" class="tab-panel">
+      <div class="hero"><div class="hero-kicker tiny">Low bandwidth mode</div><h1>Fast by default</h1><p>Border-led cards, compact type, and warm surfaces keep operational screens understandable on small Android devices.</p><button class="btn accent" data-open-sheet>Review sync plan</button></div>
+      <div class="component-card"><h2>Palette tokens</h2><div class="swatches"><div class="swatch" style="background:var(--primary)"></div><div class="swatch" style="background:var(--accent)"></div><div class="swatch" style="background:var(--success)"></div><div class="swatch" style="background:var(--error)"></div><div class="swatch" style="background:var(--primary-light)"></div><div class="swatch" style="background:var(--accent-light)"></div><div class="swatch" style="background:var(--surface-warm)"></div><div class="swatch" style="background:var(--border)"></div></div></div>
+    </section>
+
+    <section id="more" class="tab-panel">
+      <div class="hero"><h1>Design rules in action</h1><p>48px tap targets, direct microcopy, local currency examples, and bottom-first confirmation patterns for thumb reach.</p><button class="btn primary" data-open-sheet>Open bottom sheet</button></div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Primary navigation">
+    <button class="tab-btn active" data-tab="home"><span>🏠</span><span>Home</span></button>
+    <button class="tab-btn" data-tab="orders"><span>📦</span><span>Orders</span></button>
+    <button class="tab-btn" data-tab="insights"><span>📊</span><span>Insights</span></button>
+    <button class="tab-btn" data-tab="more"><span>☰</span><span>More</span></button>
+  </nav>
+
+  <div class="sheet-backdrop" data-close-sheet></div>
+  <section class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet-handle"></div>
+    <h1 id="sheet-title">Confirm delivery update?</h1>
+    <p class="secondary">We’ll mark the order as ready, save a copy for offline retry, and show a clear success message.</p>
+    <div class="confirm-box"><div class="tiny muted">Order</div><div class="mono">ORD-9B18</div><strong>GHS 760 · Ready to send</strong></div>
+    <div class="btn-row"><button class="btn primary" id="confirm-action">Yes, confirm now</button><button class="btn secondary" data-close-sheet>Not yet</button></div>
+  </section>
+  <div class="toast" role="status" aria-live="polite">Saved. Delivery update will sync even if the network drops.</div>
+
+  <script>
+    const panels = document.querySelectorAll('.tab-panel');
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      panels.forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.tab).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }));
+
+    const sheet = document.querySelector('.bottom-sheet');
+    const backdrop = document.querySelector('.sheet-backdrop');
+    const toast = document.querySelector('.toast');
+    const openSheet = () => { sheet.classList.add('open'); backdrop.classList.add('open'); };
+    const closeSheet = () => { sheet.classList.remove('open'); backdrop.classList.remove('open'); };
+    document.querySelectorAll('[data-open-sheet]').forEach(btn => btn.addEventListener('click', openSheet));
+    document.querySelectorAll('[data-close-sheet]').forEach(btn => btn.addEventListener('click', closeSheet));
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeSheet(); });
+    document.getElementById('confirm-action').addEventListener('click', () => {
+      closeSheet();
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3400);
+    });
+
+    const validators = {
+      phone(value) { return /^[+0-9 ()-]{8,}$/.test(value.trim()) ? '' : 'Enter a reachable phone number before sending.'; },
+      amount(value) { return /^\d{2,}$/.test(value.trim()) ? '' : 'Enter the amount using numbers only, for example 25000.'; }
+    };
+    document.querySelectorAll('[data-validate]').forEach(input => {
+      input.addEventListener('blur', () => {
+        const message = validators[input.dataset.validate](input.value);
+        const error = document.getElementById(`${input.id}-error`);
+        input.classList.toggle('invalid', Boolean(message));
+        input.setAttribute('aria-invalid', Boolean(message));
+        error.textContent = message;
+      });
+    });
+  </script>
+</body>
+</html>

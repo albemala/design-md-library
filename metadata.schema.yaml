@@ -38,6 +38,16 @@ properties:
       - title
       - description
       - tags
+  preview:
+    type: object
+    description: "Information about the design preview"
+    properties:
+      file_name:
+        type: string
+        description: "The filename of the design preview (e.g., preview.html)"
+    required:
+      - file_name
 required:
   - author
   - design_md
+  - preview

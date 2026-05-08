@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media & Editorial — Design System Preview</title>
+<style>
+/* ============================================================
+   CSS Custom Properties (Tokens)
+   ============================================================ */
+:root {
+  /* Colors */
+  --color-primary: #1A1A1A;
+  --color-accent: #D64045;
+  --color-accent-hover: #B83438;
+  --color-bg: #FFFFFF;
+  --color-bg-warm: #FAF9F7;
+  --color-bg-code: #F5F5F5;
+  --color-surface: #FFFFFF;
+  --color-border: #E8E8E8;
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #555555;
+  --color-text-muted: #999999;
+  --color-text-caption: #777777;
+  --color-sepia-bg: #F4EDDF;
+  --color-sepia-text: #3D3229;
+  --color-dark-bg: #1A1A1A;
+  --color-dark-text: #D4D4D4;
+  --color-dark-accent: #E8696D;
+
+  /* Typography — Font Families */
+  --font-display: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-heading: 'Lora', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Serif 4', 'Georgia', 'Times New Roman', serif;
+  --font-ui: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
+
+  /* Typography — Scale */
+  --fs-display: 48px;
+  --fs-h1: 36px;
+  --fs-h2: 28px;
+  --fs-h3: 22px;
+  --fs-kicker: 16px;
+  --fs-body: 19px;
+  --fs-body-sm: 17px;
+  --fs-caption: 14px;
+  --fs-meta: 13px;
+  --fs-code: 15px;
+
+  --lh-display: 1.15;
+  --lh-h1: 1.2;
+  --lh-h2: 1.25;
+  --lh-h3: 1.3;
+  --lh-kicker: 1.4;
+  --lh-body: 1.8;
+  --lh-body-sm: 1.75;
+  --lh-caption: 1.5;
+  --lh-meta: 1.4;
+  --lh-code: 1.6;
+
+  --ls-display: -1px;
+  --ls-h1: -0.5px;
+  --ls-h2: -0.3px;
+  --ls-h3: 0px;
+  --ls-kicker: 0.5px;
+  --ls-body: 0px;
+  --ls-body-sm: 0px;
+  --ls-caption: 0px;
+  --ls-meta: 0.3px;
+  --ls-code: 0px;
+
+  /* Rounded */
+  --radius-none: 0px;
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 24px;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-6: 48px;
+  --space-8: 64px;
+  --space-10: 80px;
+  --space-12: 96px;
+  --body-max-width: 680px;
+  --image-max-width: 960px;
+  --page-max-width: 1200px;
+  --page-margin-desktop: 24px;
+  --page-margin-mobile: 16px;
+
+  /* Nav */
+  --nav-height: 56px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 400ms;
+}
+
+/* ============================================================
+   Reading Mode Variants
+   ============================================================ */
+[data-reading-mode="sepia"] {
+  --color-bg: var(--color-sepia-bg);
+  --color-bg-warm: #EDE3D3;
+  --color-bg-code: #E8DFCC;
+  --color-surface: var(--color-sepia-bg);
+  --color-border: #D9CFBC;
+  --color-text-primary: var(--color-sepia-text);
+  --color-text-secondary: #5C5045;
+  --color-text-muted: #8C8075;
+  --color-text-caption: #6B5F54;
+}
+
+[data-reading-mode="dark"] {
+  --color-bg: #121212;
+  --color-bg-warm: #1E1E1E;
+  --color-bg-code: #252525;
+  --color-surface: #1A1A1A;
+  --color-border: #333333;
+  --color-text-primary: var(--color-dark-text);
+  --color-text-secondary: #A0A0A0;
+  --color-text-muted: #666666;
+  --color-text-caption: #888888;
+  --color-accent: var(--color-dark-accent);
+  --color-accent-hover: #F08085;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg);
+  transition: background-color var(--duration-normal) var(--ease-out),
+              color var(--duration-normal) var(--ease-out);
+  min-height: 100vh;
+  padding-bottom: 80px; /* space for bottom tab bar */
+}
+
+/* ============================================================
+   Typography Classes
+   ============================================================ */
+.display {
+  font-family: var(--font-display);
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
+}
+
+h1, .h1 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h1);
+  font-weight: 700;
+  line-height: var(--lh-h1);
+  letter-spacing: var(--ls-h1);
+}
+
+h2, .h2 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-h2);
+  letter-spacing: var(--ls-h2);
+}
+
+h3, .h3 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  line-height: var(--lh-h3);
+  letter-spacing: var(--ls-h3);
+}
+
+.kicker {
+  font-family: var(--font-ui);
+  font-size: var(--fs-kicker);
+  font-weight: 600;
+  line-height: var(--lh-kicker);
+  letter-spacing: var(--ls-kicker);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.body-sm {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  font-weight: 400;
+  line-height: var(--lh-body-sm);
+  letter-spacing: var(--ls-body-sm);
+}
+
+.caption {
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption);
+  font-weight: 400;
+  line-height: var(--lh-caption);
+  letter-spacing: var(--ls-caption);
+  color: var(--color-text-caption);
+}
+
+.meta {
+  font-family: var(--font-ui);
+  font-size: var(--fs-meta);
+  font-weight: 500;
+  line-height: var(--lh-meta);
+  letter-spacing: var(--ls-meta);
+  color: var(--color-text-muted);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.page-container {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0 var(--page-margin-desktop);
+}
+
+.section {
+  padding: var(--space-8) 0;
+}
+
+.section-header {
+  margin-bottom: var(--space-4);
+}
+
+.section-header h2 {
+  margin-bottom: var(--space-2);
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  margin: var(--space-4) 0;
+}
+
+/* ============================================================
+   Navigation — Minimal Top Bar
+   ============================================================ */
+.nav-minimal {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background-color: var(--color-bg);
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--duration-normal) var(--ease-out),
+              background-color var(--duration-normal) var(--ease-out);
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.nav-minimal.scrolled {
+  border-bottom-color: var(--color-border);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.nav-inner {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0 var(--page-margin-desktop);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.nav-brand {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  padding: 4px 0;
+  position: relative;
+  transition: color var(--duration-fast) var(--ease-out);
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--color-text-primary);
+}
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-accent);
+  border-radius: 1px;
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* Reading Mode Toggle */
+.mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--color-bg-warm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 3px;
+}
+
+.mode-btn {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  min-height: 34px;
+  min-width: 44px;
+  white-space: nowrap;
+}
+
+.mode-btn.active {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Mobile Menu Button */
+.menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 12px;
+  min-height: 48px;
+  min-width: 48px;
+  color: var(--color-text-primary);
+}
+
+.menu-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100vh;
+  background: var(--color-surface);
+  z-index: 200;
+  transform: translateX(-100%);
+  transition: transform var(--duration-slow) var(--ease-out);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 20px rgba(0,0,0,0.1);
+}
+
+.mobile-drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 199;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.drawer-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-drawer a {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  padding: 14px 12px;
+  border-radius: var(--radius-md);
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  transition: background var(--duration-fast);
+}
+
+.mobile-drawer a:hover,
+.mobile-drawer a.active {
+  background: var(--color-bg-warm);
+  color: var(--color-accent);
+}
+
+.drawer-close {
+  align-self: flex-end;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 12px;
+  min-height: 48px;
+  min-width: 48px;
+  color: var(--color-text-primary);
+}
+
+/* ============================================================
+   Article Page — Reading Column
+   ============================================================ */
+.reading-progress {
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  height: 3px;
+  background: var(--color-accent);
+  z-index: 99;
+  transition: width 100ms linear;
+}
+
+.article-hero {
+  text-align: center;
+  padding: var(--space-10) 0 var(--space-6);
+}
+
+.article-hero .kicker {
+  margin-bottom: var(--space-2);
+  display: block;
+}
+
+.article-hero h1 {
+  max-width: var(--image-max-width);
+  margin: 0 auto var(--space-3);
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.article-meta .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-code);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.meta-separator {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--color-text-muted);
+}
+
+.article-featured-image {
+  max-width: var(--image-max-width);
+  margin: var(--space-4) auto;
+  aspect-ratio: 16 / 9;
+  background: var(--color-bg-warm);
+  border-radius: var(--radius-none);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption);
+  overflow: hidden;
+}
+
+.article-featured-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.article-body-column {
+  max-width: var(--body-max-width);
+  margin: 0 auto;
+}
+
+.article-body-column p {
+  margin-bottom: var(--space-3);
+}
+
+.article-body-column h2 {
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-2);
+}
+
+.article-body-column h3 {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-2);
+}
+
+.article-body-column ul,
+.article-body-column ol {
+  margin-bottom: var(--space-3);
+  padding-left: var(--space-3);
+}
+
+.article-body-column li {
+  margin-bottom: var(--space-2);
+}
+
+/* Pull Quote */
+.pull-quote {
+  border-left: 4px solid var(--color-accent);
+  padding: var(--space-3);
+  margin: var(--space-6) 0;
+  max-width: var(--body-max-width);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pull-quote blockquote {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  font-style: italic;
+  line-height: var(--lh-h3);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.pull-quote figcaption {
+  font-family: var(--font-ui);
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+}
+
+/* Code Block */
+.code-block {
+  background: var(--color-bg-code);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  margin: var(--space-3) 0;
+  max-width: var(--body-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  overflow-x: auto;
+}
+
+.code-block pre {
+  font-family: var(--font-mono);
+  font-size: var(--fs-code);
+  line-height: var(--lh-code);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* Inline Code */
+.inline-code {
+  background: var(--color-bg-code);
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  color: var(--color-accent);
+}
+
+/* Body Image Breakout */
+.body-image-breakout {
+  max-width: var(--image-max-width);
+  margin: var(--space-6) auto;
+}
+
+.body-image-breakout img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--color-bg-warm);
+}
+
+.body-image-breakout figcaption {
+  font-family: var(--font-ui);
+  font-size: var(--fs-meta);
+  color: var(--color-text-caption);
+  margin-top: 8px;
+  text-align: center;
+}
+
+/* ============================================================
+   Article Card Grid
+   ============================================================ */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+}
+
+.card {
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.card-image {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: var(--color-bg-warm);
+  margin-bottom: var(--space-2);
+  overflow: hidden;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-content {
+  padding: 0;
+}
+
+.card-kicker {
+  font-family: var(--font-ui);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+.card h3 {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  line-height: var(--lh-h3);
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.card .meta {
+  margin-top: 4px;
+}
+
+/* ============================================================
+   Article Card List
+   ============================================================ */
+.card-list-item {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background var(--duration-fast);
+}
+
+.card-list-item:hover {
+  background: var(--color-bg-warm);
+  margin: 0 calc(var(--space-2) * -1);
+  padding-left: var(--space-2);
+  padding-right: var(--space-2);
+  border-radius: var(--radius-none);
+}
+
+.card-list-item:first-child {
+  border-top: 1px solid var(--color-border);
+}
+
+.card-list-image {
+  width: 120px;
+  height: 80px;
+  flex-shrink: 0;
+  background: var(--color-bg-warm);
+  overflow: hidden;
+}
+
+.card-list-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.card-list-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-list-content h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-bottom: 4px;
+}
+
+.card-list-content p {
+  font-family: var(--font-body);
+  font-size: var(--fs-body-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--lh-body-sm);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ============================================================
+   Newsletter Inline Block
+   ============================================================ */
+.newsletter-inline {
+  background: var(--color-bg-warm);
+  padding: var(--space-6);
+  text-align: center;
+  border-radius: var(--radius-none);
+  max-width: var(--body-max-width);
+  margin: var(--space-8) auto;
+  transition: background var(--duration-normal) var(--ease-out);
+}
+
+.newsletter-inline h3 {
+  margin-bottom: var(--space-2);
+}
+
+.newsletter-inline .caption {
+  margin-bottom: var(--space-3);
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.newsletter-form {
+  display: flex;
+  gap: var(--space-2);
+  max-width: 440px;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.newsletter-form .input-group {
+  flex: 1;
+  position: relative;
+}
+
+.newsletter-form input[type="email"] {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption);
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  outline: none;
+  transition: border-color var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+  min-height: 48px;
+}
+
+.newsletter-form input[type="email"]:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(214, 64, 69, 0.1);
+}
+
+.newsletter-form input[type="email"].error {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(214, 64, 69, 0.15);
+}
+
+.newsletter-form .error-msg {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  color: var(--color-accent);
+  text-align: left;
+  margin-top: 4px;
+  display: none;
+}
+
+.newsletter-form .error-msg.visible {
+  display: block;
+}
+
+.btn-primary {
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  padding: 12px 24px;
+  background: var(--color-accent);
+  color: #FFFFFF;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background var(--duration-fast) var(--ease-out),
+              transform var(--duration-fast) var(--ease-out);
+  min-height: 48px;
+  white-space: nowrap;
+}
+
+.btn-primary:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.privacy-note {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+}
+
+/* ============================================================
+   Status Badges
+   ============================================================ */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  min-height: 28px;
+}
+
+.badge-new {
+  background: #FDE8E8;
+  color: var(--color-accent);
+}
+
+.badge-popular {
+  background: #FFF3E0;
+  color: #E65100;
+}
+
+.badge-premium {
+  background: #E8F5E9;
+  color: #2E7D32;
+}
+
+.badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ============================================================
+   CTA Area
+   ============================================================ */
+.cta-area {
+  text-align: center;
+  padding: var(--space-10) 0;
+}
+
+.cta-area h2 {
+  margin-bottom: var(--space-2);
+}
+
+.cta-area p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.btn-outline {
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption);
+  font-weight: 600;
+  padding: 12px 24px;
+  background: transparent;
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  min-height: 48px;
+}
+
+.btn-outline:hover {
+  border-color: var(--color-text-primary);
+}
+
+/* ============================================================
+   Bottom Tab Bar
+   ============================================================ */
+.bottom-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+  transition: background var(--duration-normal) var(--ease-out);
+}
+
+.tab-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-family: var(--font-ui);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px 16px;
+  min-height: 48px;
+  min-width: 48px;
+  transition: color var(--duration-fast) var(--ease-out);
+}
+
+.tab-item.active {
+  color: var(--color-accent);
+}
+
+.tab-item svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ============================================================
+   Bottom Sheet
+   ============================================================ */
+.bottom-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 300;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-slow) var(--ease-out);
+}
+
+.bottom-sheet-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  width: 100%;
+  max-width: 600px;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  z-index: 301;
+  padding: var(--space-3);
+  padding-bottom: calc(var(--space-3) + env(safe-area-inset-bottom, 0));
+  transition: transform var(--duration-slow) var(--ease-out);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+.bottom-sheet.open {
+  transform: translateX(-50%) translateY(0);
+}
+
+.sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: var(--color-border);
+  border-radius: 2px;
+  margin: 0 auto var(--space-3);
+}
+
+.sheet-title {
+  font-family: var(--font-ui);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-3);
+  text-align: center;
+}
+
+.sheet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: var(--space-3);
+}
+
+.sheet-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 14px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  background: var(--color-surface);
+  cursor: pointer;
+  min-height: 48px;
+  transition: all var(--duration-fast) var(--ease-out);
+}
+
+.sheet-option:hover {
+  border-color: var(--color-accent);
+  background: var(--color-bg-warm);
+}
+
+.sheet-option.selected {
+  border-color: var(--color-accent);
+  background: #FEF2F2;
+}
+
+.sheet-option svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+}
+
+.sheet-actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.sheet-actions .btn-primary {
+  flex: 1;
+  text-align: center;
+}
+
+.sheet-actions .btn-outline {
+  flex: 1;
+  text-align: center;
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.site-footer {
+  border-top: 1px solid var(--color-border);
+  padding: var(--space-6) 0;
+  text-align: center;
+}
+
+.site-footer p {
+  font-family: var(--font-ui);
+  font-size: var(--fs-meta);
+  color: var(--color-text-muted);
+}
+
+.site-footer nav {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.site-footer nav a {
+  font-family: var(--font-ui);
+  font-size: var(--fs-meta);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+}
+
+.site-footer nav a:hover {
+  color: var(--color-accent);
+}
+
+/* ============================================================
+   Toast Notification
+   ============================================================ */
+.toast {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--color-text-primary);
+  color: var(--color-bg);
+  font-family: var(--font-ui);
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  z-index: 400;
+  opacity: 0;
+  pointer-events: none;
+  transition: all var(--duration-normal) var(--ease-out);
+  white-space: nowrap;
+}
+
+.toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   Responsive — Mobile < 640px
+   ============================================================ */
+@media (max-width: 639px) {
+  :root {
+    --fs-display: 32px;
+    --fs-h1: 28px;
+    --fs-h2: 22px;
+    --fs-h3: 19px;
+    --fs-body: 17px;
+    --fs-body-sm: 16px;
+  }
+
+  .page-container {
+    padding: 0 var(--page-margin-mobile);
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .menu-btn {
+    display: flex;
+  }
+
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-list-item {
+    flex-direction: column;
+  }
+
+  .card-list-image {
+    width: 100%;
+    height: 200px;
+  }
+
+  .newsletter-form {
+    flex-direction: column;
+  }
+
+  .newsletter-form .btn-primary {
+    width: 100%;
+  }
+
+  .article-hero {
+    padding: var(--space-6) 0 var(--space-4);
+  }
+
+  .bottom-sheet {
+    max-width: 100%;
+  }
+}
+
+/* ============================================================
+   Responsive — Tablet 640px - 1024px
+   ============================================================ */
+@media (min-width: 640px) and (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ============================================================
+   Focus & Accessibility
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+</style>
+</head>
+<body data-reading-mode="light">
+
+<!-- ============================================================
+     Navigation — Minimal Top Bar
+     ============================================================ -->
+<nav class="nav-minimal" id="topNav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">The Editorial</a>
+    <ul class="nav-links">
+      <li><a href="#" class="active">Articles</a></li>
+      <li><a href="#">Topics</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="mode-toggle" id="modeToggle">
+        <button class="mode-btn active" data-mode="light" aria-label="Light mode">Light</button>
+        <button class="mode-btn" data-mode="sepia" aria-label="Sepia mode">Sepia</button>
+        <button class="mode-btn" data-mode="dark" aria-label="Dark mode">Dark</button>
+      </div>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 12h18M3 6h18M3 18h18"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Reading Progress Bar -->
+<div class="reading-progress" id="readingProgress" style="width: 0%;"></div>
+
+<!-- Mobile Drawer -->
+<div class="drawer-backdrop" id="drawerBackdrop"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <button class="drawer-close" id="drawerClose" aria-label="Close menu">&times;</button>
+  <a href="#" class="active">Articles</a>
+  <a href="#">Topics</a>
+  <a href="#">About</a>
+  <a href="#">Newsletter</a>
+</div>
+
+<!-- ============================================================
+     Article Hero
+     ============================================================ -->
+<main>
+  <div class="page-container">
+    <article>
+      <header class="article-hero">
+        <span class="kicker">Design Systems</span>
+        <h1>The quiet craft of editorial design systems</h1>
+        <div class="article-meta caption">
+          <div class="avatar">MK</div>
+          <span>Maria Keppler</span>
+          <span class="meta-separator"></span>
+          <span>12 min read</span>
+          <span class="meta-separator"></span>
+          <span>May 8, 2026</span>
+          <span class="meta-separator"></span>
+          <span class="badge badge-new"><span class="badge-dot"></span>New</span>
+        </div>
+      </header>
+
+      <figure class="article-featured-image">
+        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=1200&h=675&fit=crop&auto=format" alt="Editorial workspace with notebook and writing tools on a wooden desk" loading="lazy">
+      </figure>
+
+      <!-- Article Body Column -->
+      <div class="article-body-column" id="articleBody">
+        <p>
+          Content is sovereign. The interface exists to present words and images at their best and then disappear. This principle guides every decision in the Media & Editorial design system — a system built for blogs, magazines, and newsletters where sustained reading is the primary job-to-be-done.
+        </p>
+
+        <p>
+          The tone is readable, elegant, editorial, and unhurried. Navigation and platform voice stay quiet so the writer's voice leads. Every component decision starts with a single question: <em>does this make reading better?</em>
+        </p>
+
+        <figure class="body-image-breakout">
+          <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?w=1200&h=675&fit=crop&auto=format" alt="Vintage letterpress type blocks arranged on a wooden surface" loading="lazy">
+          <figcaption>Images can break out to 960px to create pacing contrast within the reading flow.</figcaption>
+        </figure>
+
+        <h2>Typography as architecture</h2>
+
+        <p>
+          Typography is optimized for long-form reading, not density. Serif is mandatory for article content and major headlines — <span class="inline-code">Lora</span> for display and headings, <span class="inline-code">Source Serif 4</span> for body text. Sans-serif is reserved for navigation, controls, labels, and metadata through <span class="inline-code">Inter</span>.
+        </p>
+
+        <p>
+          Body copy is set to <strong>19px</strong> with <strong>1.8 line height</strong> and a fixed reading measure of <strong>680px</strong>. Text is always left-aligned; justified body text is disallowed. These constraints aren't limitations — they're the guardrails that keep reading comfortable across every article.
+        </p>
+
+        <figure class="pull-quote">
+          <blockquote>"The best design systems for reading are the ones you never notice. They do their work in silence, letting the words take center stage."</blockquote>
+          <figcaption>— Maria Keppler, Design Director</figcaption>
+        </figure>
+
+        <h2>The restrained palette</h2>
+
+        <p>
+          The palette is intentionally restrained: near-black text on white reading surfaces with one editorial accent — <span style="color:var(--color-accent);font-weight:600;">accent red</span>. Reading surfaces stay white in default mode to maximize readability. The accent is used sparingly: active nav, pull quotes, hover states, selected highlights.
+        </p>
+
+        <p>
+          Metadata and supporting text move down a neutral scale without reducing contrast below accessible thresholds. Three reading modes — <strong>light</strong>, <strong>sepia</strong>, and <strong>dark</strong> — shift only background, text, and accent relationships, never layout or typographic structure.
+        </p>
+
+        <h3>Code in context</h3>
+
+        <p>Technical articles need clear code presentation. Code blocks use small rounding for scannability while keeping the editorial feel:</p>
+
+        <div class="code-block">
+          <pre>// Design token configuration
+const tokens = {
+  bodyMaxWidth: '680px',
+  imageMaxWidth: '960px',
+  bodyLineHeight: 1.8,
+  bodyFontSize: '19px',
+  accentColor: '#D64045'
+};</pre>
+        </div>
+
+        <p>
+          Inline code like <span class="inline-code">lineHeight: 1.8</span> uses a subtle background tint to distinguish from body text without breaking the reading rhythm. This is how technical content integrates into an editorial flow without visual disruption.
+        </p>
+
+        <h2>Layout that breathes</h2>
+
+        <p>
+          Layout enforces editorial rhythm through narrow reading measure, image breakout, and generous vertical spacing. The article text column maxes at 680px. Images can break out to 960px — creating pacing contrast that prevents visual monotony during long reads. Overall page content caps at 1200px.
+        </p>
+
+        <p>
+          Base spacing uses the editorial scale — <strong>16px</strong> to <strong>96px</strong> — with larger vertical gaps than typical app UIs. No sidebar is shown while reading article content. The page respects three breakpoints: mobile (<640px) with full-width images, tablet (640–1024px) with two-column grids, and desktop (>1024px) with three-column layouts.
+        </p>
+      </div>
+
+      <!-- Newsletter Inline -->
+      <aside class="newsletter-inline" aria-label="Newsletter signup">
+        <span class="badge badge-popular" style="margin-bottom:12px;"><span class="badge-dot"></span>Popular</span>
+        <h3>Stay in the loop</h3>
+        <p class="caption">Get the best design systems content delivered straight to your inbox. No spam, unsubscribe anytime.</p>
+        <form class="newsletter-form" id="newsletterForm" novalidate>
+          <div class="input-group">
+            <label for="emailInput" class="sr-only">Email address</label>
+            <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email" required>
+            <span class="error-msg" id="emailError">Please enter a valid email address.</span>
+          </div>
+          <button type="submit" class="btn-primary">Subscribe</button>
+        </form>
+        <p class="privacy-note">We respect your privacy. No spam, ever.</p>
+      </aside>
+    </article>
+  </div>
+
+  <!-- ============================================================
+       More Articles — Card Grid
+       ============================================================ -->
+  <section class="page-container section">
+    <div class="section-header">
+      <h2>More from The Editorial</h2>
+      <p class="caption">Curated reads on design, typography, and digital publishing.</p>
+    </div>
+
+    <!-- Tabs for filtering -->
+    <div style="display:flex;gap:8px;margin-bottom:var(--space-4);flex-wrap:wrap;">
+      <button class="btn-outline tab-filter active" data-filter="all" style="min-height:40px;padding:8px 16px;font-size:13px;">All</button>
+      <button class="btn-outline tab-filter" data-filter="design" style="min-height:40px;padding:8px 16px;font-size:13px;">Design</button>
+      <button class="btn-outline tab-filter" data-filter="typography" style="min-height:40px;padding:8px 16px;font-size:13px;">Typography</button>
+      <button class="btn-outline tab-filter" data-filter="engineering" style="min-height:40px;padding:8px 16px;font-size:13px;">Engineering</button>
+    </div>
+
+    <div class="card-grid" id="cardGrid">
+      <article class="card" data-category="typography">
+        <div class="card-image"><img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&h=400&fit=crop&auto=format" alt="Lines of code on a dark editor screen" loading="lazy"></div>
+        <div class="card-content">
+          <span class="card-kicker">Typography</span>
+          <h3>Designing type scales for the modern web</h3>
+          <span class="meta">8 min read · Jun 12</span>
+        </div>
+      </article>
+      <article class="card" data-category="design">
+        <div class="card-image"><img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&h=400&fit=crop&auto=format" alt="Designer sketching wireframes on a whiteboard" loading="lazy"></div>
+        <div class="card-content">
+          <span class="card-kicker">Design</span>
+          <h3>Why restraint is the ultimate design skill</h3>
+          <span class="meta">6 min read · May 28</span>
+        </div>
+      </article>
+      <article class="card" data-category="engineering">
+        <div class="card-image"><img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=400&fit=crop&auto=format" alt="Laptop on a desk with code on screen" loading="lazy"></div>
+        <div class="card-content">
+          <span class="card-kicker">Engineering</span>
+          <h3>Building resilient CSS architecture</h3>
+          <span class="badge badge-new" style="margin-bottom:4px;"><span class="badge-dot"></span>New</span>
+          <span class="meta">10 min read · May 3</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       Card List View
+       ============================================================ -->
+  <section class="page-container section">
+    <div class="section-header">
+      <h2>Latest</h2>
+      <p class="caption">Recently published articles from our contributors.</p>
+    </div>
+    <div class="card-list">
+      <article class="card-list-item" data-category="design">
+        <div class="card-list-image"><img src="https://images.unsplash.com/photo-1561736778-92e52a7769ef?w=240&h=160&fit=crop&auto=format" alt="Web design mockup displayed on a monitor" loading="lazy"></div>
+        <div class="card-list-content">
+          <h3>Accessibility-first design patterns</h3>
+          <p>A practical guide to building interfaces that work for everyone, starting from the ground up with semantic HTML and ARIA.</p>
+          <span class="meta">7 min read · Apr 20</span>
+        </div>
+      </article>
+      <article class="card-list-item" data-category="typography">
+        <div class="card-list-image"><img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=240&h=160&fit=crop&auto=format" alt="Notebook and pen on a wooden writing desk" loading="lazy"></div>
+        <div class="card-list-content">
+          <h3>The state of variable fonts in 2026</h3>
+          <p>Variable fonts have matured. Here's what they mean for editorial design, performance budgets, and creative expression.</p>
+          <span class="meta">5 min read · Apr 15</span>
+        </div>
+      </article>
+      <article class="card-list-item" data-category="engineering">
+        <div class="card-list-image"><img src="https://images.unsplash.com/photo-1551033406-611cf9a28f67?w=240&h=160&fit=crop&auto=format" alt="CSS code on a screen with a design system style guide" loading="lazy"></div>
+        <div class="card-list-content">
+          <h3>Design tokens as a single source of truth</h3>
+          <p>How to structure design tokens so they scale across platforms without losing the intent behind each value.</p>
+          <span class="meta">9 min read · Apr 8</span>
+        </div>
+      </article>
+    </div>
+    <div style="text-align:center;margin-top:var(--space-4);">
+      <button class="btn-outline" id="loadMoreBtn">Load more articles</button>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA Section
+       ============================================================ -->
+  <section class="page-container cta-area">
+    <h2>Ready to dive deeper?</h2>
+    <p class="body-sm">Join thousands of designers and developers who read The Editorial every week.</p>
+    <button class="btn-primary" id="openShareSheet">Share this page</button>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer page-container">
+    <p>&copy; 2026 The Editorial. All rights reserved.</p>
+    <nav>
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">RSS</a>
+      <a href="#">Contact</a>
+    </nav>
+  </footer>
+</main>
+
+<!-- ============================================================
+     Bottom Tab Bar
+     ============================================================ -->
+<nav class="bottom-tab-bar" id="bottomTabBar">
+  <button class="tab-item active" data-tab="home" aria-label="Home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+      <polyline points="9 22 9 12 15 12 15 22"/>
+    </svg>
+    Home
+  </button>
+  <button class="tab-item" data-tab="search" aria-label="Search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="11" cy="11" r="8"/>
+      <path d="M21 21l-4.35-4.35"/>
+    </svg>
+    Search
+  </button>
+  <button class="tab-item" id="bottomSheetTrigger" data-tab="share" aria-label="Share">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="18" cy="5" r="3"/>
+      <circle cx="6" cy="12" r="3"/>
+      <circle cx="18" cy="19" r="3"/>
+      <path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/>
+    </svg>
+    Share
+  </button>
+  <button class="tab-item" data-tab="saved" aria-label="Saved">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+    </svg>
+    Saved
+  </button>
+  <button class="tab-item" data-tab="profile" aria-label="Profile">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+      <circle cx="12" cy="7" r="4"/>
+    </svg>
+    Profile
+  </button>
+</nav>
+
+<!-- ============================================================
+     Bottom Sheet — Share / Confirmation
+     ============================================================ -->
+<div class="bottom-sheet-backdrop" id="sheetBackdrop"></div>
+<div class="bottom-sheet" id="bottomSheet" role="dialog" aria-modal="true" aria-label="Share options">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" id="sheetTitle">Share this article</div>
+  <div class="sheet-options" id="sheetOptions">
+    <button class="sheet-option" data-action="copy-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/>
+        <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/>
+      </svg>
+      Copy link
+    </button>
+    <button class="sheet-option" data-action="twitter">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+      </svg>
+      Share on Twitter
+    </button>
+    <button class="sheet-option" data-action="email">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+        <polyline points="22,6 12,13 2,6"/>
+      </svg>
+      Share via Email
+    </button>
+    <button class="sheet-option" data-action="bookmark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 21l-7-5-7 5V5a2 2 0 012-2h10a2 2 0 012 2z"/>
+      </svg>
+      Save for later
+    </button>
+  </div>
+  <div class="sheet-actions">
+    <button class="btn-outline" id="sheetCancel">Cancel</button>
+    <button class="btn-primary" id="sheetConfirm">Confirm</button>
+  </div>
+</div>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================================================
+     JavaScript — Interactions
+     ============================================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // ============================================================
+  // Reading Mode Toggle
+  // ============================================================
+  const modeToggle = document.getElementById('modeToggle');
+  const body = document.body;
+
+  modeToggle.addEventListener('click', function(e) {
+    const btn = e.target.closest('.mode-btn');
+    if (!btn) return;
+    const mode = btn.dataset.mode;
+
+    // Update active state
+    modeToggle.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    // Apply reading mode
+    body.setAttribute('data-reading-mode', mode);
+    localStorage.setItem('reading-mode', mode);
+
+    showToast(mode.charAt(0).toUpperCase() + mode.slice(1) + ' mode');
+  });
+
+  // Restore saved mode
+  const savedMode = localStorage.getItem('reading-mode');
+  if (savedMode && savedMode !== 'light') {
+    body.setAttribute('data-reading-mode', savedMode);
+    modeToggle.querySelectorAll('.mode-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.mode === savedMode);
+    });
+  }
+
+  // ============================================================
+  // Mobile Drawer
+  // ============================================================
+  const menuBtn = document.getElementById('menuBtn');
+  const drawerClose = document.getElementById('drawerClose');
+  const mobileDrawer = document.getElementById('mobileDrawer');
+  const drawerBackdrop = document.getElementById('drawerBackdrop');
+
+  function openDrawer() {
+    mobileDrawer.classList.add('open');
+    drawerBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeDrawer() {
+    mobileDrawer.classList.remove('open');
+    drawerBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  menuBtn.addEventListener('click', openDrawer);
+  drawerClose.addEventListener('click', closeDrawer);
+  drawerBackdrop.addEventListener('click', closeDrawer);
+
+  // Close drawer on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeDrawer();
+      closeBottomSheet();
+    }
+  });
+
+  // ============================================================
+  // Bottom Sheet
+  // ============================================================
+  const bottomSheet = document.getElementById('bottomSheet');
+  const sheetBackdrop = document.getElementById('sheetBackdrop');
+  const sheetCancel = document.getElementById('sheetCancel');
+  const sheetConfirm = document.getElementById('sheetConfirm');
+  const sheetOptions = document.getElementById('sheetOptions');
+  const bottomSheetTrigger = document.getElementById('bottomSheetTrigger');
+  const openShareSheetBtn = document.getElementById('openShareSheet');
+  let selectedAction = null;
+
+  function openBottomSheet() {
+    bottomSheet.classList.add('open');
+    sheetBackdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    selectedAction = null;
+    sheetOptions.querySelectorAll('.sheet-option').forEach(o => o.classList.remove('selected'));
+    document.getElementById('sheetTitle').textContent = 'Share this article';
+    sheetConfirm.textContent = 'Confirm';
+  }
+
+  function closeBottomSheet() {
+    bottomSheet.classList.remove('open');
+    sheetBackdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  bottomSheetTrigger.addEventListener('click', openBottomSheet);
+  openShareSheetBtn.addEventListener('click', openBottomSheet);
+  sheetBackdrop.addEventListener('click', closeBottomSheet);
+  sheetCancel.addEventListener('click', closeBottomSheet);
+
+  // Option selection
+  sheetOptions.addEventListener('click', function(e) {
+    const option = e.target.closest('.sheet-option');
+    if (!option) return;
+    sheetOptions.querySelectorAll('.sheet-option').forEach(o => o.classList.remove('selected'));
+    option.classList.add('selected');
+    selectedAction = option.dataset.action;
+  });
+
+  // Confirm action
+  sheetConfirm.addEventListener('click', function() {
+    const action = selectedAction || 'copy-link';
+    let message = '';
+
+    switch (action) {
+      case 'copy-link':
+        message = 'Link copied to clipboard';
+        break;
+      case 'twitter':
+        message = 'Opening Twitter share…';
+        break;
+      case 'email':
+        message = 'Opening email client…';
+        break;
+      case 'bookmark':
+        message = 'Article saved for later';
+        break;
+      default:
+        message = 'Action confirmed';
+    }
+
+    closeBottomSheet();
+    setTimeout(() => showToast(message), 350);
+  });
+
+  // ============================================================
+  // Bottom Tab Bar
+  // ============================================================
+  const tabBar = document.getElementById('bottomTabBar');
+
+  tabBar.addEventListener('click', function(e) {
+    const tab = e.target.closest('.tab-item');
+    if (!tab || tab.dataset.tab === 'share') return;
+
+    tabBar.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    const tabName = tab.dataset.tab;
+    showToast(tabName.charAt(0).toUpperCase() + tabName.slice(1) + ' tab');
+  });
+
+  // ============================================================
+  // Toast Notification
+  // ============================================================
+  const toast = document.getElementById('toast');
+  let toastTimeout;
+
+  function showToast(message) {
+    clearTimeout(toastTimeout);
+    toast.textContent = message;
+    toast.classList.add('visible');
+    toastTimeout = setTimeout(function() {
+      toast.classList.remove('visible');
+    }, 2000);
+  }
+
+  // ============================================================
+  // Newsletter Form — Blur-based Validation
+  // ============================================================
+  const newsletterForm = document.getElementById('newsletterForm');
+  const emailInput = document.getElementById('emailInput');
+  const emailError = document.getElementById('emailError');
+
+  function validateEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  }
+
+  emailInput.addEventListener('blur', function() {
+    const value = emailInput.value.trim();
+    if (value && !validateEmail(value)) {
+      emailInput.classList.add('error');
+      emailError.classList.add('visible');
+    } else {
+      emailInput.classList.remove('error');
+      emailError.classList.remove('visible');
+    }
+  });
+
+  emailInput.addEventListener('input', function() {
+    if (emailInput.classList.contains('error')) {
+      const value = emailInput.value.trim();
+      if (!value || validateEmail(value)) {
+        emailInput.classList.remove('error');
+        emailError.classList.remove('visible');
+      }
+    }
+  });
+
+  newsletterForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const value = emailInput.value.trim();
+
+    if (!value || !validateEmail(value)) {
+      emailInput.classList.add('error');
+      emailError.classList.add('visible');
+      emailInput.focus();
+      return;
+    }
+
+    emailInput.classList.remove('error');
+    emailError.classList.remove('visible');
+    showToast('Subscribed! Welcome aboard.');
+    newsletterForm.reset();
+  });
+
+  // ============================================================
+  // Reading Progress Bar
+  // ============================================================
+  const readingProgress = document.getElementById('readingProgress');
+  const articleBody = document.getElementById('articleBody');
+
+  function updateReadingProgress() {
+    if (!articleBody) return;
+    const rect = articleBody.getBoundingClientRect();
+    const articleTop = rect.top;
+    const articleHeight = rect.height;
+    const viewportHeight = window.innerHeight;
+    const navHeight = 56;
+
+    const scrolled = -articleTop + navHeight;
+    const maxScroll = articleHeight - viewportHeight + navHeight;
+
+    if (maxScroll <= 0) {
+      readingProgress.style.width = '0%';
+      return;
+    }
+
+    const progress = Math.min(Math.max(scrolled / maxScroll, 0), 1);
+    readingProgress.style.width = (progress * 100) + '%';
+  }
+
+  // ============================================================
+  // Nav Scroll Shadow
+  // ============================================================
+  const topNav = document.getElementById('topNav');
+
+  function updateNavShadow() {
+    if (window.scrollY > 10) {
+      topNav.classList.add('scrolled');
+    } else {
+      topNav.classList.remove('scrolled');
+    }
+  }
+
+  // Combined scroll handler
+  function onScroll() {
+    updateReadingProgress();
+    updateNavShadow();
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  // Initial calls
+  updateNavShadow();
+  updateReadingProgress();
+
+  // ============================================================
+  // Card Click → Show Toast
+  // ============================================================
+  document.querySelectorAll('.card, .card-list-item').forEach(function(card) {
+    card.addEventListener('click', function() {
+      const title = card.querySelector('h3');
+      const articleTitle = title ? title.textContent : 'Article';
+      showToast('Opening: ' + articleTitle);
+    });
+  });
+
+  // ============================================================
+  // Category Tab Filters
+  // ============================================================
+  const tabFilters = document.querySelectorAll('.tab-filter');
+  const cardGrid = document.getElementById('cardGrid');
+
+  tabFilters.forEach(function(filter) {
+    filter.addEventListener('click', function() {
+      tabFilters.forEach(f => f.classList.remove('active'));
+      filter.classList.add('active');
+
+      const category = filter.dataset.filter;
+      const cards = cardGrid.querySelectorAll('.card');
+
+      cards.forEach(function(card) {
+        if (category === 'all' || card.dataset.category === category) {
+          card.style.display = '';
+          card.style.opacity = '1';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+
+  // ============================================================
+  // Load More Button
+  // ============================================================
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+
+  loadMoreBtn.addEventListener('click', function() {
+    showToast('Loading more articles…');
+    loadMoreBtn.textContent = 'Loading…';
+    loadMoreBtn.disabled = true;
+
+    // Simulate loading
+    setTimeout(function() {
+      loadMoreBtn.textContent = 'Load more articles';
+      loadMoreBtn.disabled = false;
+      showToast('No more articles to load');
+    }, 1500);
+  });
+})();
+</script>
+
+</body>
+</html>

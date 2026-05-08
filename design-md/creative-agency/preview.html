@@ -1,0 +1,1180 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Field Bureau — Creative Agency Preview</title>
+  <style>
+    :root {
+      /* Colors */
+      --color-primary: #0A0A0A;
+      --color-primary-inverse: #F5F5F0;
+      --color-bg: #F5F5F0;
+      --color-bg-dark: #0A0A0A;
+      --color-surface: #FFFFFF;
+      --color-border: #D4D4CD;
+      --color-text-primary: #0A0A0A;
+      --color-text-secondary: #52524E;
+      --color-text-muted: #8A8A85;
+      --color-text-on-dark: #F5F5F0;
+      --color-accent: #E63B2E;
+      --color-accent-hover: #CC2E22;
+      --color-image-placeholder: #E8E8E3;
+
+      /* Typography tokens */
+      --font-display: "Playfair Display", Georgia, serif;
+      --font-body: "Satoshi", "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --type-display-size: 72px;
+      --type-display-weight: 700;
+      --type-display-line: 1.05;
+      --type-display-track: -2px;
+      --type-h1-size: 48px;
+      --type-h1-weight: 700;
+      --type-h1-line: 1.10;
+      --type-h1-track: -1px;
+      --type-h2-size: 32px;
+      --type-h2-weight: 600;
+      --type-h2-line: 1.15;
+      --type-h2-track: -0.5px;
+      --type-h3-size: 20px;
+      --type-h3-weight: 600;
+      --type-h3-line: 1.30;
+      --type-h3-track: 0;
+      --type-h4-size: 14px;
+      --type-h4-weight: 600;
+      --type-h4-line: 1.40;
+      --type-h4-track: 2px;
+      --type-body-size: 17px;
+      --type-body-weight: 400;
+      --type-body-line: 1.70;
+      --type-body-track: 0;
+      --type-body-lg-size: 21px;
+      --type-body-lg-weight: 400;
+      --type-body-lg-line: 1.65;
+      --type-body-lg-track: -0.2px;
+      --type-small-size: 14px;
+      --type-small-weight: 400;
+      --type-small-line: 1.50;
+      --type-small-track: 0;
+      --type-caption-size: 12px;
+      --type-caption-weight: 500;
+      --type-caption-line: 1.40;
+      --type-caption-track: 0.5px;
+
+      /* Radius tokens */
+      --radius-none: 0px;
+      --radius-full: 9999px;
+
+      /* Spacing tokens */
+      --max-content-width: 1440px;
+      --max-text-width: 640px;
+      --max-content-width-mobile: 100%;
+      --max-content-width-desktop: 1440px;
+      --page-margin-desktop: 80px;
+      --page-margin-tablet: 48px;
+      --page-margin-mobile: 24px;
+      --gutter: 32px;
+      --section-gap-desktop: 120px;
+      --space-1: 8px;
+      --space-2: 16px;
+      --space-3: 24px;
+      --space-4: 32px;
+      --space-6: 48px;
+      --space-8: 64px;
+      --space-10: 80px;
+      --space-15: 120px;
+      --space-20: 160px;
+
+      /* Component tokens */
+      --button-primary-bg: var(--color-primary);
+      --button-primary-text: var(--color-primary-inverse);
+      --button-primary-hover-bg: var(--color-accent);
+      --button-primary-hover-text: #FFFFFF;
+      --button-primary-active-bg: var(--color-accent-hover);
+      --button-secondary-bg: transparent;
+      --button-secondary-text: var(--color-primary);
+      --button-secondary-border: var(--color-primary);
+      --link-text: var(--color-text-primary);
+      --link-underline-offset: 4px;
+      --link-hover-text: var(--color-accent);
+      --nav-bar-bg: transparent;
+      --nav-bar-text: var(--color-text-primary);
+      --nav-bar-height: 72px;
+      --nav-overlay-bg: var(--color-bg-dark);
+      --nav-overlay-text: var(--color-text-on-dark);
+      --case-study-card-text: var(--color-text-primary);
+      --footer-bg: var(--color-bg-dark);
+      --footer-text: var(--color-text-on-dark);
+      --focus-ring: 2px solid var(--color-accent);
+      --motion-fast: 200ms ease-out;
+      --motion-image: 500ms ease-out;
+      --motion-reveal: 600ms cubic-bezier(0.16, 1, 0.3, 1);
+      --bottom-tab-height: 74px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--type-body-size);
+      font-weight: var(--type-body-weight);
+      line-height: var(--type-body-line);
+      letter-spacing: var(--type-body-track);
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: calc(var(--bottom-tab-height) + env(safe-area-inset-bottom));
+    }
+
+    body.sheet-open {
+      overflow: hidden;
+    }
+
+    a {
+      color: var(--link-text);
+      text-underline-offset: var(--link-underline-offset);
+      transition: color var(--motion-fast);
+    }
+
+    a:hover {
+      color: var(--link-hover-text);
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: var(--focus-ring);
+      outline-offset: 2px;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .page-shell {
+      width: min(var(--max-content-width-desktop), 100%);
+      margin: 0 auto;
+      padding-inline: var(--page-margin-mobile);
+    }
+
+    .type-display,
+    .type-h1 {
+      font-family: var(--font-display);
+      font-weight: var(--type-display-weight);
+      line-height: var(--type-display-line);
+      letter-spacing: var(--type-display-track);
+    }
+
+    .type-display {
+      font-size: clamp(48px, 18vw, var(--type-display-size));
+      max-width: 10ch;
+    }
+
+    .type-h1 {
+      font-size: clamp(40px, 11vw, var(--type-h1-size));
+      line-height: var(--type-h1-line);
+      letter-spacing: var(--type-h1-track);
+    }
+
+    .type-h2,
+    .type-h3,
+    .type-h4,
+    .type-body,
+    .type-body-lg,
+    .type-small {
+      font-family: var(--font-body);
+    }
+
+    .type-h2 {
+      font-size: var(--type-h2-size);
+      font-weight: var(--type-h2-weight);
+      line-height: var(--type-h2-line);
+      letter-spacing: var(--type-h2-track);
+    }
+
+    .type-h3 {
+      font-size: var(--type-h3-size);
+      font-weight: var(--type-h3-weight);
+      line-height: var(--type-h3-line);
+      letter-spacing: var(--type-h3-track);
+    }
+
+    .type-h4 {
+      font-size: var(--type-h4-size);
+      font-weight: var(--type-h4-weight);
+      line-height: var(--type-h4-line);
+      letter-spacing: var(--type-h4-track);
+      text-transform: uppercase;
+    }
+
+    .type-body-lg {
+      font-size: var(--type-body-lg-size);
+      font-weight: var(--type-body-lg-weight);
+      line-height: var(--type-body-lg-line);
+      letter-spacing: var(--type-body-lg-track);
+    }
+
+    .type-small {
+      font-size: var(--type-small-size);
+      font-weight: var(--type-small-weight);
+      line-height: var(--type-small-line);
+      letter-spacing: var(--type-small-track);
+    }
+
+    .type-caption,
+    .type-mono {
+      font-family: var(--font-mono);
+      font-size: var(--type-caption-size);
+      font-weight: var(--type-caption-weight);
+      line-height: var(--type-caption-line);
+      letter-spacing: var(--type-caption-track);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      height: var(--nav-bar-height);
+      background: var(--color-bg);
+      color: var(--nav-bar-text);
+      transition: border-color var(--motion-fast);
+    }
+
+    .site-header.is-scrolled {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .nav-inner {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .wordmark,
+    .nav-link,
+    .button,
+    .bottom-tab,
+    .badge {
+      text-transform: uppercase;
+    }
+
+    .wordmark {
+      font-family: var(--font-body);
+      font-size: var(--type-h4-size);
+      font-weight: var(--type-h4-weight);
+      letter-spacing: var(--type-h4-track);
+      text-decoration: none;
+    }
+
+    .nav-list {
+      display: none;
+      align-items: center;
+      gap: var(--space-4);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      min-height: 48px;
+      align-items: center;
+      border-bottom: 2px solid transparent;
+      text-decoration: none;
+      font-size: var(--type-h4-size);
+      font-weight: var(--type-h4-weight);
+      line-height: var(--type-h4-line);
+      letter-spacing: var(--type-h4-track);
+    }
+
+    .nav-link[aria-current="page"] {
+      border-bottom-color: var(--color-primary);
+    }
+
+    .section {
+      padding-block: clamp(var(--space-8), 14vw, var(--section-gap-desktop));
+    }
+
+    .hero-wrap {
+      position: relative;
+      min-height: 100svh;
+      background-color: var(--color-bg-dark);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000' preserveAspectRatio='xMidYMid slice'%3E%3Crect width='1600' height='1000' fill='%230A0A0A'/%3E%3Cpath d='M1200 0 L1600 0 L1600 1000 L800 1000 Z' fill='%23E63B2E' opacity='0.9'/%3E%3Cpath d='M0 400 L600 0 L1000 0 L200 1000 L0 1000 Z' fill='%23F5F5F0' opacity='0.05'/%3E%3Crect x='100' y='200' width='300' height='600' fill='none' stroke='%23F5F5F0' stroke-width='4' opacity='0.2'/%3E%3Crect x='120' y='220' width='260' height='560' fill='none' stroke='%23F5F5F0' stroke-width='1' opacity='0.2'/%3E%3Cline x1='500' y1='0' x2='500' y2='1000' stroke='%23E63B2E' stroke-width='2' opacity='0.5'/%3E%3C/svg%3E");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .hero-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(10, 10, 10, 0.58) 0%, rgba(10, 10, 10, 0.24) 52%, rgba(10, 10, 10, 0.5) 100%);
+      z-index: 1;
+    }
+
+    .hero {
+      position: relative;
+      z-index: 2;
+      min-height: 100svh;
+      display: grid;
+      gap: var(--space-8);
+      align-items: end;
+      padding-top: var(--nav-bar-height);
+      padding-bottom: var(--space-15);
+      color: var(--color-primary-inverse);
+    }
+
+    .hero .overline,
+    .hero .hero-copy {
+      color: var(--color-primary-inverse);
+    }
+
+    .hero .button-primary {
+      background: var(--color-primary-inverse);
+      color: var(--color-primary);
+      border-color: var(--color-primary-inverse);
+    }
+
+    .hero .button-primary:hover {
+      background: var(--color-accent);
+      color: #FFFFFF;
+      border-color: var(--color-accent);
+    }
+
+    .overline {
+      margin: 0 0 var(--space-3);
+      color: var(--color-text-secondary);
+    }
+
+    .hero h1,
+    .section h2,
+    .section h3,
+    .footer h2,
+    .sheet-title {
+      margin: 0;
+    }
+
+    .hero-copy {
+      max-width: var(--max-text-width);
+      color: var(--color-text-secondary);
+    }
+
+    .button {
+      min-height: 48px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 32px;
+      border-radius: var(--radius-none);
+      border: 1px solid transparent;
+      cursor: pointer;
+      font: inherit;
+      font-size: var(--type-h4-size);
+      font-weight: var(--type-h4-weight);
+      line-height: var(--type-h4-line);
+      letter-spacing: var(--type-h4-track);
+      text-decoration: none;
+      transition: background-color var(--motion-fast), border-color var(--motion-fast), color var(--motion-fast);
+    }
+
+    .button-primary {
+      background: var(--button-primary-bg);
+      color: var(--button-primary-text);
+      border-color: var(--button-primary-bg);
+    }
+
+    .button-primary:hover {
+      background: var(--button-primary-hover-bg);
+      border-color: var(--button-primary-hover-bg);
+      color: var(--button-primary-hover-text);
+    }
+
+    .button-primary:active {
+      background: var(--button-primary-active-bg);
+      border-color: var(--button-primary-active-bg);
+    }
+
+    .button-secondary {
+      background: var(--button-secondary-bg);
+      color: var(--button-secondary-text);
+      border-color: var(--button-secondary-border);
+    }
+
+    .button-secondary:hover {
+      background: var(--color-primary);
+      color: var(--color-primary-inverse);
+    }
+
+    .dark-section {
+      background: var(--color-bg-dark);
+      color: var(--color-text-on-dark);
+    }
+
+    .dark-section a,
+    .dark-section .button-secondary {
+      color: var(--color-text-on-dark);
+    }
+
+    .dark-section .button-secondary {
+      border-color: var(--color-text-on-dark);
+    }
+
+    .dark-section .button-secondary:hover {
+      background: var(--color-primary-inverse);
+      color: var(--color-primary);
+    }
+
+    .split-grid,
+    .case-grid,
+    .metrics-grid,
+    .contact-grid {
+      display: grid;
+      gap: var(--gutter);
+    }
+
+    .intro-text {
+      max-width: var(--max-text-width);
+      color: var(--color-text-secondary);
+    }
+
+    .dark-section .intro-text,
+    .footer .muted {
+      color: var(--color-text-muted);
+    }
+
+    .case-card {
+      color: var(--case-study-card-text);
+      border-radius: var(--radius-none);
+      text-decoration: none;
+    }
+
+    .image-frame {
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--color-image-placeholder);
+      border-radius: var(--radius-none);
+    }
+
+    .image-art {
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-image-placeholder);
+      background-size: cover;
+      background-position: center;
+      transform: scale(1);
+      transition: transform var(--motion-image);
+    }
+
+    .image-art-archive {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Crect width='1600' height='1000' fill='%23F5F5F0'/%3E%3Crect x='200' y='200' width='500' height='600' fill='%230A0A0A'/%3E%3Crect x='750' y='200' width='650' height='250' fill='%23E63B2E'/%3E%3Crect x='750' y='500' width='650' height='300' fill='%230A0A0A'/%3E%3Crect x='800' y='550' width='550' height='20' fill='%23F5F5F0'/%3E%3Crect x='800' y='600' width='450' height='20' fill='%23F5F5F0'/%3E%3Crect x='800' y='650' width='500' height='20' fill='%23F5F5F0'/%3E%3Crect x='800' y='700' width='350' height='20' fill='%23F5F5F0'/%3E%3C/svg%3E");
+    }
+
+    .image-art-pier {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 1000'%3E%3Crect width='1600' height='1000' fill='%230A0A0A'/%3E%3Crect x='100' y='100' width='1400' height='800' fill='%23F5F5F0'/%3E%3Crect x='300' y='100' width='40' height='800' fill='%230A0A0A'/%3E%3Crect x='500' y='100' width='40' height='800' fill='%230A0A0A'/%3E%3Crect x='700' y='100' width='40' height='800' fill='%230A0A0A'/%3E%3Crect x='900' y='100' width='40' height='800' fill='%230A0A0A'/%3E%3Cpath d='M100 800 L1500 100 L1500 200 L100 900 Z' fill='%23E63B2E'/%3E%3Crect x='1100' y='300' width='300' height='400' fill='%230A0A0A'/%3E%3C/svg%3E");
+    }
+
+    .case-card:hover .image-art {
+      transform: scale(1.03);
+    }
+
+    .case-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-2);
+      margin-top: var(--space-2);
+      color: var(--color-text-secondary);
+    }
+
+    .case-title {
+      margin-top: var(--space-1);
+    }
+
+    .case-description {
+      max-width: var(--max-text-width);
+      margin: var(--space-2) 0 0;
+      color: var(--color-text-secondary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .metric-card,
+    .field-group,
+    .inquiry-panel {
+      border-top: 1px solid var(--color-border);
+      padding-top: var(--space-3);
+      border-radius: var(--radius-none);
+    }
+
+    .metric-value {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: clamp(44px, 13vw, 72px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -2px;
+    }
+
+    .metric-label {
+      margin: var(--space-1) 0 0;
+      color: var(--color-text-secondary);
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-1);
+      margin-top: var(--space-3);
+    }
+
+    .badge {
+      min-height: 28px;
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 10px;
+      border: 1px solid currentColor;
+      border-radius: var(--radius-none);
+      color: var(--color-text-primary);
+      background: transparent;
+      font-family: var(--font-mono);
+      font-size: var(--type-caption-size);
+      font-weight: var(--type-caption-weight);
+      letter-spacing: var(--type-caption-track);
+    }
+
+    .dark-section .badge {
+      color: var(--color-text-on-dark);
+    }
+
+    .inquiry-panel {
+      display: grid;
+      gap: var(--space-3);
+      background: var(--color-bg);
+    }
+
+    .form-grid {
+      display: grid;
+      gap: var(--space-3);
+    }
+
+    label {
+      display: block;
+      margin-bottom: var(--space-1);
+      color: var(--color-text-primary);
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      min-height: 48px;
+      padding: 13px 0;
+      border: 0;
+      border-bottom: 1px solid var(--color-primary);
+      border-radius: var(--radius-none);
+      background: transparent;
+      color: var(--color-text-primary);
+      font-family: var(--font-body);
+      font-size: var(--type-body-size);
+      line-height: var(--type-body-line);
+    }
+
+    textarea {
+      min-height: 112px;
+      resize: vertical;
+    }
+
+    .field-error {
+      min-height: 22px;
+      margin: var(--space-1) 0 0;
+      color: var(--color-accent-hover);
+    }
+
+    .field-group.is-invalid input,
+    .field-group.is-invalid textarea {
+      border-bottom-color: var(--color-accent-hover);
+    }
+
+    .form-note {
+      color: var(--color-text-secondary);
+      margin: 0;
+    }
+
+    .feedback {
+      min-height: 26px;
+      margin: 0;
+      color: var(--color-text-secondary);
+    }
+
+    .footer {
+      background: var(--footer-bg);
+      color: var(--footer-text);
+      padding-block: var(--space-10) var(--space-8);
+    }
+
+    .footer h2 {
+      max-width: 11ch;
+    }
+
+    .footer a {
+      color: var(--footer-text);
+    }
+
+    .footer-meta {
+      border-top: 1px solid rgba(245, 245, 240, 0.25);
+      margin-top: var(--space-8);
+      padding-top: var(--space-3);
+      display: grid;
+      gap: var(--space-2);
+    }
+
+    .bottom-tabs {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 25;
+      height: calc(var(--bottom-tab-height) + env(safe-area-inset-bottom));
+      padding: 0 var(--page-margin-mobile) env(safe-area-inset-bottom);
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      background: var(--color-bg);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .bottom-tab {
+      min-height: var(--bottom-tab-height);
+      border: 0;
+      border-top: 2px solid transparent;
+      background: transparent;
+      color: var(--color-text-muted);
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1.4px;
+      cursor: pointer;
+    }
+
+    .bottom-tab[aria-selected="true"] {
+      border-top-color: var(--color-accent);
+      color: var(--color-text-primary);
+    }
+
+    .sheet-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 40;
+      display: grid;
+      align-items: end;
+      background: rgba(10, 10, 10, 0.52);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--motion-fast);
+    }
+
+    .sheet-backdrop.is-open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .bottom-sheet {
+      width: 100%;
+      max-height: min(88svh, 720px);
+      overflow: auto;
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      border-radius: var(--radius-none);
+      border-top: 1px solid var(--color-border);
+      transform: translateY(100%);
+      transition: transform var(--motion-reveal);
+    }
+
+    .sheet-backdrop.is-open .bottom-sheet {
+      transform: translateY(0);
+    }
+
+    .sheet-inner {
+      width: min(var(--max-text-width), 100%);
+      margin: 0 auto;
+      padding: var(--space-4) var(--page-margin-mobile) var(--space-6);
+    }
+
+    .sheet-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: var(--space-2);
+      margin-bottom: var(--space-3);
+    }
+
+    .sheet-close {
+      min-width: 48px;
+      min-height: 48px;
+      border: 1px solid var(--color-primary);
+      border-radius: var(--radius-none);
+      background: transparent;
+      color: var(--color-primary);
+      cursor: pointer;
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .sheet-actions {
+      display: grid;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: reveal var(--motion-reveal) forwards;
+    }
+
+    .reveal:nth-child(2) {
+      animation-delay: 80ms;
+    }
+
+    .reveal:nth-child(3) {
+      animation-delay: 160ms;
+    }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 720px) {
+      .page-shell {
+        padding-inline: var(--page-margin-tablet);
+      }
+
+      .hero {
+        grid-template-columns: minmax(0, 3fr) minmax(280px, 2fr);
+      }
+
+      .case-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .metrics-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .contact-grid {
+        grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+        align-items: start;
+      }
+
+      .footer-meta {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .sheet-actions {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 980px) {
+      body {
+        padding-bottom: 0;
+      }
+
+      .page-shell {
+        padding-inline: var(--page-margin-desktop);
+      }
+
+      .nav-list {
+        display: flex;
+      }
+
+      .split-grid {
+        grid-template-columns: minmax(0, 3fr) minmax(280px, 2fr);
+        align-items: end;
+      }
+
+      .bottom-tabs {
+        display: none;
+      }
+
+      .button {
+        width: auto;
+      }
+
+      .bottom-sheet {
+        max-width: 720px;
+        margin-inline: auto;
+      }
+    }
+
+    @media (max-width: 719px) {
+      .button {
+        width: 100%;
+      }
+
+      .case-meta {
+        display: grid;
+      }
+
+      .section {
+        padding-block: var(--space-8);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 1ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 1ms !important;
+      }
+
+      .case-card:hover .image-art {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header" data-header>
+    <div class="page-shell nav-inner">
+      <a href="#work" class="wordmark" aria-label="Field Bureau home">Field Bureau</a>
+      <nav aria-label="Primary">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#work" aria-current="page">Work</a></li>
+          <li><a class="nav-link" href="#method">Method</a></li>
+          <li><a class="nav-link" href="#signals">Signals</a></li>
+          <li><a class="nav-link" href="#inquiry">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-wrap" id="work">
+      <div class="page-shell hero" aria-labelledby="hero-title">
+        <div class="reveal">
+          <p class="type-h4 overline">Independent brand office</p>
+          <h1 class="type-display" id="hero-title">We make things people care about.</h1>
+        </div>
+        <div class="reveal">
+          <p class="type-body-lg hero-copy">Field Bureau shapes identities, campaigns, and digital systems for
+            institutions with something real to say.</p>
+          <button class="button button-primary" type="button" data-open-sheet>Start a brief</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="case-title">
+      <div class="page-shell">
+        <div class="split-grid">
+          <div>
+            <p class="type-h4 overline">Selected work</p>
+            <h2 class="type-h1" id="case-title">The work is the interface.</h2>
+          </div>
+          <p class="type-body-lg intro-text">Two case studies show the system at editorial scale: large images,
+            monospace metadata, sharp composition, and deliberately limited chromatic range.</p>
+        </div>
+
+        <div class="case-grid" style="margin-top: var(--space-8);">
+          <a class="case-card" href="#inquiry" aria-label="Read about Archive House identity system">
+            <div class="image-frame" role="img"
+              aria-label="Custom abstract SVG poster for Archive House with archival sheets, sharp black diagonal geometry, and a narrow red editorial rule">
+              <div class="image-art image-art-archive" aria-hidden="true"></div>
+            </div>
+            <div class="case-meta type-caption"><span>Archive House</span><span>Status: Live</span></div>
+            <h3 class="case-title type-h2">A cultural archive made legible.</h3>
+            <p class="case-description">Identity, exhibition system, and digital index for a public collection entering
+              its next decade.</p>
+          </a>
+          <a class="case-card" href="#inquiry" aria-label="Read about North Pier campaign platform">
+            <div class="image-frame" role="img"
+              aria-label="Custom abstract SVG campaign image for North Pier with pier-like rails, cream field, and near-black civic blocks">
+              <div class="image-art image-art-pier" aria-hidden="true"></div>
+            </div>
+            <div class="case-meta type-caption"><span>North Pier</span><span>Status: Launching</span></div>
+            <h3 class="case-title type-h2">A waterfront with a point of view.</h3>
+            <p class="case-description">Naming, campaign direction, and web presence for a civic destination designed
+              around public memory.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark-section" id="method" aria-labelledby="method-title">
+      <div class="page-shell split-grid">
+        <div>
+          <p class="type-h4 overline" style="color: var(--color-text-muted);">Method</p>
+          <h2 class="type-h1" id="method-title">Strategy before style. Style without apology.</h2>
+        </div>
+        <div>
+          <p class="type-body-lg intro-text">The studio works in compressed phases: position, language, system, launch.
+            Every decision earns its place on the page.</p>
+          <div class="badge-row" aria-label="Project status badges">
+            <span class="badge">Availability: Q3</span>
+            <span class="badge">Model: Sprint</span>
+            <span class="badge">Access: Partner-led</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="signals" aria-labelledby="signals-title">
+      <div class="page-shell">
+        <div class="split-grid">
+          <div>
+            <p class="type-h4 overline">Signals</p>
+            <h2 class="type-h1" id="signals-title">Measured by what remains.</h2>
+          </div>
+          <p class="type-body-lg intro-text">No decorative dashboards. Just a few facts set with scale, spacing, and
+            restraint.</p>
+        </div>
+        <div class="metrics-grid" style="margin-top: var(--space-8);">
+          <article class="metric-card">
+            <p class="metric-value">18</p>
+            <p class="metric-label type-small">Public-sector and cultural launches in five years.</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-value">4</p>
+            <p class="metric-label type-small">Disciplines in the core team: strategy, writing, design, code.</p>
+          </article>
+          <article class="metric-card">
+            <p class="metric-value">0</p>
+            <p class="metric-label type-small">Gradients, rounded cards, or ornamental filler.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="inquiry" aria-labelledby="inquiry-title">
+      <div class="page-shell contact-grid">
+        <div>
+          <p class="type-h4 overline">Inquiry</p>
+          <h2 class="type-h1" id="inquiry-title">Send the useful part.</h2>
+          <p class="type-body-lg intro-text">A short note is enough. The confirmation flow uses a bottom sheet, keeping
+            the real action close to the thumb on small screens.</p>
+        </div>
+        <form class="inquiry-panel" id="brief-form" novalidate>
+          <p class="form-note type-small">All fields are required. Errors appear after leaving a field.</p>
+          <div class="form-grid">
+            <div class="field-group">
+              <label class="type-h4" for="name">Name</label>
+              <input id="name" name="name" autocomplete="name" required
+                data-error="Write the name we should use in reply.">
+              <p class="field-error type-small" id="name-error" aria-live="polite"></p>
+            </div>
+            <div class="field-group">
+              <label class="type-h4" for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required
+                data-error="Use a working email address.">
+              <p class="field-error type-small" id="email-error" aria-live="polite"></p>
+            </div>
+            <div class="field-group">
+              <label class="type-h4" for="brief">Brief</label>
+              <textarea id="brief" name="brief" required minlength="20"
+                data-error="Give the brief at least twenty characters."></textarea>
+              <p class="field-error type-small" id="brief-error" aria-live="polite"></p>
+            </div>
+          </div>
+          <button class="button button-primary" type="submit">Review brief</button>
+          <p class="feedback type-small" id="form-feedback" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" aria-labelledby="footer-title">
+    <div class="page-shell">
+      <h2 class="type-display" id="footer-title">Back to work.</h2>
+      <div class="footer-meta type-small">
+        <p><span class="type-caption muted">Studio</span><br>12 Redchurch Street<br>London E2</p>
+        <p><span class="type-caption muted">Contact</span><br><a
+            href="mailto:office@example.com">office@example.com</a><br><a href="tel:+440000000000">+44 00 0000 0000</a>
+        </p>
+        <p><span class="type-caption muted">Legal</span><br>© 2026 Field Bureau<br><a href="#work">Work index</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="bottom-tabs" aria-label="Section tabs" role="tablist">
+    <button class="bottom-tab" role="tab" type="button" aria-selected="true" data-target="work">Work</button>
+    <button class="bottom-tab" role="tab" type="button" aria-selected="false" data-target="method">Method</button>
+    <button class="bottom-tab" role="tab" type="button" aria-selected="false" data-target="signals">Signals</button>
+    <button class="bottom-tab" role="tab" type="button" aria-selected="false" data-target="inquiry">Contact</button>
+  </nav>
+
+  <div class="sheet-backdrop" data-sheet-backdrop aria-hidden="true">
+    <section class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1">
+      <div class="sheet-inner">
+        <div class="sheet-head">
+          <div>
+            <p class="type-h4 overline">Confirm</p>
+            <h2 class="sheet-title type-h1" id="sheet-title">Send the brief.</h2>
+          </div>
+          <button class="sheet-close" type="button" aria-label="Close confirmation" data-close-sheet>×</button>
+        </div>
+        <p class="type-body-lg intro-text">The studio will review the note and reply with one clear next step. No
+          newsletter. No automated funnel.</p>
+        <div class="badge-row">
+          <span class="badge">Response: 2 days</span>
+          <span class="badge">Status: Ready to send</span>
+        </div>
+        <div class="sheet-actions">
+          <button class="button button-primary" type="button" data-confirm-send>Confirm send</button>
+          <button class="button button-secondary" type="button" data-cancel-sheet>Cancel</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const header = document.querySelector('[data-header]');
+    const tabs = Array.from(document.querySelectorAll('.bottom-tab'));
+    const sheetBackdrop = document.querySelector('[data-sheet-backdrop]');
+    const sheet = document.querySelector('.bottom-sheet');
+    const openSheetButtons = document.querySelectorAll('[data-open-sheet]');
+    const closeSheetButtons = document.querySelectorAll('[data-close-sheet], [data-cancel-sheet]');
+    const confirmSend = document.querySelector('[data-confirm-send]');
+    const form = document.querySelector('#brief-form');
+    const feedback = document.querySelector('#form-feedback');
+    let lastFocusedElement = null;
+
+    function setHeaderState() {
+      header.classList.toggle('is-scrolled', window.scrollY > 8);
+    }
+
+    function setActiveTab(targetId) {
+      tabs.forEach((tab) => {
+        const isActive = tab.dataset.target === targetId;
+        tab.setAttribute('aria-selected', String(isActive));
+      });
+    }
+
+    function openSheet() {
+      lastFocusedElement = document.activeElement;
+      document.body.classList.add('sheet-open');
+      sheetBackdrop.classList.add('is-open');
+      sheetBackdrop.setAttribute('aria-hidden', 'false');
+      requestAnimationFrame(() => sheet.focus());
+    }
+
+    function closeSheet(message) {
+      document.body.classList.remove('sheet-open');
+      sheetBackdrop.classList.remove('is-open');
+      sheetBackdrop.setAttribute('aria-hidden', 'true');
+      if (message) feedback.textContent = message;
+      if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+        lastFocusedElement.focus();
+      }
+    }
+
+    function validateField(field) {
+      const group = field.closest('.field-group');
+      const error = document.getElementById(`${field.id}-error`);
+      let message = '';
+
+      if (field.validity.valueMissing) {
+        message = field.dataset.error;
+      } else if (field.validity.typeMismatch) {
+        message = field.dataset.error;
+      } else if (field.validity.tooShort) {
+        message = field.dataset.error;
+      }
+
+      group.classList.toggle('is-invalid', Boolean(message));
+      field.setAttribute('aria-invalid', String(Boolean(message)));
+      field.setAttribute('aria-describedby', `${field.id}-error`);
+      error.textContent = message;
+      return !message;
+    }
+
+    window.addEventListener('scroll', setHeaderState, { passive: true });
+    setHeaderState();
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        const target = document.getElementById(tab.dataset.target);
+        if (!target) return;
+        setActiveTab(tab.dataset.target);
+        target.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      });
+    });
+
+    document.querySelectorAll('input, textarea').forEach((field) => {
+      field.addEventListener('blur', () => validateField(field));
+      field.addEventListener('input', () => {
+        if (field.getAttribute('aria-invalid') === 'true') validateField(field);
+      });
+    });
+
+    openSheetButtons.forEach((button) => button.addEventListener('click', openSheet));
+    closeSheetButtons.forEach((button) => button.addEventListener('click', () => closeSheet('Brief not sent.')));
+    sheetBackdrop.addEventListener('click', (event) => {
+      if (event.target === sheetBackdrop) closeSheet('Confirmation closed. Brief not sent.');
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && sheetBackdrop.classList.contains('is-open')) {
+        closeSheet('Confirmation closed. Brief not sent.');
+      }
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const fields = Array.from(form.querySelectorAll('input, textarea'));
+      const isValid = fields.every(validateField);
+      if (!isValid) {
+        feedback.textContent = 'Correct the marked fields before review.';
+        fields.find((field) => field.getAttribute('aria-invalid') === 'true')?.focus();
+        return;
+      }
+      feedback.textContent = 'Brief ready for final review.';
+      openSheet();
+    });
+
+    confirmSend.addEventListener('click', () => {
+      closeSheet('Brief sent. Field Bureau will reply within two working days.');
+      form.reset();
+      form.querySelectorAll('.field-error').forEach((error) => { error.textContent = ''; });
+      form.querySelectorAll('.field-group').forEach((group) => group.classList.remove('is-invalid'));
+      form.querySelectorAll('input, textarea').forEach((field) => field.setAttribute('aria-invalid', 'false'));
+    });
+  </script>
+</body>
+
+</html>

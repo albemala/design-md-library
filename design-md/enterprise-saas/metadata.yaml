@@ -14,3 +14,5 @@ design_md:
     - admin-panel
     - b2b
     - data-dense
+preview:
+  file_name: "preview.html"

@@ -13,3 +13,5 @@ design_md:
     - financial-ui
     - data-dense
     - dark-mode
+preview:
+  file_name: "preview.html"

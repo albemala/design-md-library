@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fintech Dashboard — Design.md Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   CSS CUSTOM PROPERTIES — Design Tokens
+   ============================================================ */
+:root {
+  --color-primary: #0052CC;
+  --color-primary-hover: #003D99;
+  --color-primary-light: #E6F0FF;
+  --color-primary-dark: #002966;
+  --color-bg: #F7F8FA;
+  --color-surface: #FFFFFF;
+  --color-surface-secondary: #F0F2F5;
+  --color-border: #E1E4E8;
+  --color-border-strong: #C8CCD2;
+  --color-text-primary: #0D1117;
+  --color-text-secondary: #424A53;
+  --color-text-muted: #8B949E;
+  --color-positive: #1A7F37;
+  --color-positive-light: #DAFBE1;
+  --color-negative: #CF222E;
+  --color-negative-light: #FFEBE9;
+  --color-warning: #BF8700;
+  --color-warning-light: #FFF8C5;
+  --color-info: #0052CC;
+
+  /* Typography sizes */
+  --fs-display: 36px;
+  --fw-display: 600;
+  --lh-display: 1.15;
+  --ls-display: -0.5px;
+  --fs-h1: 24px; --fw-h1: 600; --lh-h1: 1.25; --ls-h1: -0.3px;
+  --fs-h2: 20px; --fw-h2: 600; --lh-h2: 1.3;  --ls-h2: -0.2px;
+  --fs-h3: 16px; --fw-h3: 600; --lh-h3: 1.4;  --ls-h3: 0px;
+  --fs-h4: 13px; --fw-h4: 600; --lh-h4: 1.4;  --ls-h4: 0.4px;
+  --fs-body: 14px; --fw-body: 400; --lh-body: 1.6; --ls-body: 0px;
+  --fs-small: 12px; --fw-small: 400; --lh-small: 1.5; --ls-small: 0px;
+  --fs-mono-lg: 24px; --fw-mono-lg: 600; --lh-mono-lg: 1.25; --ls-mono-lg: 0px;
+  --fs-mono-md: 16px; --fw-mono-md: 500; --lh-mono-md: 1.4;  --ls-mono-md: 0px;
+  --fs-mono-sm: 13px; --fw-mono-sm: 400; --lh-mono-sm: 1.5;  --ls-mono-sm: 0px;
+
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+
+  /* Rounded */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px;
+  --space-4: 16px; --space-5: 20px; --space-6: 24px;
+  --space-8: 32px; --space-12: 48px;
+  --gutter: 24px;
+  --page-margin: 32px;
+  --page-margin-mobile: 16px;
+  --sidebar-width: 240px;
+  --max-content-width: 1200px;
+
+  --btn-height: 36px;
+  --input-height: 36px;
+}
+
+/* ============================================================
+   RESET & BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-body); font-weight: var(--fw-body);
+  line-height: var(--lh-body); letter-spacing: var(--ls-body);
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+img, svg { display: block; max-width: 100%; }
+
+/* ============================================================
+   TYPOGRAPHY UTILITY CLASSES
+   ============================================================ */
+.display { font-family: var(--font-body); font-size: var(--fs-display); font-weight: var(--fw-display); line-height: var(--lh-display); letter-spacing: var(--ls-display); }
+.h1 { font-size: var(--fs-h1); font-weight: var(--fw-h1); line-height: var(--lh-h1); letter-spacing: var(--ls-h1); }
+.h2 { font-size: var(--fs-h2); font-weight: var(--fw-h2); line-height: var(--lh-h2); letter-spacing: var(--ls-h2); }
+.h3 { font-size: var(--fs-h3); font-weight: var(--fw-h3); line-height: var(--lh-h3); letter-spacing: var(--ls-h3); }
+.h4 { font-size: var(--fs-h4); font-weight: var(--fw-h4); line-height: var(--lh-h4); letter-spacing: var(--ls-h4); }
+.body-text { font-size: var(--fs-body); font-weight: var(--fw-body); line-height: var(--lh-body); letter-spacing: var(--ls-body); }
+.text-small { font-size: var(--fs-small); font-weight: var(--fw-small); line-height: var(--lh-small); letter-spacing: var(--ls-small); }
+.mono-lg { font-family: var(--font-mono); font-size: var(--fs-mono-lg); font-weight: var(--fw-mono-lg); line-height: var(--lh-mono-lg); letter-spacing: var(--ls-mono-lg); font-variant-numeric: tabular-nums; }
+.mono-md { font-family: var(--font-mono); font-size: var(--fs-mono-md); font-weight: var(--fw-mono-md); line-height: var(--lh-mono-md); letter-spacing: var(--ls-mono-md); font-variant-numeric: tabular-nums; }
+.mono-sm { font-family: var(--font-mono); font-size: var(--fs-mono-sm); font-weight: var(--fw-mono-sm); line-height: var(--lh-mono-sm); letter-spacing: var(--ls-mono-sm); font-variant-numeric: tabular-nums; }
+.text-muted { color: var(--color-text-muted); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-positive { color: var(--color-positive); }
+.text-negative { color: var(--color-negative); }
+.text-warning { color: var(--color-warning); }
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+.app-shell {
+  display: flex;
+  min-height: 100vh;
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--color-surface);
+  border-right: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  position: fixed; top: 0; left: 0; bottom: 0;
+  z-index: 100;
+  padding: var(--space-6) var(--space-4);
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  display: flex; align-items: center; gap: var(--space-3);
+  margin-bottom: var(--space-8); padding: 0 var(--space-2);
+}
+
+.sidebar-logo .logo-icon {
+  width: 32px; height: 32px;
+  background: var(--color-primary);
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  color: white;
+  font-family: var(--font-mono); font-weight: 600; font-size: 14px;
+}
+
+.sidebar-logo .logo-text {
+  font-size: var(--fs-h3); font-weight: var(--fw-h3);
+  color: var(--color-text-primary);
+}
+
+.sidebar-nav {
+  list-style: none; flex: 1;
+  display: flex; flex-direction: column; gap: var(--space-1);
+}
+
+.sidebar-nav li a {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-3) var(--space-3);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: var(--fs-body); font-weight: 500;
+  min-height: 48px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.sidebar-nav li a:hover {
+  background: var(--color-surface-secondary);
+  color: var(--color-text-primary);
+}
+
+.sidebar-nav li a.active {
+  background: var(--color-primary-light);
+  color: var(--color-primary); font-weight: 600;
+}
+
+.sidebar-nav li a .nav-icon { width: 20px; height: 20px; flex-shrink: 0; }
+
+.sidebar-footer { border-top: 1px solid var(--color-border); padding-top: var(--space-4); }
+
+.sidebar-footer .user-info {
+  display: flex; align-items: center; gap: var(--space-3);
+  padding: var(--space-2);
+}
+
+.sidebar-footer .avatar {
+  width: 32px; height: 32px; border-radius: var(--radius-full);
+  background: var(--color-primary); color: white;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 600; flex-shrink: 0;
+}
+
+.sidebar-footer .user-details { overflow: hidden; }
+.sidebar-footer .user-details .name { font-size: var(--fs-body); font-weight: 600; color: var(--color-text-primary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.sidebar-footer .user-details .role { font-size: var(--fs-small); color: var(--color-text-muted); }
+
+.main-content {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  padding: var(--page-margin);
+  padding-bottom: calc(var(--space-12) + 64px);
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap; gap: var(--space-4);
+}
+
+.page-header .greeting .welcome {
+  font-size: var(--fs-small); color: var(--color-text-muted);
+  text-transform: uppercase; letter-spacing: 0.6px;
+  margin-bottom: var(--space-1);
+}
+
+.page-header .greeting .username {
+  font-size: var(--fs-h1); font-weight: var(--fw-h1);
+  line-height: var(--lh-h1); letter-spacing: var(--ls-h1);
+  color: var(--color-text-primary);
+}
+
+.page-header .header-actions { display: flex; gap: var(--space-3); align-items: center; }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
+  border: none; cursor: pointer;
+  font-family: var(--font-body); font-size: var(--fs-body); font-weight: 500; line-height: 1;
+  border-radius: var(--radius-sm);
+  padding: 8px 16px; height: var(--btn-height);
+  min-height: 48px; min-width: 48px;
+  transition: background 0.15s, box-shadow 0.15s, transform 0.1s;
+  white-space: nowrap; text-decoration: none;
+}
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--color-primary); color: #FFFFFF; }
+.btn-primary:hover { background: var(--color-primary-hover); }
+.btn-primary:active { background: var(--color-primary-dark); }
+.btn-secondary { background: transparent; color: var(--color-text-primary); border: 1px solid var(--color-border-strong); }
+.btn-secondary:hover { background: var(--color-surface-secondary); }
+.btn-destructive { background: var(--color-negative); color: #FFFFFF; }
+.btn-destructive:hover { background: #A81A24; }
+
+/* ============================================================
+   INPUT FIELD
+   ============================================================ */
+.input-field {
+  width: 100%; height: var(--input-height);
+  padding: 8px 12px;
+  background: var(--color-surface); color: var(--color-text-primary);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body); font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+}
+.input-field:focus { border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-light); }
+.input-field.input-mono { font-family: var(--font-mono); text-align: right; font-variant-numeric: tabular-nums; }
+.input-field.error { border-color: var(--color-negative); box-shadow: 0 0 0 3px var(--color-negative-light); }
+
+.input-group { display: flex; flex-direction: column; gap: var(--space-2); }
+.input-group label { font-size: var(--fs-small); font-weight: 600; color: var(--color-text-secondary); text-transform: uppercase; letter-spacing: 0.4px; }
+.input-group .input-currency-wrap { position: relative; display: flex; align-items: center; }
+.input-group .input-currency-wrap .currency-symbol { position: absolute; left: 12px; color: var(--color-text-muted); font-family: var(--font-body); font-size: var(--fs-body); pointer-events: none; z-index: 1; }
+.input-group .input-currency-wrap .input-field { padding-left: 28px; }
+.input-error-msg { font-size: var(--fs-small); color: var(--color-negative); display: none; min-height: 18px; }
+.input-field.error ~ .input-error-msg { display: block; }
+
+/* ============================================================
+   CARD BALANCE
+   ============================================================ */
+.card-balance {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  display: flex; flex-direction: column; gap: var(--space-3);
+  transition: box-shadow 0.2s;
+}
+.card-balance:hover { box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+.card-balance .card-label { font-size: var(--fs-small); font-weight: 600; color: var(--color-text-muted); text-transform: uppercase; letter-spacing: 0.4px; }
+.card-balance .card-value { font-family: var(--font-mono); font-size: var(--fs-mono-lg); font-weight: var(--fw-mono-lg); line-height: var(--lh-mono-lg); color: var(--color-text-primary); font-variant-numeric: tabular-nums; }
+.card-balance .card-delta { display: inline-flex; align-items: center; gap: var(--space-1); font-size: var(--fs-small); font-weight: 600; padding: 2px 8px; border-radius: var(--radius-full); width: fit-content; }
+.card-balance .card-delta.positive { background: var(--color-positive-light); color: var(--color-positive); }
+.card-balance .card-delta.negative { background: var(--color-negative-light); color: var(--color-negative); }
+.card-balance .card-timestamp { font-size: var(--fs-small); color: var(--color-text-muted); }
+
+/* ============================================================
+   BALANCE GRID
+   ============================================================ */
+.balance-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); margin-bottom: var(--space-8); }
+
+/* ============================================================
+   TRANSACTION TABLE
+   ============================================================ */
+.table-section { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); overflow: hidden; margin-bottom: var(--space-8); }
+.table-section .table-header-bar { padding: var(--space-4) var(--space-6); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); }
+.table-section .table-header-bar .table-title { font-size: var(--fs-h3); font-weight: var(--fw-h3); color: var(--color-text-primary); }
+.table-wrapper { overflow-x: auto; }
+
+table { width: 100%; border-collapse: collapse; }
+table thead th {
+  background: var(--color-surface-secondary);
+  color: var(--color-text-muted);
+  font-size: var(--fs-h4); font-weight: var(--fw-h4); letter-spacing: var(--ls-h4);
+  text-align: left; padding: var(--space-3) var(--space-6);
+  white-space: nowrap; border-bottom: 1px solid var(--color-border);
+  position: sticky; top: 0;
+}
+table thead th.align-right { text-align: right; }
+table tbody td { padding: var(--space-4) var(--space-6); border-bottom: 1px solid var(--color-border); font-size: var(--fs-body); color: var(--color-text-primary); }
+table tbody tr:last-child td { border-bottom: none; }
+table tbody tr:hover { background: var(--color-surface-secondary); }
+table tbody td.align-right { text-align: right; }
+
+/* ============================================================
+   STATUS BADGES
+   ============================================================ */
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: var(--fs-small); font-weight: 600; padding: 2px 10px; border-radius: var(--radius-full); white-space: nowrap; }
+.badge-completed { background: var(--color-positive-light); color: var(--color-positive); }
+.badge-pending { background: var(--color-warning-light); color: var(--color-warning); }
+.badge-failed { background: var(--color-negative-light); color: var(--color-negative); }
+.badge-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.badge-completed .badge-dot { background: var(--color-positive); }
+.badge-pending .badge-dot { background: var(--color-warning); }
+.badge-failed .badge-dot { background: var(--color-negative); }
+
+/* ============================================================
+   BOTTOM TAB BAR (Mobile)
+   ============================================================ */
+.bottom-tab-bar {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  z-index: 200;
+  padding: var(--space-1) var(--space-2);
+  padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+.bottom-tab-bar .tabs { display: flex; justify-content: space-around; list-style: none; }
+.bottom-tab-bar .tabs li button {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: var(--space-2) var(--space-3);
+  min-height: 48px; min-width: 48px;
+  background: none; border: none; cursor: pointer;
+  color: var(--color-text-muted);
+  font-family: var(--font-body); font-size: 10px; font-weight: 500;
+  transition: color 0.15s; border-radius: var(--radius-sm);
+}
+.bottom-tab-bar .tabs li button.active { color: var(--color-primary); }
+.bottom-tab-bar .tabs li button .tab-icon { width: 22px; height: 22px; }
+
+/* ============================================================
+   BOTTOM SHEET
+   ============================================================ */
+.sheet-backdrop {
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 500;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.sheet-backdrop.open { opacity: 1; pointer-events: auto; }
+
+.bottom-sheet {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 501;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+  max-height: 85vh; overflow-y: auto;
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+}
+.bottom-sheet.open { transform: translateY(0); }
+.sheet-handle { width: 40px; height: 4px; background: var(--color-border-strong); border-radius: 2px; margin: var(--space-3) auto; }
+.sheet-content { padding: 0 var(--space-6) var(--space-8); }
+.sheet-content .sheet-title { font-size: var(--fs-h2); font-weight: var(--fw-h2); color: var(--color-text-primary); margin-bottom: var(--space-2); }
+.sheet-content .sheet-desc { font-size: var(--fs-body); color: var(--color-text-secondary); margin-bottom: var(--space-6); }
+.sheet-transfer-preview { background: var(--color-surface-secondary); border-radius: var(--radius-md); padding: var(--space-4); margin: var(--space-5) 0; }
+.sheet-transfer-preview .preview-row { display: flex; justify-content: space-between; align-items: center; padding: var(--space-2) 0; }
+.sheet-transfer-preview .preview-row:not(:last-child) { border-bottom: 1px solid var(--color-border); }
+.sheet-transfer-preview .preview-label { font-size: var(--fs-small); color: var(--color-text-muted); }
+.sheet-transfer-preview .preview-value { font-family: var(--font-mono); font-size: var(--fs-mono-sm); font-weight: 500; color: var(--color-text-primary); font-variant-numeric: tabular-nums; }
+.sheet-transfer-preview .preview-divider { border-top: 2px solid var(--color-border); margin-top: var(--space-2); padding-top: var(--space-3); }
+.sheet-transfer-preview .preview-divider .preview-label { font-weight: 600; color: var(--color-text-primary); }
+.sheet-transfer-preview .preview-divider .preview-value { font-weight: 600; font-size: var(--fs-mono-md); }
+
+.sheet-actions { display: flex; gap: var(--space-3); margin-top: var(--space-6); }
+.sheet-actions .btn { flex: 1; }
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+.toast {
+  position: fixed; top: 24px; left: 50%;
+  transform: translateX(-50%) translateY(-120px);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-6);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  z-index: 600;
+  display: flex; align-items: center; gap: var(--space-3);
+  font-weight: 500;
+  transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+  max-width: 90vw;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.success { border-left: 4px solid var(--color-positive); }
+.toast.error-toast { border-left: 4px solid var(--color-negative); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .balance-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main-content { margin-left: 0; padding: var(--page-margin-mobile); padding-bottom: calc(var(--space-8) + 72px); }
+  .bottom-tab-bar { display: block; }
+  .balance-grid { grid-template-columns: 1fr; gap: var(--space-4); }
+  .page-header { flex-direction: column; gap: var(--space-3); }
+  .page-header .header-actions { width: 100%; }
+  .page-header .header-actions .btn { flex: 1; }
+  .display { font-size: 28px; }
+  .h1 { font-size: 20px; }
+  .bottom-sheet { max-height: 80vh; }
+  .sheet-actions { flex-direction: column; }
+  table thead th, table tbody td { padding: var(--space-2) var(--space-3); }
+}
+
+@media (min-width: 769px) {
+  .bottom-tab-bar { display: none; }
+}
+
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon">F</div>
+    <span class="logo-text">FinVault</span>
+  </div>
+  <ul class="sidebar-nav">
+    <li><a href="#" class="active">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="7" height="7" rx="1.5"/><rect x="11" y="2" width="7" height="7" rx="1.5"/><rect x="2" y="11" width="7" height="7" rx="1.5"/><rect x="11" y="11" width="7" height="7" rx="1.5"/></svg>Overview</a></li>
+    <li><a href="#">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="16" height="14" rx="2"/><line x1="2" y1="8" x2="18" y2="8"/><line x1="7" y1="3" x2="7" y2="17"/></svg>Accounts</a></li>
+    <li><a href="#">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 5h14M3 10h10M3 15h6"/></svg>Transactions</a></li>
+    <li><a href="#">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="16" height="12" rx="2"/><line x1="6" y1="14" x2="14" y2="14"/></svg>Cards</a></li>
+    <li><a href="#">
+      <svg class="nav-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="3"/><path d="M15.5 5.5L19 2M15.5 5.5L19 9M15.5 5.5L12 2.5"/></svg>Investments</a></li>
+  </ul>
+  <div class="sidebar-footer">
+    <div class="user-info">
+      <div class="avatar">AM</div>
+      <div class="user-details"><div class="name">Alex Morgan</div><div class="role">Portfolio Manager</div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content">
+
+  <header class="page-header">
+    <div class="greeting"><div class="welcome">Good morning</div><h1 class="username">Alex Morgan</h1></div>
+    <div class="header-actions">
+      <button class="btn btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="16" height="14" rx="2"/><line x1="2" y1="8" x2="18" y2="8"/><line x1="6" y1="1" x2="6" y2="5"/><line x1="14" y1="1" x2="14" y2="5"/></svg>
+        Last 30 Days
+      </button>
+      <button class="btn btn-primary" id="btnOpenTransfer">
+        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="10" y1="3" x2="10" y2="17"/><line x1="3" y1="10" x2="17" y2="10"/></svg>
+        New Transfer
+      </button>
+    </div>
+  </header>
+
+  <section class="balance-grid">
+    <div class="card-balance">
+      <span class="card-label">Total Balance</span>
+      <span class="card-value">$142,689.50</span>
+      <span class="card-delta positive"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 13 10 7 16 13"/></svg>+3.24%</span>
+      <span class="card-timestamp">as of May 8, 2026</span>
+    </div>
+    <div class="card-balance">
+      <span class="card-label">Monthly Income</span>
+      <span class="card-value">$18,450.00</span>
+      <span class="card-delta positive"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 13 10 7 16 13"/></svg>+8.10%</span>
+      <span class="card-timestamp">vs. previous month</span>
+    </div>
+    <div class="card-balance">
+      <span class="card-label">Monthly Expenses</span>
+      <span class="card-value">$7,213.84</span>
+      <span class="card-delta negative"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 7 10 13 16 7"/></svg>−2.15%</span>
+      <span class="card-timestamp">vs. previous month</span>
+    </div>
+    <div class="card-balance">
+      <span class="card-label">Portfolio Value</span>
+      <span class="card-value">$89,274.12</span>
+      <span class="card-delta positive"><svg width="12" height="12" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 13 10 7 16 13"/></svg>+12.47%</span>
+      <span class="card-timestamp">YTD return</span>
+    </div>
+  </section>
+
+  <section class="table-section">
+    <div class="table-header-bar">
+      <h2 class="table-title">Recent Transactions</h2>
+      <button class="btn btn-secondary" style="min-width:auto; padding:6px 12px; height:32px; font-size:12px;">View All</button>
+    </div>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th><th>Category</th><th>Date</th><th>Status</th><th class="align-right">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Salary Deposit — Acme Corp</td>
+            <td class="text-muted">Income</td>
+            <td class="mono-sm text-muted">May 5, 2026</td>
+            <td><span class="badge badge-completed"><span class="badge-dot"></span>Completed</span></td>
+            <td class="mono-sm align-right amount-positive" style="color:var(--color-positive)">+$9,225.00</td>
+          </tr>
+          <tr>
+            <td>Wire Transfer — Jane Cooper</td>
+            <td class="text-muted">Transfer</td>
+            <td class="mono-sm text-muted">May 4, 2026</td>
+            <td><span class="badge badge-completed"><span class="badge-dot"></span>Completed</span></td>
+            <td class="mono-sm align-right amount-negative" style="color:var(--color-negative)">−$1,500.00</td>
+          </tr>
+          <tr>
+            <td>Mortgage Payment — Citibank</td>
+            <td class="text-muted">Housing</td>
+            <td class="mono-sm text-muted">May 3, 2026</td>
+            <td><span class="badge badge-pending"><span class="badge-dot"></span>Pending</span></td>
+            <td class="mono-sm align-right amount-negative" style="color:var(--color-negative)">−$2,850.00</td>
+          </tr>
+          <tr>
+            <td>Dividend Payout — Vanguard ETF</td>
+            <td class="text-muted">Investment</td>
+            <td class="mono-sm text-muted">May 2, 2026</td>
+            <td><span class="badge badge-completed"><span class="badge-dot"></span>Completed</span></td>
+            <td class="mono-sm align-right amount-positive" style="color:var(--color-positive)">+$347.62</td>
+          </tr>
+          <tr>
+            <td>International Wire — Deutsche Bank</td>
+            <td class="text-muted">Transfer</td>
+            <td class="mono-sm text-muted">May 1, 2026</td>
+            <td><span class="badge badge-failed"><span class="badge-dot"></span>Failed</span></td>
+            <td class="mono-sm align-right amount-negative" style="color:var(--color-negative)">−$5,000.00</td>
+          </tr>
+          <tr>
+            <td>Subscription — Bloomberg Terminal</td>
+            <td class="text-muted">Software</td>
+            <td class="mono-sm text-muted">Apr 30, 2026</td>
+            <td><span class="badge badge-completed"><span class="badge-dot"></span>Completed</span></td>
+            <td class="mono-sm align-right amount-negative" style="color:var(--color-negative)">−$299.00</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<!-- BOTTOM TAB BAR (Mobile) -->
+<nav class="bottom-tab-bar">
+  <ul class="tabs">
+    <li><button class="tab-btn active" data-tab="overview"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>Overview</button></li>
+    <li><button class="tab-btn" data-tab="accounts"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="9" y1="4" x2="9" y2="20"/></svg>Accounts</button></li>
+    <li><button class="tab-btn" data-tab="transfer" id="tabTransfer"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Transfer</button></li>
+    <li><button class="tab-btn" data-tab="cards"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><line x1="7" y1="16" x2="17" y2="16"/></svg>Cards</button></li>
+    <li><button class="tab-btn" data-tab="more"><svg class="tab-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="12" r="1.5" fill="currentColor"/><circle cx="12" cy="12" r="1.5" fill="currentColor"/><circle cx="19" cy="12" r="1.5" fill="currentColor"/></svg>More</button></li>
+  </ul>
+</nav>
+
+<!-- BOTTOM SHEET BACKDROP -->
+<div class="sheet-backdrop" id="sheetBackdrop"></div>
+
+<!-- BOTTOM SHEET — New Transfer -->
+<div class="bottom-sheet" id="transferSheet" role="dialog" aria-labelledby="sheetTitle" aria-modal="true">
+  <div class="sheet-handle"></div>
+  <div class="sheet-content">
+    <h2 class="sheet-title" id="sheetTitle">New Transfer</h2>
+    <p class="sheet-desc">Enter the transfer details below. All amounts are verified before confirmation.</p>
+
+    <div class="input-group" style="margin-bottom:var(--space-5)">
+      <label for="recipientInput">Recipient Name or Account</label>
+      <input type="text" id="recipientInput" class="input-field" placeholder="e.g., Jane Cooper — CHAS ••4291" autocomplete="off">
+      <span class="input-error-msg" id="recipientError">Please enter a valid recipient name (minimum 2 characters).</span>
+    </div>
+
+    <div class="input-group" style="margin-bottom:var(--space-5)">
+      <label for="amountInput">Amount (USD)</label>
+      <div class="input-currency-wrap">
+        <span class="currency-symbol">$</span>
+        <input type="text" id="amountInput" class="input-field input-mono" placeholder="0.00" inputmode="decimal" autocomplete="off">
+      </div>
+      <span class="input-error-msg" id="amountError">Please enter a valid amount greater than $0.00.</span>
+    </div>
+
+    <div class="input-group" style="margin-bottom:var(--space-4)">
+      <label for="referenceInput">Reference (Optional)</label>
+      <input type="text" id="referenceInput" class="input-field" placeholder="e.g., Invoice #INV-2026-0042" autocomplete="off">
+    </div>
+
+    <div class="sheet-transfer-preview" id="transferPreview" style="display:none">
+      <div class="preview-row"><span class="preview-label">From</span><span class="preview-value">Checking ••8291</span></div>
+      <div class="preview-row"><span class="preview-label">To</span><span class="preview-value" id="previewRecipient">—</span></div>
+      <div class="preview-row"><span class="preview-label">Amount</span><span class="preview-value" id="previewAmount">$0.00</span></div>
+      <div class="preview-row"><span class="preview-label">Fee</span><span class="preview-value">$0.00</span></div>
+      <div class="preview-row preview-divider"><span class="preview-label">Total Debit</span><span class="preview-value" id="previewTotal">$0.00</span></div>
+    </div>
+
+    <div class="sheet-actions">
+      <button class="btn btn-secondary" id="btnCancelTransfer">Cancel</button>
+      <button class="btn btn-primary" id="btnConfirmTransfer">Confirm Transfer</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast success" id="toast" aria-live="polite">
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="10" cy="10" r="8"/><polyline points="6 10 9 13 14 7"/></svg>
+  <span id="toastMessage">Transfer confirmed successfully.</span>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var sheetBackdrop = document.getElementById('sheetBackdrop');
+  var transferSheet = document.getElementById('transferSheet');
+  var btnOpenTransfer = document.getElementById('btnOpenTransfer');
+  var tabTransfer = document.getElementById('tabTransfer');
+  var btnCancelTransfer = document.getElementById('btnCancelTransfer');
+  var btnConfirmTransfer = document.getElementById('btnConfirmTransfer');
+  var recipientInput = document.getElementById('recipientInput');
+  var amountInput = document.getElementById('amountInput');
+  var transferPreview = document.getElementById('transferPreview');
+  var previewRecipient = document.getElementById('previewRecipient');
+  var previewAmount = document.getElementById('previewAmount');
+  var previewTotal = document.getElementById('previewTotal');
+  var toast = document.getElementById('toast');
+  var toastMessage = document.getElementById('toastMessage');
+  var tabButtons = document.querySelectorAll('.tab-btn');
+
+  var toastTimer = null;
+
+  /* ── Bottom Sheet: Open / Close ── */
+  function openSheet() {
+    sheetBackdrop.classList.add('open');
+    transferSheet.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(function() { recipientInput.focus(); }, 400);
+  }
+
+  function closeSheet() {
+    sheetBackdrop.classList.remove('open');
+    transferSheet.classList.remove('open');
+    document.body.style.overflow = '';
+    resetForm();
+  }
+
+  btnOpenTransfer.addEventListener('click', openSheet);
+  tabTransfer.addEventListener('click', function(e) {
+    e.preventDefault();
+    openSheet();
+    setActiveTab(tabTransfer);
+  });
+  btnCancelTransfer.addEventListener('click', closeSheet);
+  sheetBackdrop.addEventListener('click', closeSheet);
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && transferSheet.classList.contains('open')) closeSheet();
+  });
+
+  /* ── Validation (on blur) ── */
+  function validateRecipient() {
+    var ok = recipientInput.value.trim().length >= 2;
+    recipientInput.classList.toggle('error', !ok);
+    return ok;
+  }
+
+  function validateAmount() {
+    var raw = amountInput.value.trim().replace(/[^0-9.]/g, '');
+    var num = parseFloat(raw);
+    var ok = !isNaN(num) && num > 0;
+    amountInput.classList.toggle('error', !ok);
+    return ok;
+  }
+
+  function updatePreview() {
+    var rOk = validateRecipient();
+    var aOk = validateAmount();
+    if (rOk && aOk) {
+      transferPreview.style.display = 'block';
+      previewRecipient.textContent = recipientInput.value.trim();
+      var raw = amountInput.value.trim().replace(/[^0-9.]/g, '');
+      var num = parseFloat(raw);
+      var fmt = num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      previewAmount.textContent = '$' + fmt;
+      previewTotal.textContent = '$' + fmt;
+    } else {
+      transferPreview.style.display = 'none';
+    }
+  }
+
+  recipientInput.addEventListener('blur', function() { validateRecipient(); updatePreview(); });
+  amountInput.addEventListener('blur', function() {
+    var raw = amountInput.value.trim().replace(/[^0-9.]/g, '');
+    var num = parseFloat(raw);
+    if (!isNaN(num) && num > 0) amountInput.value = num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    validateAmount();
+    updatePreview();
+  });
+  recipientInput.addEventListener('input', updatePreview);
+  amountInput.addEventListener('input', updatePreview);
+
+  function resetForm() {
+    recipientInput.value = '';
+    amountInput.value = '';
+    document.getElementById('referenceInput').value = '';
+    recipientInput.classList.remove('error');
+    amountInput.classList.remove('error');
+    transferPreview.style.display = 'none';
+  }
+
+  /* ── Confirm Transfer ── */
+  btnConfirmTransfer.addEventListener('click', function() {
+    validateRecipient();
+    validateAmount();
+    updatePreview();
+    if (!validateRecipient() || !validateAmount()) return;
+
+    var raw = amountInput.value.trim().replace(/[^0-9.]/g, '');
+    var num = parseFloat(raw);
+    var fmt = num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    var recipient = recipientInput.value.trim();
+
+    showToast('Transfer of $' + fmt + ' to ' + recipient + ' confirmed successfully.', 'success');
+    closeSheet();
+  });
+
+  /* ── Toast ── */
+  function showToast(msg, type) {
+    if (toastTimer) clearTimeout(toastTimer);
+    toastMessage.textContent = msg;
+    toast.classList.remove('success', 'error-toast');
+    toast.classList.add(type === 'error' ? 'error-toast' : 'success');
+    toast.classList.add('show');
+    toastTimer = setTimeout(function() { toast.classList.remove('show'); }, 3000);
+  }
+
+  /* ── Bottom Tab Switching ── */
+  function setActiveTab(btn) {
+    tabButtons.forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+
+  tabButtons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      if (btn === tabTransfer) return; // handled above
+      setActiveTab(btn);
+      var label = btn.textContent.trim();
+      showToast('Switched to ' + label + ' tab.', 'success');
+    });
+  });
+})();
+</script>
+</body>
+</html>

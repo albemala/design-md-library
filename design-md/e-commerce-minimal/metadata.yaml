@@ -15,3 +15,5 @@ design_md:
     - product-detail-page
     - checkout
     - conversion
+preview:
+  file_name: "preview.html"

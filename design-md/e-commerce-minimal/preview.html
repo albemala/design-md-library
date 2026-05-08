@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Commerce Minimal — Design System Preview</title>
+  <style>
+    :root {
+      --color-primary: #1A1A1A;
+      --color-primary-hover: #333333;
+      --color-background: #FFFFFF;
+      --color-background-warm: #F8F7F4;
+      --color-surface: #FFFFFF;
+      --color-border: #E8E8E8;
+      --color-border-light: #F0F0F0;
+      --color-text-primary: #1A1A1A;
+      --color-text-secondary: #666666;
+      --color-text-muted: #999999;
+      --color-success: #2E7D32;
+      --color-error: #C62828;
+      --color-sale: #C62828;
+      --color-warning: #E65100;
+
+      --font-sans: Satoshi, "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --radius-none: 0px;
+      --radius-full: 9999px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --space-12: 48px;
+      --space-16: 64px;
+      --space-20: 80px;
+      --gutter: 24px;
+      --page-margin: 48px;
+      --max-content: 1440px;
+      --max-grid: 1200px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 1.65;
+      color: var(--color-text-primary);
+      background: var(--color-background);
+      padding-bottom: 82px;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    .page { max-width: var(--max-content); margin: 0 auto; }
+    .section { padding: var(--space-16) var(--page-margin); }
+    .caption {
+      font-size: 11px; font-weight: 500; line-height: 1.4; letter-spacing: 1px;
+      text-transform: uppercase; color: var(--color-text-secondary);
+    }
+    .display { font-size: 40px; font-weight: 500; line-height: 1.15; letter-spacing: -0.5px; margin: 0; }
+    h1 { font-size: 28px; font-weight: 500; line-height: 1.2; letter-spacing: -0.3px; margin: 0; }
+    h2 { font-size: 22px; font-weight: 500; line-height: 1.25; letter-spacing: -0.2px; margin: 0; }
+    h3 { font-size: 16px; font-weight: 500; line-height: 1.35; margin: 0; }
+    .small { font-size: 13px; line-height: 1.5; color: var(--color-text-secondary); }
+    .mono { font-family: var(--font-mono); font-size: 13px; line-height: 1.4; }
+    .price-lg { font-size: 24px; font-weight: 600; line-height: 1.2; }
+    .price-md { font-size: 16px; font-weight: 500; line-height: 1.3; }
+
+    .topbar {
+      position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.94);
+      backdrop-filter: blur(16px); border-bottom: 1px solid var(--color-border-light);
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+      min-height: 72px; padding: 0 var(--page-margin);
+    }
+    .nav-group { display: flex; gap: var(--space-6); align-items: center; }
+    .nav-group.right { justify-content: flex-end; }
+    .nav-link {
+      min-height: 48px; border: 0; border-radius: var(--radius-none); padding: 0;
+      display: inline-flex; align-items: center; gap: var(--space-2);
+      background: transparent; color: var(--color-text-primary); font-size: 11px;
+      font-weight: 500; letter-spacing: 1px; text-transform: uppercase;
+      transition: color .18s, opacity .18s;
+    }
+    .nav-link:hover { color: var(--color-text-secondary); }
+    .nav-link:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 4px; }
+    .logo { font-size: 18px; font-weight: 500; letter-spacing: -0.2px; }
+    .bag-link { padding-left: var(--space-2); }
+    .bag-count {
+      display: inline-grid; place-items: center; min-width: 24px; height: 24px;
+      padding: 0 var(--space-2); border: 1px solid var(--color-border);
+      border-radius: var(--radius-none); background: var(--color-background-warm);
+      color: var(--color-text-primary); font-size: 11px; line-height: 1;
+    }
+    .bag-link:hover .bag-count { border-color: var(--color-primary); background: var(--color-surface); }
+
+    .hero { display: grid; grid-template-columns: 55fr 45fr; gap: var(--space-12); align-items: center; min-height: 680px; }
+    .hero-art { background: var(--color-background-warm); aspect-ratio: 3/4; display: grid; place-items: center; position: relative; overflow: hidden; }
+    .product-sculpture { width: 62%; aspect-ratio: 3/4; background: linear-gradient(145deg, #fefefe, #d8d4cb); border: 1px solid var(--color-border); box-shadow: var(--shadow-sm); position: relative; }
+    .product-sculpture:before { content: ""; position: absolute; inset: 12% 20%; border: 1px solid #c9c3b8; }
+    .product-sculpture:after { content: "LIMITED EDITION"; position: absolute; left: 16px; bottom: 16px; font: 500 11px/1.4 var(--font-sans); letter-spacing: 1px; }
+    .hero-copy { display: grid; gap: var(--space-6); align-content: center; max-width: 520px; }
+    .hero-copy p { color: var(--color-text-secondary); margin: 0; max-width: 46ch; }
+    .status-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .badge { min-height: 32px; display: inline-flex; align-items: center; padding: 0 var(--space-3); border: 1px solid var(--color-border); font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; background: var(--color-surface); }
+    .badge.sale { color: var(--color-sale); border-color: color-mix(in srgb, var(--color-sale) 28%, white); }
+    .badge.success { color: var(--color-success); border-color: color-mix(in srgb, var(--color-success) 28%, white); }
+
+    .btn { min-height: 52px; border-radius: var(--radius-none); border: 1px solid transparent; padding: 16px 32px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; font-size: 11px; font-weight: 500; line-height: 1.4; letter-spacing: 1px; text-transform: uppercase; transition: background .18s, color .18s, border-color .18s; }
+    .btn-primary { background: var(--color-primary); color: var(--color-background); width: 100%; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-primary:active { background: #000; }
+    .btn-secondary { background: transparent; color: var(--color-text-primary); border-color: var(--color-border); }
+    .btn-secondary:hover { border-color: var(--color-primary); }
+
+    .pdp-panel { display: grid; gap: var(--space-6); padding: var(--space-8); border: 1px solid var(--color-border-light); background: var(--color-surface); }
+    .option-group { display: grid; gap: var(--space-3); }
+    .sizes { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+    .size-pill { min-height: 40px; min-width: 54px; padding: 0 16px; border: 1px solid var(--color-border); background: var(--color-background); border-radius: 0; }
+    .size-pill.selected { background: var(--color-primary); color: var(--color-background); }
+    .swatches { display: flex; gap: var(--space-3); align-items: center; }
+    .swatch { width: 48px; height: 48px; border-radius: var(--radius-full); border: 1px solid var(--color-border); display: grid; place-items: center; background: var(--swatch); }
+    .swatch.selected { outline: 2px solid var(--color-primary); outline-offset: 3px; }
+    .accordion { border-top: 1px solid var(--color-border-light); }
+    .accordion details { border-bottom: 1px solid var(--color-border-light); padding: var(--space-4) 0; }
+    .accordion summary { min-height: 48px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; font-weight: 500; list-style: none; }
+    .accordion summary::-webkit-details-marker { display: none; }
+
+    .grid-head { display: flex; justify-content: space-between; align-items: end; gap: var(--space-6); margin-bottom: var(--space-8); }
+    .product-grid { max-width: var(--max-grid); display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--gutter); }
+    .card { display: grid; gap: var(--space-4); background: var(--color-surface); }
+    .frame { aspect-ratio: 3/4; background: var(--color-background-warm); display: grid; place-items: center; position: relative; }
+    .frame .mock { width: 62%; height: 68%; border: 1px solid rgba(0,0,0,.12); background: linear-gradient(150deg, #fff, #ded9cf); }
+    .frame .sale-flag { position: absolute; top: var(--space-3); left: var(--space-3); color: var(--color-sale); background: var(--color-surface); border: 1px solid var(--color-border); padding: 4px 8px; }
+    .card-meta { display: grid; gap: var(--space-1); }
+    .price-line { display: flex; gap: var(--space-2); align-items: baseline; }
+    .was { color: var(--color-text-muted); text-decoration: line-through; }
+
+    .checkout-demo { background: var(--color-background-warm); display: grid; grid-template-columns: 1fr 420px; gap: var(--space-12); align-items: start; }
+    .form-card, .cart-card { background: var(--color-surface); border: 1px solid var(--color-border-light); padding: var(--space-8); display: grid; gap: var(--space-6); }
+    .field { display: grid; gap: var(--space-2); }
+    label { font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; color: var(--color-text-secondary); }
+    input { min-height: 52px; border: 1px solid var(--color-border); border-radius: 0; padding: 0 var(--space-4); color: var(--color-text-primary); background: var(--color-background); }
+    input:focus { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+    .error-text { display: none; color: var(--color-error); font-size: 13px; }
+    .field.invalid input { border-color: var(--color-error); }
+    .field.invalid .error-text { display: block; }
+    .line-item { display: grid; grid-template-columns: 72px 1fr auto; gap: var(--space-4); padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border-light); }
+    .thumb { width: 72px; aspect-ratio: 3/4; background: var(--color-background-warm); }
+    .qty { min-height: 48px; display: inline-flex; align-items: center; gap: var(--space-3); border: 1px solid var(--color-border); padding: 0 var(--space-3); }
+    .total-row { display: flex; justify-content: space-between; align-items: baseline; }
+
+    .bottom-tabs { position: fixed; z-index: 30; left: 50%; bottom: 0; transform: translateX(-50%); width: min(100%, 720px); height: 72px; display: grid; grid-template-columns: repeat(4, 1fr); background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-md); }
+    .tab { min-height: 48px; border: 0; background: transparent; display: grid; place-items: center; color: var(--color-text-muted); font-size: 11px; font-weight: 500; letter-spacing: 1px; text-transform: uppercase; }
+    .tab.active { color: var(--color-primary); border-top: 2px solid var(--color-primary); }
+
+    .sheet-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.32); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 40; }
+    .bottom-sheet { position: fixed; left: 50%; bottom: 0; transform: translate(-50%, 105%); width: min(100%, 560px); background: var(--color-surface); border: 1px solid var(--color-border); box-shadow: var(--shadow-md); padding: var(--space-8); z-index: 50; transition: transform .22s ease; display: grid; gap: var(--space-6); }
+    .sheet-open .sheet-backdrop { opacity: 1; pointer-events: auto; }
+    .sheet-open .bottom-sheet { transform: translate(-50%, 0); }
+    .sheet-handle { width: 48px; height: 3px; background: var(--color-border); justify-self: center; }
+
+    @media (max-width: 980px) {
+      :root { --page-margin: 24px; }
+      .hero, .checkout-demo { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      .product-grid { grid-template-columns: repeat(3, 1fr); }
+      .topbar { grid-template-columns: 48px 1fr 48px; }
+      .nav-group.left .nav-link:not(:first-child), .nav-group.right .nav-link:first-child { display: none; }
+      .bag-link { justify-self: end; padding-left: 0; }
+      .logo { justify-self: center; }
+    }
+    @media (max-width: 640px) {
+      :root { --page-margin: 16px; }
+      .section { padding-top: var(--space-10); padding-bottom: var(--space-10); }
+      .display { font-size: 34px; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); gap: var(--space-4); }
+      .grid-head { display: grid; }
+      .pdp-panel, .form-card, .cart-card, .bottom-sheet { padding: var(--space-6); }
+      .line-item { grid-template-columns: 60px 1fr; }
+      .line-item .price-md { grid-column: 2; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page" id="shop">
+    <header class="topbar" aria-label="Store navigation">
+      <nav class="nav-group left"><a class="nav-link" href="#shop">Menu</a><a class="nav-link" href="#new">New</a><a class="nav-link" href="#checkout">Checkout</a></nav>
+      <a class="logo" href="#shop" aria-label="Atelier home">Atelier Unit</a>
+      <nav class="nav-group right"><a class="nav-link" href="#">Search</a><button class="nav-link bag-link" id="openCart" type="button" aria-label="Open bag, 2 items">Bag <span class="bag-count" aria-hidden="true">2</span></button></nav>
+    </header>
+
+    <main>
+      <section class="section hero" aria-labelledby="hero-title">
+        <div class="hero-art" aria-label="Warm neutral product photography frame"><div class="product-sculpture"></div></div>
+        <div class="hero-copy">
+          <div class="status-row"><span class="badge sale">Sale price visible</span><span class="badge success">In stock — ships today</span></div>
+          <p class="caption">Product detail pattern</p>
+          <h1 id="hero-title" class="display">Sharp essentials for a quieter checkout.</h1>
+          <p>A product-first storefront preview showing restrained chrome, direct pricing, square geometry, and conversion clarity from browse to confirmation.</p>
+          <div class="pdp-panel" aria-label="Product purchase panel">
+            <div><p class="caption">Tailored Cotton Overshirt</p><div class="price-lg">€148 <span class="small was">€196</span></div></div>
+            <div class="option-group"><span class="caption">Size selected: M</span><div class="sizes"><button class="size-pill">XS</button><button class="size-pill">S</button><button class="size-pill selected">M</button><button class="size-pill">L</button><button class="size-pill">XL</button></div></div>
+            <div class="option-group"><span class="caption">Color selected: Bone</span><div class="swatches"><button class="swatch selected" style="--swatch:#EDE7DC" aria-label="Bone selected"></button><button class="swatch" style="--swatch:#1A1A1A" aria-label="Black"></button><button class="swatch" style="--swatch:#9A948B" aria-label="Taupe"></button></div></div>
+            <button class="btn btn-primary" id="addToBag" type="button">Add to Bag — €148</button>
+            <div class="accordion"><details open><summary>Materials <span>+</span></summary><p class="small">Organic cotton twill with architectural seams and a dry hand feel.</p></details><details><summary>Shipping <span>+</span></summary><p class="small">Free returns within 30 days. Duties calculated transparently at checkout.</p></details></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="new" aria-labelledby="grid-title">
+        <div class="grid-head"><div><p class="caption">Product grid · 3:4 image frames</p><h2 id="grid-title">New arrivals</h2></div><a class="btn btn-secondary" href="#">View collection</a></div>
+        <div class="product-grid">
+          <article class="card"><div class="frame"><span class="sale-flag caption">Sale</span><div class="mock"></div></div><div class="card-meta"><h3>Structured day tote</h3><div class="price-line"><span class="price-md">€220</span><span class="small was">€280</span></div><span class="small">Status: low stock, 3 left</span></div></article>
+          <article class="card"><div class="frame"><div class="mock" style="background:linear-gradient(150deg,#fafafa,#c8c1b7)"></div></div><div class="card-meta"><h3>Ribbed merino knit</h3><span class="price-md">€124</span><span class="small">Status: in stock</span></div></article>
+          <article class="card"><div class="frame"><div class="mock" style="background:linear-gradient(150deg,#fff,#b8b8b8)"></div></div><div class="card-meta"><h3>Matte travel case</h3><span class="price-md">€68</span><span class="small">Status: in stock</span></div></article>
+          <article class="card"><div class="frame"><div class="mock" style="background:linear-gradient(150deg,#f9f5ec,#d0c2ac)"></div></div><div class="card-meta"><h3>Square buckle belt</h3><span class="price-md">€88</span><span class="small">Status: restock warning</span></div></article>
+        </div>
+      </section>
+
+      <section class="section checkout-demo" id="checkout" aria-labelledby="checkout-title">
+        <div class="form-card"><div><p class="caption">Blur validation · labeled inputs</p><h2 id="checkout-title">Express checkout</h2></div><div class="field"><label for="email">Email address</label><input id="email" type="email" placeholder="name@example.com" required><span class="error-text">Error: enter a valid email address.</span></div><div class="field"><label for="postal">Postal code</label><input id="postal" type="text" placeholder="20121" required minlength="4"><span class="error-text">Error: postal code is required for delivery estimates.</span></div><button class="btn btn-primary" id="confirmOrder" type="button">Review order</button></div>
+        <aside class="cart-card" aria-label="Cart summary"><p class="caption">Cart flyout anatomy</p><div class="line-item"><div class="thumb"></div><div><h3>Tailored Cotton Overshirt</h3><p class="small">Bone · M · SKU <span class="mono">AU-1042-M</span></p><div class="qty" aria-label="Quantity control"><span>−</span><span>1</span><span>+</span></div></div><span class="price-md">€148</span></div><div class="line-item"><div class="thumb"></div><div><h3>Matte travel case</h3><p class="small">Graphite · One size · SKU <span class="mono">AU-2201</span></p><div class="qty"><span>−</span><span>1</span><span>+</span></div></div><span class="price-md">€68</span></div><div class="total-row"><span class="caption">Subtotal</span><span class="price-lg">€216</span></div><p class="small">Status: taxes and duties calculated before payment. No hidden total cost.</p><button class="btn btn-primary" type="button">Checkout securely</button></aside>
+      </section>
+    </main>
+  </div>
+
+  <nav class="bottom-tabs" aria-label="Bottom tab navigation">
+    <button class="tab active" data-target="shop" type="button">Shop</button><button class="tab" data-target="new" type="button">New</button><button class="tab" data-target="checkout" type="button">Pay</button><button class="tab" id="tabBag" type="button">Bag</button>
+  </nav>
+
+  <div class="sheet-backdrop" id="backdrop"></div>
+  <section class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" aria-hidden="true">
+    <div class="sheet-handle"></div>
+    <div><p class="caption">Confirmation bottom sheet</p><h2 id="sheet-title">Added to bag</h2><p class="small">Tailored Cotton Overshirt in Bone, size M, is now in your bag. Status: available and reserved for checkout.</p></div>
+    <div class="total-row"><span class="caption">Bag subtotal</span><span class="price-lg">€216</span></div>
+    <button class="btn btn-primary" type="button">Checkout securely</button>
+    <button class="btn btn-secondary" id="closeSheet" type="button">Continue shopping</button>
+  </section>
+
+  <script>
+    const body = document.body;
+    const sheet = document.querySelector('.bottom-sheet');
+    const openers = [document.getElementById('addToBag'), document.getElementById('openCart'), document.getElementById('confirmOrder'), document.getElementById('tabBag')];
+    const closeSheet = () => { body.classList.remove('sheet-open'); sheet.setAttribute('aria-hidden', 'true'); };
+    const openSheet = () => { body.classList.add('sheet-open'); sheet.setAttribute('aria-hidden', 'false'); document.getElementById('closeSheet').focus(); };
+    openers.forEach(btn => btn && btn.addEventListener('click', openSheet));
+    document.getElementById('closeSheet').addEventListener('click', closeSheet);
+    document.getElementById('backdrop').addEventListener('click', closeSheet);
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeSheet(); });
+
+    document.querySelectorAll('input').forEach(input => {
+      input.addEventListener('blur', () => {
+        const field = input.closest('.field');
+        field.classList.toggle('invalid', !input.checkValidity());
+      });
+    });
+
+    document.querySelectorAll('.tab[data-target]').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.target).scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
+</body>
+</html>

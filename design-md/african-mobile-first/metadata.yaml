@@ -15,3 +15,5 @@ design_md:
     - sme
     - sunlight-readable
     - touch-ui
+preview:
+  file_name: "preview.html"

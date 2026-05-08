@@ -12,3 +12,5 @@ design_md:
     - portfolio
     - typography-led
     - minimal
+preview:
+  file_name: "preview.html"

@@ -12,3 +12,5 @@ design_md:               # Information about the design file
     - tag1
     - tag2
     - tag3
+preview:                 # Information about the design preview
+  file_name: "preview.html" # The filename of the design preview
