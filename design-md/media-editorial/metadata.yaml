@@ -16,3 +16,4 @@ design_md:
     - news
 preview:
   file_name: "preview.html"
+  image_name: "preview.png"

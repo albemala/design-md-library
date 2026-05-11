@@ -17,3 +17,4 @@ design_md:
     - calm-ui
 preview:
   file_name: "preview.html"
+  image_name: "preview.png"

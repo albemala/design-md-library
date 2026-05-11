@@ -17,3 +17,4 @@ design_md:
     - conversion
 preview:
   file_name: "preview.html"
+  image_name: "preview.png"

@@ -16,3 +16,4 @@ design_md:
     - data-dense
 preview:
   file_name: "preview.html"
+  image_name: "preview.png"
