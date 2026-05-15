@@ -2,7 +2,7 @@
 
 Thanks for your interest in contributing.
 
-This repository is a curated, open library of high-quality `design.md` files. The goal is to build design systems that are actually useful for AI-generated UI, not just valid, but practical and reusable.
+This repository is a curated, open library of high-quality `DESIGN.md` files. The goal is to build design systems that are actually useful for AI-generated UI, not just valid, but practical and reusable.
 
 ## Contribution Principles
 
@@ -20,7 +20,7 @@ Before opening a Pull Request, it is strongly recommended to open an Issue first
 
 Use Issues to:
 
-* Propose a new `design.md` file
+* Propose a new `DESIGN.md` file
 * Suggest improvements to an existing file
 * Discuss scope and avoid duplication
 
@@ -28,7 +28,7 @@ Use Issues to:
 
 You can contribute by:
 
-* Adding a new `design.md` file
+* Adding a new `DESIGN.md` file
 * Improving or expanding an existing file
 * Fixing inconsistencies or unclear rules
 
@@ -40,16 +40,28 @@ Each design system must follow this structure:
 * Folder name must match the design name using slug-case
 * Inside the folder:
 
-  * `design.md`
-  * `metadata.yaml`
+  * `DESIGN.md` - The design system definition file.
+  * `metadata.yaml` - Metadata about the design system.
+  * `preview.html` - A self-contained HTML preview of the design system.
+  * `preview.png` - A high-quality screenshot of the preview.
 
 Example:
 
 ```
 /design-md/fintech-dashboard-minimal/
-  ├── design.md
-  └── metadata.yaml
+  ├── DESIGN.md
+  ├── metadata.yaml
+  ├── preview.html
+  └── preview.png
 ```
+
+### Generating Previews
+
+To ensure high quality and consistency, each submission must include a functional preview.
+
+* **HTML Preview**: Use the [design-md-to-html](.agents/skills/design-md-to-html/SKILL.md) skill to generate a high-quality, self-contained HTML showcase.
+* **LLM Recommendation**: Based on our experiments, **OpenAI GPT 5.5** (or the latest state-of-the-art model) provides the best results for generating the preview code, as it excels at following complex design tokens and constraints.
+* **Screenshot**: Once the `preview.html` is generated and verified, take a representative screenshot and save it as `preview.png`.
 
 Use the provided templates:
 
@@ -85,7 +97,7 @@ The PR template will require contributors to explicitly confirm this.
 
 ## Validation
 
-All `design.md` files are automatically validated in Pull Requests.
+All `DESIGN.md` files are automatically validated in Pull Requests.
 
 * The linter runs via CI
 * PRs that fail validation will not be accepted
