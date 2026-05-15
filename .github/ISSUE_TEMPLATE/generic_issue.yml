@@ -1,0 +1,17 @@
+name: "General Query or Other"
+description: "Have a general question, idea, or issue not covered by other templates?"
+title: "[Query]: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reaching out! If your query is related to proposing a design or reporting a website issue, please use the specific templates provided.
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: How can we help you? Please describe your query, issue, or idea in detail.
+      placeholder: "Your text here..."
+    validations:
+      required: true
