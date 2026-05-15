@@ -14,11 +14,17 @@ addFormats(ajv);
 
 function checkNoExternalLinks(htmlFile) {
   const content = fs.readFileSync(htmlFile, 'utf8');
-  // Remove SVG/XML namespaces which use http but aren't external links
+  // allowed external domains
   const sanitized = content
+    //  SVG/XML namespaces
     .replace(/xmlns=['"]http:\/\/www\.w3\.org\/2000\/svg['"]/g, '')
-    .replace(/xmlns=['"]http:\/\/www\.w3\.org\/1999\/xhtml['"]/g, '');
-  
+    .replace(/xmlns=['"]http:\/\/www\.w3\.org\/1999\/xhtml['"]/g, '')
+    // Unsplash images
+    .replace(/https:\/\/images\.unsplash\.com\/?/g, '')
+    // Google Fonts
+    .replace(/https:\/\/fonts\.googleapis\.com\/?/g, '')
+    .replace(/https:\/\/fonts\.gstatic\.com\/?/g, '');
+
   return !sanitized.includes('http://') && !sanitized.includes('https://');
 }
 

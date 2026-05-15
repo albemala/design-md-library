@@ -106,7 +106,7 @@ spacing:
   space-6: 24px
   space-8: 32px
   space-12: 48px
-  grid-columns: 12
+  grid-columns: "12"
   gutter: 24px
   page-margin-desktop: 32px
   page-margin-mobile: 16px
