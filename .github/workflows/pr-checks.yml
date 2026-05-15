@@ -14,18 +14,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
+          node-version: '22'
 
       - name: Install dependencies
         run: |
-          pip install pyyaml jsonschema
-          npm install -g @google/design.md
+          npm install js-yaml ajv ajv-formats
 
       - name: Run Checks
         run: |
-          python .github/scripts/check_pr.py
+          node .github/scripts/check_pr.js
