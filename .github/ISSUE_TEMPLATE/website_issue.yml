@@ -1,0 +1,38 @@
+name: "Website: Bug or Enhancement"
+description: "Report a bug or suggest an improvement for the design-md-library website."
+title: "[Website]: "
+labels: ["website"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to report issues with the website used to display the design systems or to propose new features for it.
+  - type: dropdown
+    id: feedback-type
+    attributes:
+      label: Feedback Type
+      options:
+        - Bug Report
+        - Enhancement/Feature Suggestion
+        - UI/UX Improvement
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Describe the issue or the suggestion.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce / Details
+      description: If this is a bug, please provide steps to reproduce it. If it's a suggestion, provide more context.
+      placeholder: "1. Go to... 2. Click on... 3. See error..."
+  - type: input
+    id: browser-info
+    attributes:
+      label: Browser & Device Info
+      description: (Optional) Mention your browser and device if relevant to a UI bug.

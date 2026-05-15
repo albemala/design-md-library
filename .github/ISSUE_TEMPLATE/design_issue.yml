@@ -1,0 +1,41 @@
+name: "Design: New Proposal or Issue"
+description: "Propose a new DESIGN.md file, suggest changes, or report issues with existing designs."
+title: "[Design]: "
+labels: ["design"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for wanting to contribute to the Design.md library! Please follow the guidelines in [CONTRIBUTING.md](https://github.com/albemala/design-md-library/blob/main/CONTRIBUTING.md).
+  - type: dropdown
+    id: request-type
+    attributes:
+      label: Type of Request
+      description: What are you looking to do?
+      options:
+        - Propose a New Design System
+        - Suggest Changes to an Existing Design
+        - Report an Issue/Inconsistency
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: design-name
+    attributes:
+      label: Design System Name
+      description: The name of the design system (e.g., "Creative Agency", "Fintech Dashboard").
+      placeholder: "e.g., Modern E-commerce"
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the proposal or issue.
+      placeholder: "What is the goal of this design? What problem does it solve?"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details & Rationale
+      description: Provide more details about the proposed tokens, rules, or the issue you found.
+      placeholder: "Describe the typography, color palette, or the specific inconsistency found."
