@@ -52,8 +52,9 @@ Create a checklist mapping tokens to HTML/CSS/JS:
 Generate a **single self-contained HTML file** with:
 - Embedded `<style>` implementing the tokens.
 - Embedded `<script>` for interactions.
-- No external dependencies or build steps.
-- Use system font fallbacks if font embedding is not specified.
+- No external dependencies or build steps (except Google Fonts).
+- **Typography Integration**: You must extract the exact font families and specific font weights defined in the `DESIGN.md` typography tokens. Ensure that the corresponding fonts are loaded via Google Fonts using the CSS2 API (e.g. `<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">`). ONLY load the specific font weights that are defined in the design system, avoiding loading unnecessary weights. Fall back to system fonts if the Google Font is unavailable.
+- **Images**: Images from `https://images.unsplash.com` can be used as placeholders if needed for the design.
 
 ## Verification Checklist
 
@@ -64,3 +65,5 @@ Before finalizing, ensure:
 - [ ] Status communication uses text labels, not just color.
 - [ ] Input validation happens on blur.
 - [ ] File is placed next to `DESIGN.md`.
+- [ ] Correct typography tokens (font family and weight) are applied.
+- [ ] Google Fonts are imported correctly, strictly limiting to the utilized font weights.
