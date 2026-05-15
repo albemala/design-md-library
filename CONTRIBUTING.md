@@ -43,7 +43,7 @@ Each design system must follow this structure:
   * `DESIGN.md` - The design system definition file.
   * `metadata.yaml` - Metadata about the design system.
   * `preview.html` - A self-contained HTML preview of the design system.
-  * `preview.png` - A high-quality screenshot of the preview.
+  * `preview.webp` - A high-quality screenshot of the preview.
 
 Example:
 
@@ -52,7 +52,7 @@ Example:
   ├── DESIGN.md
   ├── metadata.yaml
   ├── preview.html
-  └── preview.png
+  └── preview.webp
 ```
 
 ### Generating Previews
@@ -61,7 +61,7 @@ To ensure high quality and consistency, each submission must include a functiona
 
 * **HTML Preview**: Use the [design-md-to-html](.agents/skills/design-md-to-html/SKILL.md) skill to generate a high-quality, self-contained HTML showcase.
 * **LLM Recommendation**: Based on our experiments, **OpenAI GPT 5.5** (or the latest state-of-the-art model) provides the best results for generating the preview code, as it excels at following complex design tokens and constraints.
-* **Screenshot**: Once the `preview.html` is generated and verified, take a representative screenshot and save it as `preview.png`.
+* **Screenshot**: Once the `preview.html` is generated and verified, run `node scripts/generate-previews.js` to automatically generate the `preview.webp` screenshot.
 
 Use the provided templates:
 

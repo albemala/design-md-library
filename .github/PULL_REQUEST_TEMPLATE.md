@@ -17,7 +17,7 @@ Please provide a brief description of the changes in this PR.
 - [ ] The `DESIGN.md` file follows the Google guidelines and the required structure.
 - [ ] I have included a `metadata.yaml` file.
 - [ ] I have included a `preview.html` file (generated with `design-md-to-html`).
-- [ ] I have included a `preview.png` screenshot.
+- [ ] I have included a `preview.webp` screenshot (generated with `node scripts/generate-previews.js`).
 
 ## Related Issue
 

@@ -52,7 +52,7 @@ function main() {
 
     const designFile = path.join(entryPath, 'DESIGN.md');
     const previewHtml = path.join(entryPath, 'preview.html');
-    const previewPng = path.join(entryPath, 'preview.png');
+    const previewPng = path.join(entryPath, 'preview.webp');
     const metadataYaml = path.join(entryPath, 'metadata.yaml');
 
     if (!fs.existsSync(designFile)) continue;
@@ -79,9 +79,9 @@ function main() {
       }
     }
 
-    // 4. preview.png exists
+    // 4. preview.webp exists
     if (!fs.existsSync(previewPng)) {
-      errors.push(`${entry}: preview.png is missing`);
+      errors.push(`${entry}: preview.webp is missing`);
     }
 
     // 5. metadata correct

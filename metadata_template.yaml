@@ -14,5 +14,5 @@ design_md:               # Information about the design file
     - tag3
 preview:                 # Information about the design preview
   file_name: "preview.html" # The filename of the design preview
-  image_name: "preview.png" # The filename of the design preview image
+  image_name: "preview.webp" # The filename of the design preview image
 

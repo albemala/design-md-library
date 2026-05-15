@@ -47,7 +47,7 @@ properties:
         description: "The filename of the design preview (e.g., preview.html)"
       image_name:
         type: string
-        description: "The filename of the design preview image (e.g., preview.png)"
+        description: "The filename of the design preview image (e.g., preview.webp)"
     required:
       - file_name
       - image_name
