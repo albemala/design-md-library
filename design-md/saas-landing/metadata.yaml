@@ -1,0 +1,18 @@
+# yaml-language-server: $schema=../../metadata.schema.yaml
+
+author:
+  name: "albemala"
+  website: "https://github.com/albemala"
+  avatar: "https://avatars.githubusercontent.com/u/1594953?v=4"
+design_md:
+  title: "Forma"
+  description: "A SaaS landing page design system with a clean, professional, and slightly technical aesthetic."
+  tags:
+    - saas
+    - landing-page
+    - clean
+    - professional
+    - technical
+preview:
+  file_name: "preview.html"
+  image_name: "preview.webp"
