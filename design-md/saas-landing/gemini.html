@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskFlow - Minimal SaaS Landing Page</title>
+    <style>
+        /* --- 1. Variables & Design Tokens --- */
+        :root {
+            /* Colors */
+            --bg-page: #ffffff;
+            --bg-subtle: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --accent-main: #4338ca;
+            /* Primary accent color for CTAs */
+            --accent-hover: #3730a3;
+            --border-light: #e2e8f0;
+
+            /* Typography */
+            --font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+            /* Spacing & Layout */
+            --container-width: 1120px;
+            --spacing-section: 96px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+        }
+
+        /* --- 2. Global Resets & Typography --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 24px;
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            margin-bottom: 12px;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            margin-bottom: 32px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* --- 3. Layout & Structure --- */
+        .container {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: var(--spacing-section) 0;
+        }
+
+        .section-subtle {
+            background-color: var(--bg-subtle);
+            border-top: 1px solid var(--border-light);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* --- 4. Components --- */
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-main);
+            color: #ffffff;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--bg-subtle);
+        }
+
+        .btn-large {
+            padding: 16px 32px;
+            font-size: 1.125rem;
+        }
+
+        /* Cards */
+        .card {
+            background-color: var(--bg-page);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-lg);
+            padding: 40px 32px;
+        }
+
+        /* Icons */
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            background-color: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .icon-box svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* --- 5. Specific Sections --- */
+        /* Navigation */
+        .navbar {
+            padding: 24px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo-mark {
+            width: 24px;
+            height: 24px;
+            background-color: var(--text-primary);
+            border-radius: 4px;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Social Proof */
+        .social-proof {
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        .social-proof-label {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            font-weight: 600;
+        }
+
+        .logo-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 64px;
+            flex-wrap: wrap;
+            opacity: 0.5;
+            filter: grayscale(100%);
+        }
+
+        .logo-grid svg {
+            height: 32px;
+            width: auto;
+            fill: currentColor;
+        }
+
+        /* Features */
+        .section-header {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 64px;
+        }
+
+        /* Pricing */
+        .price-value {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .price-period {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin: 32px 0;
+            padding: 0;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        .feature-list svg {
+            width: 20px;
+            height: 20px;
+            color: var(--text-primary);
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 48px 0;
+            text-align: center;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+            }
+
+            .logo-grid {
+                gap: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="container">
+        <nav class="navbar">
+            <a href="#" class="logo">
+                <div class="logo-mark"></div>
+                TaskFlow
+            </a>
+            <div class="nav-actions">
+                <a href="#" class="btn btn-secondary">Log in</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <main>
+        <section class="hero container">
+            <h1>Manage your team's work without the clutter</h1>
+            <p>A strictly minimalist project management tool designed to help remote teams ship faster. No setup, no
+                noise, just focus.</p>
+            <div class="hero-actions">
+                <a href="#pricing" class="btn btn-primary btn-large">Start your free trial</a>
+                <a href="#features" class="btn btn-secondary btn-large">View features</a>
+            </div>
+        </section>
+
+        <!-- Social Proof -->
+        <section class="social-proof container">
+            <div class="social-proof-label">Trusted by modern engineering teams</div>
+            <div class="logo-grid">
+                <!-- Generic Logos via inline SVG -->
+                <svg viewBox="0 0 100 30"><text x="0" y="22" font-size="24" font-weight="700"
+                        font-family="sans-serif">ACME Corp</text></svg>
+                <svg viewBox="0 0 100 30"><text x="0" y="22" font-size="24" font-weight="700"
+                        font-family="sans-serif">GlobalNet</text></svg>
+                <svg viewBox="0 0 100 30"><text x="0" y="22" font-size="24" font-weight="700"
+                        font-family="sans-serif">StarkLabs</text></svg>
+                <svg viewBox="0 0 100 30"><text x="0" y="22" font-size="24" font-weight="700"
+                        font-family="sans-serif">Initech</text></svg>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section section-subtle">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Everything you need. Nothing you don't.</h2>
+                    <p>We stripped away complex menus and steep learning curves so your team can start working
+                        immediately.</p>
+                </div>
+
+                <div class="grid-3">
+                    <!-- Feature 1 -->
+                    <div class="card">
+                        <div class="icon-box">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg>
+                        </div>
+                        <h3>Lightning Fast</h3>
+                        <p style="margin-bottom: 0;">Navigate, update, and search your tasks instantly. Built for speed
+                            from the ground up.</p>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="card">
+                        <div class="icon-box">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3>Seamless Collaboration</h3>
+                        <p style="margin-bottom: 0;">Assign tasks, leave comments, and share documents with simple
+                            access controls.</p>
+                    </div>
+
+                    <!-- Feature 3 -->
+                    <div class="card">
+                        <div class="icon-box">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                                </path>
+                            </svg>
+                        </div>
+                        <h3>Kanban & Lists</h3>
+                        <p style="margin-bottom: 0;">View your work exactly how you want to. Toggle between simple lists
+                            and kanban boards seamlessly.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section id="pricing" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Simple, transparent pricing</h2>
+                    <p>Start for free, upgrade when your team grows.</p>
+                </div>
+
+                <div class="grid-2">
+                    <!-- Basic Tier -->
+                    <div class="card">
+                        <h3>Starter</h3>
+                        <p>Perfect for individuals and small projects.</p>
+                        <div class="price-value">$0<span class="price-period">/mo</span></div>
+
+                        <ul class="feature-list">
+                            <li>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Up to 3 users
+                            </li>
+                            <li>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Unlimited tasks
+                            </li>
+                            <li>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                7-day task history
+                            </li>
+                        </ul>
+                        <a href="#" class="btn btn-secondary" style="width: 100%;">Get Started</a>
+                    </div>
+
+                    <!-- Pro Tier -->
+                    <div class="card" style="border-color: var(--text-primary);">
+                        <h3>Professional</h3>
+                        <p>For growing teams that need more power.</p>
+                        <div class="price-value">$12<span class="price-period">/user/mo</span></div>
+
+                        <ul class="feature-list">
+                            <li>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Unlimited users
+                            </li>
+                            <li>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Unlimited task history
+                            </li>
+                            <li>
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                Advanced permissions
+                            </li>
+                        </ul>
+                        <a href="#" class="btn btn-primary" style="width: 100%;">Start 14-day free trial</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="section section-subtle text-center">
+            <div class="container">
+                <h2>Ready to declutter your workflow?</h2>
+                <p>Join thousands of teams shipping faster with TaskFlow.</p>
+                <a href="#" class="btn btn-primary btn-large">Get started for free</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 TaskFlow Inc. All rights reserved. Designed with minimal constraints.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

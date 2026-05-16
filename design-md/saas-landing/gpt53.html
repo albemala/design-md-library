@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS Landing</title>
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #111827;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: var(--muted);
+            font-size: 16px;
+        }
+
+        .center {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: #f9fafb;
+        }
+
+        .hero {
+            padding-top: 120px;
+            padding-bottom: 100px;
+        }
+
+        .hero p {
+            margin-bottom: 24px;
+            font-size: 18px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .logos {
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .logo {
+            font-weight: 600;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .pricing {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 32px;
+            margin-top: 48px;
+        }
+
+        .price {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 16px 0;
+        }
+
+        .plan ul {
+            list-style: none;
+            margin: 16px 0;
+        }
+
+        .plan li {
+            margin-bottom: 8px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .cta {
+            text-align: center;
+        }
+
+        footer {
+            padding: 40px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 14px;
+            color: var(--muted);
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <div class="container center">
+            <h1>Build better products, faster</h1>
+            <p>Our platform helps teams streamline workflows, collaborate efficiently, and ship faster with confidence.
+            </p>
+            <a href="#" class="btn btn-primary">Get Started</a>
+        </div>
+    </section>
+
+    <section>
+        <div class="container center">
+            <h2>Everything you need to scale</h2>
+            <p>Powerful features designed to help your team move faster without complexity.</p>
+            <div class="features">
+                <div class="card">
+                    <h3>Fast Integration</h3>
+                    <p>Connect your tools in minutes with simple, flexible integrations.</p>
+                </div>
+                <div class="card">
+                    <h3>Real-time Collaboration</h3>
+                    <p>Work together seamlessly with instant updates and shared workflows.</p>
+                </div>
+                <div class="card">
+                    <h3>Advanced Analytics</h3>
+                    <p>Gain insights with clear dashboards and actionable data.</p>
+                </div>
+                <div class="card">
+                    <h3>Secure by Design</h3>
+                    <p>Enterprise-grade security built into every layer of the platform.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container center">
+            <h2>Trusted by leading teams</h2>
+            <p>Thousands of companies rely on our platform every day.</p>
+            <div class="logos">
+                <div class="logo">CompanyOne</div>
+                <div class="logo">TechCorp</div>
+                <div class="logo">InnovateX</div>
+                <div class="logo">NextGen</div>
+                <div class="logo">FutureLabs</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="container center">
+            <h2>Simple, transparent pricing</h2>
+            <p>Choose a plan that fits your needs. Upgrade anytime.</p>
+            <div class="pricing">
+                <div class="card plan">
+                    <h3>Starter</h3>
+                    <div class="price">$9/mo</div>
+                    <ul>
+                        <li>Basic features</li>
+                        <li>Email support</li>
+                        <li>Up to 3 users</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Choose Plan</a>
+                </div>
+
+                <div class="card plan">
+                    <h3>Pro</h3>
+                    <div class="price">$29/mo</div>
+                    <ul>
+                        <li>All core features</li>
+                        <li>Priority support</li>
+                        <li>Unlimited users</li>
+                    </ul>
+                    <a href="#" class="btn btn-primary">Choose Plan</a>
+                </div>
+
+                <div class="card plan">
+                    <h3>Enterprise</h3>
+                    <div class="price">Custom</div>
+                    <ul>
+                        <li>Advanced features</li>
+                        <li>Dedicated support</li>
+                        <li>Custom solutions</li>
+                    </ul>
+                    <a href="#" class="btn btn-secondary">Contact Sales</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta">
+        <div class="container center">
+            <h2>Start building today</h2>
+            <p>Join thousands of teams already using our platform.</p>
+            <a href="#" class="btn btn-primary">Get Started</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            © 2026 Your Company. All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.preventDefault();
+            });
+        });
+    </script>
+
+</body>
+
+</html>
