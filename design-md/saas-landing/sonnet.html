@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forma — Smarter Workflows</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
-
         *,
         *::before,
         *::after {
@@ -17,17 +20,24 @@
         }
 
         :root {
-            --bg: #fafaf9;
+            --bg: #f8f7f5;
             --surface: #ffffff;
-            --border: #e8e6e1;
-            --border-subtle: #f0ede8;
-            --text-primary: #1a1916;
-            --text-secondary: #6b6860;
-            --text-tertiary: #a09e9a;
+            --border: #e4e1db;
+            --border-subtle: #edeae4;
+            --border-strong: #d2cfc8;
+            --text-primary: #18170f;
+            --text-secondary: #64625c;
+            --text-tertiary: #9c9a96;
             --accent: #2d6a4f;
-            --accent-hover: #235c43;
-            --accent-light: #e8f4ee;
-            --accent-text: #1a4332;
+            --accent-hover: #245f47;
+            --accent-light: #e5f1eb;
+            --accent-mid: #c4dece;
+            --accent-text: #163d2c;
+            --shadow-xs: 0 1px 2px rgba(24, 23, 15, 0.05);
+            --shadow-sm: 0 1px 4px rgba(24, 23, 15, 0.06), 0 1px 2px rgba(24, 23, 15, 0.04);
+            --shadow-md: 0 4px 16px rgba(24, 23, 15, 0.07), 0 1px 3px rgba(24, 23, 15, 0.04);
+            --shadow-green: 0 2px 8px rgba(45, 106, 79, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
             --mono: 'DM Mono', monospace;
             --sans: 'DM Sans', sans-serif;
         }
@@ -43,61 +53,77 @@
             font-size: 16px;
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* NAV */
+        /* ── NAV ── */
         nav {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(250, 250, 249, 0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 0 2rem;
-            height: 60px;
+            background: rgba(248, 247, 245, 0.86);
+            backdrop-filter: blur(18px) saturate(180%);
+            -webkit-backdrop-filter: blur(18px) saturate(180%);
+            border-bottom: 1px solid transparent;
+            padding: 0 clamp(1.25rem, 4vw, 2.5rem);
+            height: 58px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            transition: border-color 0.25s, box-shadow 0.25s;
+        }
+
+        nav.scrolled {
+            border-color: var(--border-subtle);
+            box-shadow: var(--shadow-xs);
         }
 
         .nav-logo {
             font-family: var(--mono);
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 500;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.025em;
             color: var(--text-primary);
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 9px;
+            transition: opacity 0.15s;
         }
 
-        .nav-logo-mark {
-            width: 22px;
-            height: 22px;
+        .nav-logo:hover {
+            opacity: 0.7;
+        }
+
+        .nav-mark {
+            width: 24px;
+            height: 24px;
             background: var(--accent);
-            border-radius: 5px;
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 1px 4px rgba(45, 106, 79, 0.35);
+            flex-shrink: 0;
         }
 
-        .nav-logo-mark svg {
-            width: 12px;
-            height: 12px;
+        .nav-mark svg {
+            width: 13px;
+            height: 13px;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 2rem;
+            gap: 1.75rem;
             list-style: none;
         }
 
         .nav-links a {
-            font-size: 14px;
+            font-size: 13.5px;
             color: var(--text-secondary);
             text-decoration: none;
+            letter-spacing: -0.01em;
             transition: color 0.15s;
         }
 
@@ -108,154 +134,193 @@
         .nav-cta {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
-        /* BUTTONS */
+        /* ── BUTTONS ── */
         .btn-primary {
             background: var(--accent);
             color: #fff;
-            border: none;
-            padding: 9px 20px;
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 8px 18px;
             border-radius: 7px;
             font-family: var(--sans);
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 500;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: background 0.15s, transform 0.1s;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.015em;
+            box-shadow: var(--shadow-green);
+            transition: background 0.18s var(--ease), box-shadow 0.18s var(--ease), transform 0.1s;
         }
 
         .btn-primary:hover {
             background: var(--accent-hover);
+            box-shadow: 0 3px 10px rgba(45, 106, 79, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.12);
         }
 
         .btn-primary:active {
-            transform: scale(0.98);
+            transform: scale(0.975);
         }
 
         .btn-primary-lg {
-            padding: 13px 28px;
+            padding: 12px 26px;
             font-size: 15px;
-            border-radius: 8px;
+            border-radius: 9px;
         }
 
-        .btn-secondary {
+        .btn-ghost {
             background: transparent;
             color: var(--text-secondary);
             border: 1px solid var(--border);
-            padding: 9px 20px;
+            padding: 8px 18px;
             border-radius: 7px;
             font-family: var(--sans);
-            font-size: 14px;
+            font-size: 13.5px;
             font-weight: 400;
             cursor: pointer;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            transition: border-color 0.15s, color 0.15s;
+            letter-spacing: -0.01em;
+            box-shadow: var(--shadow-xs);
+            transition: border-color 0.15s, color 0.15s, box-shadow 0.15s, transform 0.1s;
         }
 
-        .btn-secondary:hover {
-            border-color: var(--text-tertiary);
+        .btn-ghost:hover {
+            border-color: var(--border-strong);
             color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
         }
 
-        /* HERO */
+        .btn-ghost:active {
+            transform: scale(0.975);
+        }
+
+        /* ── HERO ── */
         .hero {
-            max-width: 720px;
+            max-width: 660px;
             margin: 0 auto;
-            padding: 100px 2rem 96px;
+            padding: 108px clamp(1.25rem, 4vw, 2rem) 88px;
             text-align: center;
         }
 
         .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 7px;
             background: var(--accent-light);
+            border: 1px solid var(--accent-mid);
             color: var(--accent-text);
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 500;
-            padding: 5px 12px;
+            padding: 4px 12px 4px 10px;
             border-radius: 20px;
-            margin-bottom: 28px;
-            letter-spacing: 0.01em;
+            margin-bottom: 34px;
             font-family: var(--mono);
+            letter-spacing: 0.01em;
         }
 
-        .hero-badge::before {
-            content: '';
+        .badge-dot {
             width: 6px;
             height: 6px;
             border-radius: 50%;
             background: var(--accent);
-            display: block;
+            flex-shrink: 0;
+            animation: blink 2.6s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.4;
+                transform: scale(0.8);
+            }
         }
 
         h1 {
-            font-size: clamp(2.4rem, 5vw, 3.5rem);
+            font-size: clamp(2.5rem, 5.5vw, 4.2rem);
             font-weight: 300;
-            line-height: 1.1;
-            letter-spacing: -0.04em;
+            line-height: 1.07;
+            /* letter-spacing: -0.046em; */
             color: var(--text-primary);
-            margin-bottom: 24px;
+            margin-bottom: 22px;
         }
 
         h1 em {
             font-style: normal;
-            font-weight: 500;
+            font-weight: 700;
         }
 
         .hero-sub {
-            font-size: 18px;
+            font-size: 17px;
             color: var(--text-secondary);
-            line-height: 1.65;
-            max-width: 480px;
+            line-height: 1.7;
+            max-width: 400px;
             margin: 0 auto 40px;
             font-weight: 300;
+            letter-spacing: -0.01em;
         }
 
         .hero-actions {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             flex-wrap: wrap;
         }
 
         .hero-meta {
-            margin-top: 20px;
-            font-size: 13px;
+            margin-top: 18px;
+            font-size: 12px;
             color: var(--text-tertiary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: -0.005em;
         }
 
-        /* HERO VISUAL */
+        .meta-sep {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: var(--border-strong);
+            flex-shrink: 0;
+        }
+
+        /* ── APP FRAME ── */
         .hero-visual {
-            max-width: 860px;
-            margin: 0 auto 0;
-            padding: 0 2rem 80px;
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 clamp(1.25rem, 4vw, 2.5rem) 96px;
         }
 
         .app-frame {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
+            box-shadow: var(--shadow-md), 0 0 0 1px rgba(24, 23, 15, 0.015);
         }
 
-        .app-frame-bar {
+        .frame-bar {
             background: var(--bg);
             border-bottom: 1px solid var(--border-subtle);
-            padding: 10px 16px;
+            padding: 11px 16px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
         }
 
         .dot {
@@ -265,172 +330,268 @@
         }
 
         .dot-r {
-            background: #ffbdbe;
+            background: #f5b8b8;
         }
 
         .dot-y {
-            background: #ffd48a;
+            background: #f9ce82;
         }
 
         .dot-g {
-            background: #a8e6b8;
+            background: #a3e2b3;
+        }
+
+        .frame-url {
+            flex: 1;
+            text-align: center;
+            font-family: var(--mono);
+            font-size: 11px;
+            color: var(--text-tertiary);
+            letter-spacing: 0.01em;
+            pointer-events: none;
         }
 
         .app-inner {
             display: grid;
-            grid-template-columns: 200px 1fr;
-            min-height: 300px;
+            grid-template-columns: 192px 1fr;
+            min-height: 320px;
         }
 
         .app-sidebar {
             border-right: 1px solid var(--border-subtle);
-            padding: 16px 12px;
-        }
-
-        .sidebar-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 7px 10px;
-            border-radius: 6px;
-            font-size: 13px;
-            color: var(--text-secondary);
-            cursor: pointer;
-            transition: background 0.12s;
-            margin-bottom: 2px;
-        }
-
-        .sidebar-item:hover {
+            padding: 12px 10px;
             background: var(--bg);
         }
 
-        .sidebar-item.active {
+        .sidebar-group-label {
+            font-size: 9.5px;
+            font-family: var(--mono);
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: var(--text-tertiary);
+            padding: 0 10px;
+            margin: 12px 0 5px;
+        }
+
+        .sidebar-group-label:first-child {
+            margin-top: 2px;
+        }
+
+        .s-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: background 0.12s, color 0.12s;
+            margin-bottom: 1px;
+        }
+
+        .s-item:hover {
+            background: rgba(24, 23, 15, 0.04);
+            color: var(--text-primary);
+        }
+
+        .s-item.active {
             background: var(--accent-light);
             color: var(--accent-text);
             font-weight: 500;
         }
 
-        .sidebar-icon {
-            width: 16px;
-            height: 16px;
-            opacity: 0.6;
+        .s-icon {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+            opacity: 0.5;
         }
 
-        .sidebar-item.active .sidebar-icon {
+        .s-item.active .s-icon {
             opacity: 1;
         }
 
         .app-main {
-            padding: 20px 24px;
+            padding: 20px 22px;
         }
 
-        .app-main-header {
+        .app-header {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            gap: 12px;
         }
 
-        .app-title {
-            font-size: 14px;
+        .sprint-tag {
+            font-size: 9.5px;
+            font-family: var(--mono);
+            background: var(--accent-light);
+            color: var(--accent-text);
+            border: 1px solid var(--accent-mid);
+            padding: 2px 7px;
+            border-radius: 4px;
+            letter-spacing: 0.02em;
+            margin-bottom: 4px;
+            display: inline-block;
+        }
+
+        .app-proj-title {
+            font-size: 13.5px;
             font-weight: 500;
+            letter-spacing: -0.02em;
         }
 
-        .app-title-sub {
-            font-size: 12px;
+        .app-proj-sub {
+            font-size: 11.5px;
             color: var(--text-tertiary);
-            margin-top: 1px;
+            margin-top: 2px;
+        }
+
+        .prog-bar {
+            width: 130px;
+            height: 3px;
+            background: var(--border-subtle);
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .prog-fill {
+            height: 100%;
+            width: 66.7%;
+            background: var(--accent);
+            border-radius: 2px;
         }
 
         .task-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
 
-        .task-row {
+        .t-row {
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 9px 12px;
+            padding: 8px 12px;
             border: 1px solid var(--border-subtle);
-            border-radius: 7px;
-            font-size: 13px;
-            background: var(--bg);
+            border-radius: 8px;
+            font-size: 12.5px;
+            background: var(--surface);
+            cursor: default;
+            transition: border-color 0.15s, box-shadow 0.15s;
         }
 
-        .task-check {
-            width: 16px;
-            height: 16px;
+        .t-row:hover {
+            border-color: var(--border);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .t-check {
+            width: 15px;
+            height: 15px;
             border-radius: 4px;
-            border: 1.5px solid var(--border);
+            border: 1.5px solid var(--border-strong);
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: background 0.12s, border-color 0.12s;
         }
 
-        .task-check.done {
+        .t-check.done {
             background: var(--accent);
             border-color: var(--accent);
         }
 
-        .task-check.done::after {
+        .t-check.done::after {
             content: '';
             width: 6px;
-            height: 4px;
+            height: 3.5px;
             border-left: 1.5px solid #fff;
             border-bottom: 1.5px solid #fff;
-            transform: rotate(-45deg) translateY(-1px);
+            transform: rotate(-45deg) translateY(-0.5px);
             display: block;
         }
 
-        .task-text {
+        .t-text {
             flex: 1;
             color: var(--text-primary);
         }
 
-        .task-text.done {
+        .t-text.done {
             color: var(--text-tertiary);
             text-decoration: line-through;
         }
 
-        .task-tag {
-            font-size: 11px;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-family: var(--mono);
+        .t-av {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8.5px;
+            font-weight: 500;
+            flex-shrink: 0;
+            letter-spacing: 0.01em;
         }
 
-        .tag-green {
+        .av-g {
             background: var(--accent-light);
             color: var(--accent-text);
         }
 
-        .tag-gray {
+        .av-b {
+            background: #e2edf9;
+            color: #1c4880;
+        }
+
+        .av-o {
+            background: #fef2df;
+            color: #8a5810;
+        }
+
+        .t-tag {
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 4px;
+            font-family: var(--mono);
+            letter-spacing: 0.01em;
+            flex-shrink: 0;
+        }
+
+        .tag-g {
+            background: var(--accent-light);
+            color: var(--accent-text);
+        }
+
+        .tag-gr {
             background: var(--border-subtle);
             color: var(--text-tertiary);
         }
 
-        .tag-amber {
-            background: #fef9ec;
-            color: #92640a;
+        .tag-a {
+            background: #fef3e0;
+            color: #8a5810;
         }
 
-        /* LOGOS */
+        /* ── LOGOS ── */
         .logos-section {
             border-top: 1px solid var(--border-subtle);
             border-bottom: 1px solid var(--border-subtle);
-            padding: 40px 2rem;
+            padding: 44px clamp(1.25rem, 4vw, 2.5rem);
             text-align: center;
         }
 
         .logos-label {
-            font-size: 12px;
+            font-size: 10.5px;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.12em;
             color: var(--text-tertiary);
-            margin-bottom: 28px;
+            margin-bottom: 26px;
             font-family: var(--mono);
         }
 
@@ -438,82 +599,113 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 48px;
+            gap: clamp(24px, 5vw, 52px);
             flex-wrap: wrap;
         }
 
         .logo-item {
             font-family: var(--mono);
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 500;
             color: var(--text-tertiary);
             letter-spacing: -0.02em;
+            transition: color 0.15s;
+            cursor: default;
         }
 
-        /* FEATURES */
+        .logo-item:hover {
+            color: var(--text-secondary);
+        }
+
+        /* ── SECTIONS ── */
         .section {
             max-width: 960px;
             margin: 0 auto;
-            padding: 96px 2rem;
+            padding: 96px clamp(1.25rem, 4vw, 2.5rem);
         }
 
-        .section-label {
+        .section-eyebrow {
             font-family: var(--mono);
-            font-size: 12px;
+            font-size: 10.5px;
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--accent);
-            margin-bottom: 12px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
         }
 
-        .section-heading {
-            font-size: clamp(1.7rem, 3vw, 2.4rem);
+        .section-eyebrow::before {
+            content: '';
+            width: 18px;
+            height: 1.5px;
+            background: var(--accent);
+            display: block;
+            flex-shrink: 0;
+        }
+
+        .section-h {
+            font-size: clamp(1.75rem, 3.2vw, 2.5rem);
             font-weight: 300;
-            letter-spacing: -0.03em;
-            line-height: 1.15;
+            /* letter-spacing: -0.04em; */
+            line-height: 1.1;
             color: var(--text-primary);
-            max-width: 520px;
+            max-width: 500px;
             margin-bottom: 16px;
         }
 
-        .section-heading em {
+        .section-h em {
             font-style: normal;
-            font-weight: 500;
+            font-weight: 700;
         }
 
-        .section-sub {
-            font-size: 16px;
+        .section-p {
+            font-size: 15px;
             color: var(--text-secondary);
-            max-width: 440px;
-            line-height: 1.65;
+            max-width: 380px;
+            line-height: 1.7;
             font-weight: 300;
-            margin-bottom: 56px;
+            margin-bottom: 52px;
+            letter-spacing: -0.01em;
         }
 
+        /* ── FEATURES ── */
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
             gap: 1px;
             background: var(--border-subtle);
             border: 1px solid var(--border-subtle);
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
+            box-shadow: var(--shadow-sm);
         }
 
-        .feature-card {
+        .feat-card {
             background: var(--surface);
             padding: 28px 28px 32px;
-            transition: background 0.15s;
+            transition: background 0.2s var(--ease);
+            position: relative;
         }
 
-        .feature-card:hover {
-            background: var(--bg);
+        .feat-card:hover {
+            background: #fdfcfa;
         }
 
-        .feature-icon {
-            width: 36px;
-            height: 36px;
+        .feat-num {
+            font-family: var(--mono);
+            font-size: 10px;
+            color: var(--text-tertiary);
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .feat-icon {
+            width: 34px;
+            height: 34px;
             background: var(--accent-light);
+            border: 1px solid var(--accent-mid);
             border-radius: 8px;
             display: flex;
             align-items: center;
@@ -521,28 +713,27 @@
             margin-bottom: 16px;
         }
 
-        .feature-icon svg {
-            width: 16px;
-            height: 16px;
-            color: var(--accent);
+        .feat-icon svg {
+            width: 15px;
+            height: 15px;
         }
 
-        .feature-title {
-            font-size: 15px;
+        .feat-title {
+            font-size: 14px;
             font-weight: 500;
             color: var(--text-primary);
             margin-bottom: 8px;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.025em;
         }
 
-        .feature-desc {
-            font-size: 14px;
+        .feat-desc {
+            font-size: 13.5px;
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.65;
             font-weight: 300;
         }
 
-        /* TESTIMONIALS */
+        /* ── TESTIMONIALS ── */
         .testimonials-section {
             background: var(--surface);
             border-top: 1px solid var(--border-subtle);
@@ -552,79 +743,113 @@
         .testimonials-inner {
             max-width: 960px;
             margin: 0 auto;
-            padding: 80px 2rem;
+            padding: 88px clamp(1.25rem, 4vw, 2.5rem);
         }
 
         .testimonials-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            margin-top: 48px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin-top: 52px;
         }
 
-        .testimonial-card {
+        .t-card {
             background: var(--bg);
             border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            padding: 24px;
+            border-radius: 12px;
+            padding: 24px 26px;
+            transition: border-color 0.2s, box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
         }
 
-        .testimonial-quote {
-            font-size: 15px;
+        .t-card:hover {
+            border-color: var(--border);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
+        }
+
+        .stars {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 14px;
+        }
+
+        .star {
+            width: 11px;
+            height: 11px;
+            background: var(--accent);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        .t-quote {
+            font-size: 14px;
             color: var(--text-primary);
-            line-height: 1.65;
+            line-height: 1.7;
             font-weight: 300;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
+            letter-spacing: -0.01em;
         }
 
-        .testimonial-author {
+        .t-divider {
+            height: 1px;
+            background: var(--border-subtle);
+            margin-bottom: 16px;
+        }
+
+        .t-author {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
         .avatar {
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
+            font-size: 10.5px;
             font-weight: 500;
             flex-shrink: 0;
+            letter-spacing: 0.02em;
         }
 
         .av-green {
             background: var(--accent-light);
             color: var(--accent-text);
+            border: 1px solid var(--accent-mid);
         }
 
         .av-blue {
-            background: #e7f1fd;
-            color: #1a4a8a;
+            background: #e2edf9;
+            color: #1c4880;
+            border: 1px solid #c6d9f1;
         }
 
         .av-amber {
-            background: #fef5e3;
-            color: #92640a;
+            background: #fef2df;
+            color: #8a5810;
+            border: 1px solid #f2d9a4;
         }
 
         .author-name {
-            font-size: 13px;
+            font-size: 12.5px;
             font-weight: 500;
+            letter-spacing: -0.015em;
         }
 
         .author-role {
-            font-size: 12px;
+            font-size: 11.5px;
             color: var(--text-tertiary);
+            margin-top: 1px;
+            letter-spacing: -0.01em;
         }
 
-        /* PRICING */
+        /* ── PRICING ── */
         .pricing-section {
-            max-width: 860px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 96px 2rem;
+            padding: 96px clamp(1.25rem, 4vw, 2.5rem);
             text-align: center;
         }
 
@@ -632,70 +857,87 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 16px;
-            margin-top: 48px;
+            margin-top: 52px;
             text-align: left;
         }
 
-        .pricing-card {
+        .p-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 12px;
+            border-radius: 14px;
             padding: 28px;
             position: relative;
+            box-shadow: var(--shadow-xs);
+            transition: box-shadow 0.2s var(--ease), transform 0.2s var(--ease);
         }
 
-        .pricing-card.featured {
+        .p-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .p-card.featured {
             border-color: var(--accent);
             border-width: 1.5px;
+            box-shadow: 0 0 0 3px var(--accent-light), var(--shadow-sm);
         }
 
-        .pricing-badge {
+        .p-card.featured:hover {
+            box-shadow: 0 0 0 3px var(--accent-light), var(--shadow-md);
+        }
+
+        .p-badge {
             position: absolute;
-            top: -11px;
+            top: -12px;
             left: 50%;
             transform: translateX(-50%);
             background: var(--accent);
             color: #fff;
-            font-size: 11px;
+            font-size: 10px;
             font-family: var(--mono);
             padding: 3px 12px;
             border-radius: 20px;
             white-space: nowrap;
             letter-spacing: 0.04em;
+            box-shadow: 0 2px 6px rgba(45, 106, 79, 0.28);
         }
 
-        .pricing-tier {
-            font-size: 12px;
+        .p-tier {
+            font-size: 10.5px;
             font-family: var(--mono);
             text-transform: uppercase;
             letter-spacing: 0.1em;
             color: var(--text-tertiary);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
-        .pricing-price {
-            font-size: 2.4rem;
+        .p-price {
+            font-size: 2.7rem;
             font-weight: 300;
-            letter-spacing: -0.04em;
+            letter-spacing: -0.05em;
             color: var(--text-primary);
             line-height: 1;
             margin-bottom: 4px;
         }
 
-        .pricing-price sup {
-            font-size: 1rem;
+        .p-price sup {
+            font-size: 1.05rem;
             vertical-align: top;
-            padding-top: 6px;
+            padding-top: 8px;
             font-weight: 400;
+            opacity: 0.65;
         }
 
-        .pricing-period {
-            font-size: 13px;
+        .p-period {
+            font-size: 12px;
             color: var(--text-tertiary);
             margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            letter-spacing: -0.005em;
         }
 
-        .pricing-features {
+        .p-features {
             list-style: none;
             margin-bottom: 28px;
             display: flex;
@@ -703,64 +945,78 @@
             gap: 10px;
         }
 
-        .pricing-features li {
+        .p-features li {
             display: flex;
             align-items: flex-start;
-            gap: 8px;
-            font-size: 14px;
+            gap: 9px;
+            font-size: 13.5px;
             color: var(--text-secondary);
+            line-height: 1.5;
         }
 
-        .pricing-features li::before {
-            content: '';
+        .chk {
             width: 16px;
             height: 16px;
             flex-shrink: 0;
-            margin-top: 1px;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%232d6a4f' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-            background-size: contain;
-            background-repeat: no-repeat;
+            margin-top: 0;
+            background: var(--accent-light);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        /* FINAL CTA */
+        .chk::after {
+            content: '';
+            width: 7px;
+            height: 4px;
+            border-left: 1.5px solid var(--accent);
+            border-bottom: 1.5px solid var(--accent);
+            transform: rotate(-45deg) translateY(-0.5px);
+            display: block;
+        }
+
+        /* ── CTA ── */
         .cta-section {
             background: var(--text-primary);
-            padding: 80px 2rem;
+            padding: 88px clamp(1.25rem, 4vw, 2.5rem);
             text-align: center;
         }
 
         .cta-inner {
-            max-width: 560px;
+            max-width: 500px;
             margin: 0 auto;
         }
 
         .cta-section h2 {
-            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-size: clamp(1.9rem, 3.8vw, 2.8rem);
             font-weight: 300;
-            letter-spacing: -0.04em;
+            /* letter-spacing: -0.046em; */
             color: #fff;
-            margin-bottom: 16px;
-            line-height: 1.15;
+            margin-bottom: 14px;
+            line-height: 1.1;
         }
 
         .cta-section h2 em {
             font-style: normal;
-            font-weight: 500;
+            font-weight: 700;
         }
 
         .cta-section p {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.42);
             margin-bottom: 36px;
             font-weight: 300;
+            letter-spacing: -0.01em;
+            line-height: 1.65;
         }
 
         .btn-light {
             background: #fff;
             color: var(--text-primary);
             border: none;
-            padding: 13px 28px;
-            border-radius: 8px;
+            padding: 12px 26px;
+            border-radius: 9px;
             font-family: var(--sans);
             font-size: 15px;
             font-weight: 500;
@@ -768,29 +1024,43 @@
             text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            transition: opacity 0.15s, transform 0.1s;
-            letter-spacing: -0.01em;
+            gap: 7px;
+            letter-spacing: -0.015em;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.22);
+            transition: opacity 0.15s, box-shadow 0.15s, transform 0.1s;
         }
 
         .btn-light:hover {
-            opacity: 0.92;
+            opacity: 0.93;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
         }
 
         .btn-light:active {
-            transform: scale(0.98);
+            transform: scale(0.975);
         }
 
         .cta-note {
             margin-top: 16px;
-            font-size: 13px;
-            color: rgba(255, 255, 255, 0.3);
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.28);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            letter-spacing: -0.005em;
         }
 
-        /* FOOTER */
+        .cta-sep {
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* ── FOOTER ── */
         footer {
             border-top: 1px solid var(--border-subtle);
-            padding: 40px 2rem;
+            padding: 36px clamp(1.25rem, 4vw, 2.5rem);
         }
 
         .footer-inner {
@@ -803,9 +1073,41 @@
             gap: 16px;
         }
 
+        .footer-logo {
+            font-family: var(--mono);
+            font-size: 13.5px;
+            font-weight: 500;
+            letter-spacing: -0.025em;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: opacity 0.15s;
+        }
+
+        .footer-logo:hover {
+            opacity: 0.7;
+        }
+
+        .footer-mark {
+            width: 20px;
+            height: 20px;
+            background: var(--border-subtle);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-mark svg {
+            width: 11px;
+            height: 11px;
+        }
+
         .footer-links {
             display: flex;
-            gap: 24px;
+            gap: 20px;
             list-style: none;
         }
 
@@ -813,6 +1115,7 @@
             font-size: 13px;
             color: var(--text-tertiary);
             text-decoration: none;
+            letter-spacing: -0.01em;
             transition: color 0.15s;
         }
 
@@ -821,38 +1124,31 @@
         }
 
         .footer-copy {
-            font-size: 13px;
+            font-size: 12.5px;
             color: var(--text-tertiary);
+            letter-spacing: -0.01em;
         }
 
-        /* UTILITY */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
+        /* ── SCROLL REVEAL ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(18px);
+            transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
         }
 
-        @media (max-width: 600px) {
+        .reveal.in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 640px) {
             nav {
                 padding: 0 1.25rem;
             }
 
             .nav-links {
                 display: none;
-            }
-
-            .hero {
-                padding: 64px 1.25rem 64px;
-            }
-
-            .hero-visual {
-                padding: 0 1.25rem 56px;
             }
 
             .app-inner {
@@ -863,16 +1159,13 @@
                 display: none;
             }
 
-            .section {
-                padding: 64px 1.25rem;
-            }
-
-            .logos-row {
-                gap: 28px;
-            }
-
             .pricing-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: flex-start;
             }
         }
     </style>
@@ -881,14 +1174,14 @@
 <body>
 
     <!-- NAV -->
-    <nav>
+    <nav id="nav">
         <a href="#" class="nav-logo">
-            <span class="nav-logo-mark">
-                <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="1" y="1" width="4" height="4" rx="1" fill="white" />
-                    <rect x="7" y="1" width="4" height="4" rx="1" fill="white" opacity="0.6" />
-                    <rect x="1" y="7" width="4" height="4" rx="1" fill="white" opacity="0.6" />
-                    <rect x="7" y="7" width="4" height="4" rx="1" fill="white" opacity="0.3" />
+            <span class="nav-mark">
+                <svg viewBox="0 0 13 13" fill="none">
+                    <rect x="1" y="1" width="4.5" height="4.5" rx="1.2" fill="white" />
+                    <rect x="7.5" y="1" width="4.5" height="4.5" rx="1.2" fill="white" opacity="0.55" />
+                    <rect x="1" y="7.5" width="4.5" height="4.5" rx="1.2" fill="white" opacity="0.55" />
+                    <rect x="7.5" y="7.5" width="4.5" height="4.5" rx="1.2" fill="white" opacity="0.24" />
                 </svg>
             </span>
             forma
@@ -900,115 +1193,136 @@
             <li><a href="#">Docs</a></li>
         </ul>
         <div class="nav-cta">
-            <a href="#" class="btn-secondary">Sign in</a>
+            <a href="#" class="btn-ghost">Sign in</a>
             <a href="#" class="btn-primary">Start free</a>
         </div>
     </nav>
 
     <!-- HERO -->
     <section class="hero">
-        <div class="hero-badge">Now in public beta</div>
+        <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Now in public beta
+        </div>
         <h1>Work without<br><em>the friction</em></h1>
-        <p class="hero-sub">Forma brings your tasks, docs, and team together in one calm, focused workspace. Less noise.
-            More done.</p>
+        <p class="hero-sub">Forma brings your tasks, docs, and team into one calm workspace. Less noise. More done.</p>
         <div class="hero-actions">
             <a href="#" class="btn-primary btn-primary-lg">
                 Get started free
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                     <path d="M3 7h8M7.5 3.5L11 7l-3.5 3.5" stroke="currentColor" stroke-width="1.5"
                         stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </a>
-            <a href="#" class="btn-secondary" style="padding: 13px 24px; font-size: 15px; border-radius: 8px;">See how
-                it works</a>
+            <a href="#" class="btn-ghost" style="padding:12px 22px; font-size:15px; border-radius:9px;">See how it
+                works</a>
         </div>
-        <p class="hero-meta">Free for 14 days. No credit card required.</p>
+        <div class="hero-meta">
+            <span>Free for 14 days</span>
+            <span class="meta-sep"></span>
+            <span>No credit card</span>
+            <span class="meta-sep"></span>
+            <span>Cancel anytime</span>
+        </div>
     </section>
 
-    <!-- APP SCREENSHOT -->
-    <div class="hero-visual">
+    <!-- APP FRAME -->
+    <div class="hero-visual reveal">
         <div class="app-frame">
-            <div class="app-frame-bar">
+            <div class="frame-bar">
                 <span class="dot dot-r"></span>
                 <span class="dot dot-y"></span>
                 <span class="dot dot-g"></span>
+                <span class="frame-url">forma.app / q4-launch-sprint</span>
             </div>
             <div class="app-inner">
                 <div class="app-sidebar">
-                    <div class="sidebar-item active">
-                        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none">
-                            <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2" />
-                            <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2" />
-                            <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2" />
-                            <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.2" />
+                    <div class="sidebar-group-label">Workspace</div>
+                    <div class="s-item active">
+                        <svg class="s-icon" viewBox="0 0 16 16" fill="none">
+                            <rect x="2" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3" />
+                            <rect x="9" y="2" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3" />
+                            <rect x="2" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3" />
+                            <rect x="9" y="9" width="5" height="5" rx="1" stroke="currentColor" stroke-width="1.3" />
                         </svg>
                         Overview
                     </div>
-                    <div class="sidebar-item">
-                        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none">
-                            <path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.2"
+                    <div class="s-item">
+                        <svg class="s-icon" viewBox="0 0 16 16" fill="none">
+                            <path d="M2 4h12M2 8h8M2 12h10" stroke="currentColor" stroke-width="1.3"
                                 stroke-linecap="round" />
                         </svg>
                         Tasks
                     </div>
-                    <div class="sidebar-item">
-                        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none">
+                    <div class="s-item">
+                        <svg class="s-icon" viewBox="0 0 16 16" fill="none">
                             <rect x="2" y="3" width="12" height="10" rx="1.5" stroke="currentColor"
-                                stroke-width="1.2" />
-                            <path d="M5 3V2M11 3V2" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
-                            <path d="M2 6h12" stroke="currentColor" stroke-width="1.2" />
+                                stroke-width="1.3" />
+                            <path d="M5 3V2M11 3V2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
+                            <path d="M2 6h12" stroke="currentColor" stroke-width="1.3" />
                         </svg>
                         Projects
                     </div>
-                    <div class="sidebar-item">
-                        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none">
-                            <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.2" />
-                            <path d="M8 5v3.5l2 1.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" />
+                    <div class="s-item">
+                        <svg class="s-icon" viewBox="0 0 16 16" fill="none">
+                            <circle cx="8" cy="8" r="5.5" stroke="currentColor" stroke-width="1.3" />
+                            <path d="M8 5v3.2l2 1.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" />
                         </svg>
                         Activity
                     </div>
-                    <div class="sidebar-item" style="margin-top: 12px;">
-                        <svg class="sidebar-icon" viewBox="0 0 16 16" fill="none">
-                            <circle cx="8" cy="5" r="2.5" stroke="currentColor" stroke-width="1.2" />
-                            <path d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.2"
+                    <div class="sidebar-group-label">Account</div>
+                    <div class="s-item">
+                        <svg class="s-icon" viewBox="0 0 16 16" fill="none">
+                            <circle cx="8" cy="5.5" r="2.5" stroke="currentColor" stroke-width="1.3" />
+                            <path d="M3 13.5c0-2.76 2.24-5 5-5s5 2.24 5 5" stroke="currentColor" stroke-width="1.3"
                                 stroke-linecap="round" />
                         </svg>
                         Team
                     </div>
                 </div>
                 <div class="app-main">
-                    <div class="app-main-header">
+                    <div class="app-header">
                         <div>
-                            <div class="app-title">Q4 Launch Sprint</div>
-                            <div class="app-title-sub">6 of 9 tasks complete</div>
+                            <span class="sprint-tag">Sprint</span>
+                            <div class="app-proj-title">Q4 Launch Sprint</div>
+                            <div class="app-proj-sub">6 of 9 tasks complete</div>
+                            <div class="prog-bar">
+                                <div class="prog-fill"></div>
+                            </div>
                         </div>
-                        <a href="#" class="btn-primary" style="font-size: 12px; padding: 6px 14px;">+ Add task</a>
+                        <a href="#" class="btn-primary" style="font-size:11.5px; padding:5px 12px; border-radius:6px;">+
+                            Add task</a>
                     </div>
                     <div class="task-list">
-                        <div class="task-row">
-                            <div class="task-check done"></div>
-                            <span class="task-text done">Finalize onboarding copy</span>
-                            <span class="task-tag tag-green">Done</span>
+                        <div class="t-row">
+                            <div class="t-check done"></div>
+                            <span class="t-text done">Finalize onboarding copy</span>
+                            <div class="t-av av-g">SL</div>
+                            <span class="t-tag tag-g">Done</span>
                         </div>
-                        <div class="task-row">
-                            <div class="task-check done"></div>
-                            <span class="task-text done">Design system audit</span>
-                            <span class="task-tag tag-green">Done</span>
+                        <div class="t-row">
+                            <div class="t-check done"></div>
+                            <span class="t-text done">Design system audit</span>
+                            <div class="t-av av-b">TK</div>
+                            <span class="t-tag tag-g">Done</span>
                         </div>
-                        <div class="task-row">
-                            <div class="task-check"></div>
-                            <span class="task-text">Set up billing integration</span>
-                            <span class="task-tag tag-amber">In progress</span>
+                        <div class="t-row">
+                            <div class="t-check"></div>
+                            <span class="t-text">Set up billing integration</span>
+                            <div class="t-av av-o">JM</div>
+                            <span class="t-tag tag-a">In progress</span>
                         </div>
-                        <div class="task-row">
-                            <div class="task-check"></div>
-                            <span class="task-text">Write API documentation</span>
-                            <span class="task-tag tag-gray">Pending</span>
+                        <div class="t-row">
+                            <div class="t-check"></div>
+                            <span class="t-text">Write API documentation</span>
+                            <div class="t-av av-g">SL</div>
+                            <span class="t-tag tag-gr">Pending</span>
                         </div>
-                        <div class="task-row">
-                            <div class="task-check"></div>
-                            <span class="task-text">QA testing round 2</span>
-                            <span class="task-tag tag-gray">Pending</span>
+                        <div class="t-row">
+                            <div class="t-check"></div>
+                            <span class="t-text">QA testing round 2</span>
+                            <div class="t-av av-b">TK</div>
+                            <span class="t-tag tag-gr">Pending</span>
                         </div>
                     </div>
                 </div>
@@ -1031,53 +1345,60 @@
 
     <!-- FEATURES -->
     <section class="section" id="features">
-        <div class="section-label">Features</div>
-        <h2 class="section-heading">Everything your team needs. <em>Nothing it doesn't.</em></h2>
-        <p class="section-sub">Built around the way small, focused teams actually work — not enterprise org charts.</p>
-        <div class="features-grid">
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" color="currentColor">
-                        <path d="M2 4h12M2 8h8M2 12h5" stroke="var(--accent)" stroke-width="1.5"
+        <div class="section-eyebrow">Features</div>
+        <h2 class="section-h">Everything your team needs. <em>Nothing it doesn't.</em></h2>
+        <p class="section-p">Built around the way small, focused teams actually work — not enterprise org charts.</p>
+        <div class="features-grid reveal">
+            <div class="feat-card">
+                <div class="feat-num">01</div>
+                <div class="feat-icon">
+                    <svg viewBox="0 0 16 16" fill="none">
+                        <path d="M2 4h12M2 8h8M2 12h5" stroke="var(--accent)" stroke-width="1.6"
                             stroke-linecap="round" />
                     </svg>
                 </div>
-                <div class="feature-title">Unified task board</div>
-                <p class="feature-desc">One place for every task, comment, and status update. No more hunting across
-                    apps.</p>
+                <div class="feat-title">Unified task board</div>
+                <p class="feat-desc">One place for every task, comment, and status update. No more hunting across apps.
+                </p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M8 2a6 6 0 100 12A6 6 0 008 2zm0 0v6l3 2" stroke="var(--accent)" stroke-width="1.5"
+            <div class="feat-card">
+                <div class="feat-num">02</div>
+                <div class="feat-icon">
+                    <svg viewBox="0 0 16 16" fill="none">
+                        <circle cx="8" cy="8" r="5.5" stroke="var(--accent)" stroke-width="1.6" />
+                        <path d="M8 5v3.2l2.2 1.5" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </div>
+                <div class="feat-title">Real-time sync</div>
+                <p class="feat-desc">Your team always sees the same thing. Changes appear instantly, no refreshing
+                    needed.</p>
+            </div>
+            <div class="feat-card">
+                <div class="feat-num">03</div>
+                <div class="feat-icon">
+                    <svg viewBox="0 0 16 16" fill="none">
+                        <path d="M2 11l3-3 2.5 2.5L11 7l3 2" stroke="var(--accent)" stroke-width="1.6"
                             stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
-                <div class="feature-title">Real-time sync</div>
-                <p class="feature-desc">Your team always sees the same thing. Changes appear instantly, no refreshing
-                    needed.</p>
+                <div class="feat-title">Smart automations</div>
+                <p class="feat-desc">Set up recurring tasks, auto-assign work, and trigger notifications — no code
+                    required.</p>
             </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12.5 4.5l-7 7-3-3" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round" />
+            <div class="feat-card">
+                <div class="feat-num">04</div>
+                <div class="feat-icon">
+                    <svg viewBox="0 0 16 16" fill="none">
+                        <rect x="2.5" y="2.5" width="4" height="4" rx="0.8" stroke="var(--accent)" stroke-width="1.6" />
+                        <rect x="9.5" y="2.5" width="4" height="4" rx="0.8" stroke="var(--accent)" stroke-width="1.6" />
+                        <rect x="2.5" y="9.5" width="4" height="4" rx="0.8" stroke="var(--accent)" stroke-width="1.6" />
+                        <rect x="9.5" y="9.5" width="4" height="4" rx="0.8" stroke="var(--accent)" stroke-width="1.6" />
                     </svg>
                 </div>
-                <div class="feature-title">Smart automations</div>
-                <p class="feature-desc">Set up recurring tasks, auto-assign work, and trigger notifications without
-                    writing a line of code.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">
-                    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 3h4v4H3zM9 3h4v4H9zM3 9h4v4H3zM9 9h4v4H9z" stroke="var(--accent)" stroke-width="1.5"
-                            stroke-linejoin="round" />
-                    </svg>
-                </div>
-                <div class="feature-title">Flexible views</div>
-                <p class="feature-desc">Switch between list, board, and calendar. Each person sees work the way they
-                    think.</p>
+                <div class="feat-title">Flexible views</div>
+                <p class="feat-desc">Switch between list, board, and calendar. Each person sees work the way they think.
+                </p>
             </div>
         </div>
     </section>
@@ -1085,13 +1406,21 @@
     <!-- TESTIMONIALS -->
     <div class="testimonials-section" id="testimonials">
         <div class="testimonials-inner">
-            <div class="section-label">Customers</div>
-            <h2 class="section-heading">Teams that made<br><em>the switch</em></h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-quote">"We cut our weekly planning meeting in half. Forma just shows us what
-                        needs to happen and who's on it."</p>
-                    <div class="testimonial-author">
+            <div class="section-eyebrow">Customers</div>
+            <h2 class="section-h">Teams that made <em>the switch</em></h2>
+            <div class="testimonials-grid reveal">
+                <div class="t-card">
+                    <div class="stars">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                    <p class="t-quote">"We cut our weekly planning meeting in half. Forma just shows us what needs to
+                        happen and who's on it."</p>
+                    <div class="t-divider"></div>
+                    <div class="t-author">
                         <div class="avatar av-green">SL</div>
                         <div>
                             <div class="author-name">Sarah Lin</div>
@@ -1099,10 +1428,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote">"The simplicity is the feature. Our team actually uses it, every day,
-                        without being asked to."</p>
-                    <div class="testimonial-author">
+                <div class="t-card">
+                    <div class="stars">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                    <p class="t-quote">"The simplicity is the feature. Our team actually uses it, every day, without
+                        being asked to."</p>
+                    <div class="t-divider"></div>
+                    <div class="t-author">
                         <div class="avatar av-blue">TK</div>
                         <div>
                             <div class="author-name">Tom Kwan</div>
@@ -1110,10 +1447,18 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote">"I've tried everything. Forma is the first tool that doesn't make me
-                        feel like I'm working for the software."</p>
-                    <div class="testimonial-author">
+                <div class="t-card">
+                    <div class="stars">
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                        <div class="star"></div>
+                    </div>
+                    <p class="t-quote">"I've tried everything. Forma is the first tool that doesn't make me feel like
+                        I'm working for the software."</p>
+                    <div class="t-divider"></div>
+                    <div class="t-author">
                         <div class="avatar av-amber">JM</div>
                         <div>
                             <div class="author-name">Jess Mora</div>
@@ -1127,53 +1472,52 @@
 
     <!-- PRICING -->
     <section class="pricing-section" id="pricing">
-        <div class="section-label" style="text-align: center;">Pricing</div>
-        <h2 class="section-heading" style="max-width: 100%; text-align: center;">Simple, <em>transparent</em> pricing
-        </h2>
-        <p class="section-sub" style="margin: 0 auto 0; text-align: center; max-width: 380px;">No per-seat traps. Pick a
-            plan that fits your team and get everything, including future updates.</p>
-        <div class="pricing-grid">
-            <div class="pricing-card">
-                <div class="pricing-tier">Starter</div>
-                <div class="pricing-price"><sup>$</sup>0</div>
-                <div class="pricing-period">Free forever</div>
-                <ul class="pricing-features">
-                    <li>Up to 3 team members</li>
-                    <li>10 active projects</li>
-                    <li>7-day activity log</li>
-                    <li>Standard support</li>
+        <div class="section-eyebrow" style="justify-content:center;">Pricing</div>
+        <h2 class="section-h" style="max-width:100%; text-align:center;">Simple, <em>transparent</em> pricing</h2>
+        <p class="section-p" style="margin:0 auto; text-align:center; max-width:340px;">No per-seat traps. Pick a plan
+            and get everything, including future updates.</p>
+        <div class="pricing-grid reveal">
+            <div class="p-card">
+                <div class="p-tier">Starter</div>
+                <div class="p-price"><sup>$</sup>0</div>
+                <div class="p-period">Free forever</div>
+                <ul class="p-features">
+                    <li><span class="chk"></span>Up to 3 team members</li>
+                    <li><span class="chk"></span>10 active projects</li>
+                    <li><span class="chk"></span>7-day activity log</li>
+                    <li><span class="chk"></span>Standard support</li>
                 </ul>
-                <a href="#" class="btn-secondary"
-                    style="width: 100%; justify-content: center; padding: 10px; font-size: 14px;">Get started free</a>
+                <a href="#" class="btn-ghost"
+                    style="width:100%; justify-content:center; padding:11px; font-size:13.5px;">Get started free</a>
             </div>
-            <div class="pricing-card featured">
-                <div class="pricing-badge">Most popular</div>
-                <div class="pricing-tier">Team</div>
-                <div class="pricing-price"><sup>$</sup>24</div>
-                <div class="pricing-period">per month, up to 15 members</div>
-                <ul class="pricing-features">
-                    <li>Unlimited members</li>
-                    <li>Unlimited projects</li>
-                    <li>Full activity history</li>
-                    <li>Automations & integrations</li>
-                    <li>Priority support</li>
+            <div class="p-card featured">
+                <div class="p-badge">Most popular</div>
+                <div class="p-tier">Team</div>
+                <div class="p-price"><sup>$</sup>24</div>
+                <div class="p-period">per month · up to 15 members</div>
+                <ul class="p-features">
+                    <li><span class="chk"></span>Unlimited members</li>
+                    <li><span class="chk"></span>Unlimited projects</li>
+                    <li><span class="chk"></span>Full activity history</li>
+                    <li><span class="chk"></span>Automations &amp; integrations</li>
+                    <li><span class="chk"></span>Priority support</li>
                 </ul>
                 <a href="#" class="btn-primary"
-                    style="width: 100%; justify-content: center; padding: 10px; font-size: 14px;">Start 14-day trial</a>
+                    style="width:100%; justify-content:center; padding:11px; font-size:13.5px;">Start 14-day trial</a>
             </div>
-            <div class="pricing-card">
-                <div class="pricing-tier">Enterprise</div>
-                <div class="pricing-price" style="font-size: 1.8rem; padding-top: 6px; font-weight: 400;">Custom</div>
-                <div class="pricing-period">Volume pricing</div>
-                <ul class="pricing-features">
-                    <li>SSO & advanced security</li>
-                    <li>Dedicated onboarding</li>
-                    <li>Custom contracts & SLAs</li>
-                    <li>Audit logs & compliance</li>
-                    <li>Dedicated account manager</li>
+            <div class="p-card">
+                <div class="p-tier">Enterprise</div>
+                <div class="p-price" style="font-size:2rem; padding-top:6px; line-height:1.2;">Custom</div>
+                <div class="p-period">Volume pricing</div>
+                <ul class="p-features">
+                    <li><span class="chk"></span>SSO &amp; advanced security</li>
+                    <li><span class="chk"></span>Dedicated onboarding</li>
+                    <li><span class="chk"></span>Custom contracts &amp; SLAs</li>
+                    <li><span class="chk"></span>Audit logs &amp; compliance</li>
+                    <li><span class="chk"></span>Dedicated account manager</li>
                 </ul>
-                <a href="#" class="btn-secondary"
-                    style="width: 100%; justify-content: center; padding: 10px; font-size: 14px;">Contact sales</a>
+                <a href="#" class="btn-ghost"
+                    style="width:100%; justify-content:center; padding:11px; font-size:13.5px;">Contact sales</a>
             </div>
         </div>
     </section>
@@ -1182,7 +1526,7 @@
     <div class="cta-section">
         <div class="cta-inner">
             <h2>Ready to <em>get to work?</em></h2>
-            <p>Join 4,000+ teams who have already made the switch. Set up takes under 5 minutes.</p>
+            <p>Join 4,000+ teams who have already made the switch. Setup takes under 5 minutes.</p>
             <a href="#" class="btn-light">
                 Start your free trial
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1190,20 +1534,29 @@
                         stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
             </a>
-            <p class="cta-note">14 days free. No credit card. Cancel anytime.</p>
+            <div class="cta-note">
+                <span>14 days free</span>
+                <span class="cta-sep"></span>
+                <span>No credit card</span>
+                <span class="cta-sep"></span>
+                <span>Cancel anytime</span>
+            </div>
         </div>
     </div>
 
     <!-- FOOTER -->
     <footer>
         <div class="footer-inner">
-            <a href="#" class="nav-logo" style="color: var(--text-tertiary);">
-                <span class="nav-logo-mark" style="background: var(--border);">
-                    <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="1" y="1" width="4" height="4" rx="1" fill="var(--text-tertiary)" />
-                        <rect x="7" y="1" width="4" height="4" rx="1" fill="var(--text-tertiary)" opacity="0.6" />
-                        <rect x="1" y="7" width="4" height="4" rx="1" fill="var(--text-tertiary)" opacity="0.6" />
-                        <rect x="7" y="7" width="4" height="4" rx="1" fill="var(--text-tertiary)" opacity="0.3" />
+            <a href="#" class="footer-logo">
+                <span class="footer-mark">
+                    <svg viewBox="0 0 13 13" fill="none">
+                        <rect x="1" y="1" width="4.5" height="4.5" rx="1.2" fill="var(--text-tertiary)" />
+                        <rect x="7.5" y="1" width="4.5" height="4.5" rx="1.2" fill="var(--text-tertiary)"
+                            opacity="0.5" />
+                        <rect x="1" y="7.5" width="4.5" height="4.5" rx="1.2" fill="var(--text-tertiary)"
+                            opacity="0.5" />
+                        <rect x="7.5" y="7.5" width="4.5" height="4.5" rx="1.2" fill="var(--text-tertiary)"
+                            opacity="0.22" />
                     </svg>
                 </span>
                 forma
@@ -1219,14 +1572,23 @@
     </footer>
 
     <script>
-        document.querySelectorAll('a[href="#"]').forEach(a => {
-            a.addEventListener('click', e => e.preventDefault());
-        });
+        document.querySelectorAll('a[href="#"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
 
-        const nav = document.querySelector('nav');
+        const nav = document.getElementById('nav');
         window.addEventListener('scroll', () => {
-            nav.style.boxShadow = window.scrollY > 10 ? '0 1px 0 var(--border-subtle)' : 'none';
-        });
+            nav.classList.toggle('scrolled', window.scrollY > 6);
+        }, { passive: true });
+
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in');
+                    io.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
     </script>
 </body>
 
