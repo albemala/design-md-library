@@ -1,7 +1,7 @@
 ---
 version: alpha
-name: Fintech Dashboard
-description: A precision-focused financial dashboard design system optimized for trust, clarity, and high-density numeric interfaces.
+name: Fintech Dashboard — Clean
+description: A precision-focused financial dashboard design system optimized for trust, clarity, and high-density numeric interfaces. Clean, institutional design with a focus on readability and structured financial workflows.
 colors:
   primary: "#0052CC"
   primary-hover: "#003D99"
