@@ -1,0 +1,2103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meridian — Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f4f4f2;
+            --surface: #ffffff;
+            --surface-subtle: #f9f9f7;
+            --border: #e5e5e1;
+            --border-soft: #ededea;
+            --border-focus: #2f6ef7;
+            --text-primary: #181816;
+            --text-secondary: #64645e;
+            --text-tertiary: #a0a09a;
+            --text-disabled: #c5c5bf;
+            --accent: #2f6ef7;
+            --accent-hover: #2460e0;
+            --accent-light: #edf1fe;
+            --accent-dim: #c7d6fc;
+            --accent-glow: rgba(47, 110, 247, 0.18);
+            --green: #16a34a;
+            --green-bg: #f0fdf4;
+            --green-border: #bbf7d0;
+            --red: #dc2626;
+            --red-bg: #fef2f2;
+            --amber: #b45309;
+            --amber-bg: #fffbeb;
+            --amber-border: #fde68a;
+            --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+            --radius-xs: 4px;
+            --radius-sm: 8px;
+            --radius: 12px;
+            --nav-w: 228px;
+            --top-h: 60px;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --dur-fast: 120ms;
+            --dur: 180ms;
+        }
+
+        html,
+        body {
+            height: 100%;
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            font-size: 14px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ─── LAYOUT ─── */
+        .layout {
+            display: grid;
+            grid-template-columns: var(--nav-w) 1fr;
+            grid-template-rows: var(--top-h) 1fr;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ─── TOP NAV ─── */
+        .topnav {
+            grid-column: 1 / -1;
+            display: flex;
+            align-items: center;
+            padding: 0 20px 0 0;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 20;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: var(--nav-w);
+            padding: 0 20px;
+            flex-shrink: 0;
+            border-right: 1px solid var(--border);
+            height: 100%;
+        }
+
+        .logo-mark {
+            width: 27px;
+            height: 27px;
+            background: var(--accent);
+            border-radius: 7px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+            box-shadow: 0 1px 5px var(--accent-glow), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        .logo-mark svg {
+            width: 13px;
+            height: 13px;
+            fill: white;
+        }
+
+        .logo-name {
+            font-weight: 600;
+            font-size: 14.5px;
+            letter-spacing: -0.35px;
+        }
+
+        .search-wrap {
+            flex: 1;
+            max-width: 320px;
+            margin: 0 20px;
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-tertiary);
+            width: 14px;
+            height: 14px;
+            pointer-events: none;
+            transition: color var(--dur) var(--ease);
+        }
+
+        .search-input {
+            width: 100%;
+            height: 32px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg);
+            padding: 0 56px 0 30px;
+            font-family: inherit;
+            font-size: 13px;
+            color: var(--text-primary);
+            transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background var(--dur) var(--ease);
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-tertiary);
+            font-size: 13px;
+        }
+
+        .search-wrap:focus-within .search-icon {
+            color: var(--accent);
+        }
+
+        .search-input:focus {
+            border-color: var(--border-focus);
+            background: var(--surface);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        .kbd-hint {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            gap: 2px;
+            pointer-events: none;
+        }
+
+        .kbd-hint span {
+            font-family: 'DM Mono', monospace;
+            font-size: 10px;
+            color: var(--text-tertiary);
+            background: var(--surface-subtle);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 1px 4px;
+            line-height: 1.4;
+        }
+
+        .topnav-right {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-sm);
+            border: 1px solid transparent;
+            background: transparent;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            color: var(--text-tertiary);
+            transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+            position: relative;
+        }
+
+        .icon-btn svg {
+            width: 15px;
+            height: 15px;
+        }
+
+        .icon-btn:hover {
+            background: var(--bg);
+            border-color: var(--border);
+            color: var(--text-secondary);
+        }
+
+        .icon-btn:focus-visible {
+            outline: none;
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        .notif-pip::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            border: 1.5px solid var(--surface);
+        }
+
+        .nav-sep {
+            width: 1px;
+            height: 20px;
+            background: var(--border);
+            margin: 0 6px;
+            flex-shrink: 0;
+        }
+
+        .avatar-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 3px 9px 3px 3px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: transparent;
+            cursor: pointer;
+            transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+            margin-left: 2px;
+        }
+
+        .avatar-btn:hover {
+            background: var(--bg);
+            border-color: #d0d0cc;
+        }
+
+        .avatar-img {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1.5px solid var(--border);
+        }
+
+        .avatar-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .avatar-name {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .avatar-caret {
+            color: var(--text-tertiary);
+            width: 11px;
+            height: 11px;
+        }
+
+        /* ─── SIDEBAR ─── */
+        .sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 14px 10px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-group {
+            margin-bottom: 2px;
+        }
+
+        .nav-section-label {
+            display: block;
+            font-size: 9.5px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-disabled);
+            padding: 12px 10px 4px;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 7px 10px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-size: 13.5px;
+            font-weight: 400;
+            transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+            text-decoration: none;
+            user-select: none;
+            position: relative;
+        }
+
+        .nav-item svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            stroke: currentColor;
+            fill: none;
+        }
+
+        .nav-item:hover {
+            background: var(--bg);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active {
+            background: var(--accent-light);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 0 3px 3px 0;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--accent);
+            color: white;
+            font-size: 9.5px;
+            font-weight: 600;
+            padding: 1.5px 6px;
+            border-radius: 20px;
+            letter-spacing: 0.02em;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding-top: 12px;
+        }
+
+        .plan-card {
+            background: var(--accent-light);
+            border: 1px solid var(--accent-dim);
+            border-radius: var(--radius-sm);
+            padding: 11px 12px;
+        }
+
+        .plan-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2px;
+        }
+
+        .plan-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .plan-action {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--accent);
+            opacity: 0.7;
+            cursor: pointer;
+        }
+
+        .plan-action:hover {
+            opacity: 1;
+        }
+
+        .plan-sub {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .plan-bar-bg {
+            height: 3px;
+            background: var(--accent-dim);
+            border-radius: 10px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .plan-bar-fill {
+            height: 100%;
+            width: 41%;
+            background: var(--accent);
+            border-radius: 10px;
+        }
+
+        /* ─── MAIN ─── */
+        .main {
+            overflow-y: auto;
+            padding: 24px 24px 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .main::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .main::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        .main::-webkit-scrollbar-thumb:hover {
+            background: #c8c8c3;
+        }
+
+        /* ─── PAGE HEADER ─── */
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding-bottom: 2px;
+        }
+
+        .page-title {
+            font-size: 18.5px;
+            font-weight: 600;
+            letter-spacing: -0.45px;
+            line-height: 1.2;
+        }
+
+        .page-sub {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 4px;
+            font-weight: 400;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ─── DATE FILTER ─── */
+        .date-filter {
+            display: flex;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 3px;
+            gap: 1px;
+            box-shadow: var(--shadow-xs);
+        }
+
+        .date-opt {
+            padding: 4px 11px;
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+            user-select: none;
+            line-height: 1.4;
+        }
+
+        .date-opt:hover {
+            background: var(--bg);
+            color: var(--text-primary);
+        }
+
+        .date-opt.active {
+            background: var(--text-primary);
+            color: white;
+        }
+
+        /* ─── BUTTONS ─── */
+        .btn {
+            height: 33px;
+            padding: 0 14px;
+            border-radius: var(--radius-sm);
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: background var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+            border: 1px solid transparent;
+            outline: none;
+            white-space: nowrap;
+            letter-spacing: -0.1px;
+        }
+
+        .btn:active {
+            transform: scale(0.975);
+        }
+
+        .btn svg {
+            width: 13px;
+            height: 13px;
+            flex-shrink: 0;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            box-shadow: 0 1px 3px rgba(47, 110, 247, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+            box-shadow: 0 3px 10px rgba(47, 110, 247, 0.34), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+        }
+
+        .btn-primary:focus-visible {
+            box-shadow: 0 0 0 3px var(--accent-light);
+        }
+
+        .btn-secondary {
+            background: var(--surface);
+            color: var(--text-secondary);
+            border-color: var(--border);
+            box-shadow: var(--shadow-xs);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg);
+            color: var(--text-primary);
+            border-color: #d0d0cc;
+        }
+
+        .btn-secondary:focus-visible {
+            box-shadow: 0 0 0 3px var(--accent-light);
+            border-color: var(--border-focus);
+        }
+
+        .btn-sm {
+            height: 27px;
+            font-size: 12px;
+            padding: 0 10px;
+            gap: 5px;
+        }
+
+        .btn-sm svg {
+            width: 11px;
+            height: 11px;
+        }
+
+        /* ─── CARD ─── */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 18px 20px;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: #dadad5;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 12px;
+        }
+
+        .card-title {
+            font-size: 13.5px;
+            font-weight: 600;
+            color: var(--text-primary);
+            letter-spacing: -0.2px;
+            line-height: 1.3;
+        }
+
+        .card-desc {
+            font-size: 11.5px;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+
+        .card-action {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            cursor: pointer;
+            transition: color var(--dur-fast) var(--ease);
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            flex-shrink: 0;
+            padding-top: 1px;
+        }
+
+        .card-action:hover {
+            color: var(--accent);
+        }
+
+        .card-action svg {
+            width: 10px;
+            height: 10px;
+        }
+
+        /* ─── METRICS GRID ─── */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 13px;
+        }
+
+        .metric-card {
+            padding: 16px 18px 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 11px;
+        }
+
+        .metric-label {
+            font-size: 11.5px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            letter-spacing: 0.01em;
+            line-height: 1.3;
+            padding-top: 1px;
+        }
+
+        .metric-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+
+        .metric-icon svg {
+            width: 13px;
+            height: 13px;
+        }
+
+        .metric-icon.blue {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .metric-icon.green {
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1px solid var(--green-border);
+        }
+
+        .metric-icon.amber {
+            background: var(--amber-bg);
+            color: var(--amber);
+            border: 1px solid var(--amber-border);
+        }
+
+        .metric-value {
+            font-family: 'DM Mono', monospace;
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+            line-height: 1;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+            margin-bottom: 10px;
+        }
+
+        .metric-spark {
+            margin-bottom: 10px;
+        }
+
+        .metric-spark svg {
+            width: 100%;
+            height: 34px;
+            overflow: visible;
+            display: block;
+        }
+
+        .metric-footer {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .metric-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 2px 5px;
+            border-radius: var(--radius-xs);
+        }
+
+        .metric-change svg {
+            width: 10px;
+            height: 10px;
+        }
+
+        .metric-change.up {
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1px solid var(--green-border);
+        }
+
+        .metric-change.down {
+            background: var(--red-bg);
+            color: var(--red);
+        }
+
+        .metric-period {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        /* ─── MID GRID ─── */
+        .mid-grid {
+            display: grid;
+            grid-template-columns: 5fr 3fr;
+            gap: 13px;
+        }
+
+        /* ─── BAR CHART ─── */
+        .chart-header-row {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 18px;
+            gap: 12px;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 1px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11.5px;
+            color: var(--text-secondary);
+        }
+
+        .legend-swatch {
+            width: 10px;
+            height: 3px;
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+
+        .bar-chart-wrap {
+            position: relative;
+        }
+
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 5px;
+            height: 168px;
+            padding-bottom: 24px;
+            position: relative;
+        }
+
+        .bar-grid {
+            position: absolute;
+            inset: 0 0 24px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            pointer-events: none;
+        }
+
+        .bar-grid-line {
+            width: 100%;
+            border-top: 1px solid var(--border-soft);
+        }
+
+        .bar-grid-line:first-child {
+            border-top-color: var(--border);
+        }
+
+        .bar-group {
+            flex: 1;
+            display: flex;
+            gap: 2px;
+            align-items: flex-end;
+            position: relative;
+            cursor: pointer;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .bar-group:hover .bar {
+            opacity: 0.8;
+        }
+
+        .bar-group:hover .bar.primary {
+            opacity: 1;
+        }
+
+        .bar {
+            flex: 1;
+            border-radius: 3px 3px 0 0;
+            transition: opacity var(--dur-fast) var(--ease);
+        }
+
+        .bar.primary {
+            background: var(--accent);
+        }
+
+        .bar.secondary {
+            background: var(--accent-dim);
+        }
+
+        .bar-lbl {
+            position: absolute;
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 9.5px;
+            color: var(--text-tertiary);
+            white-space: nowrap;
+        }
+
+        .chart-tip {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            background: var(--text-primary);
+            color: white;
+            font-size: 10.5px;
+            padding: 5px 9px;
+            border-radius: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+            font-family: 'DM Mono', monospace;
+            box-shadow: var(--shadow-lg);
+            z-index: 50;
+        }
+
+        .chart-tip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid transparent;
+            border-top-color: var(--text-primary);
+        }
+
+        .bar-group:hover .chart-tip {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ─── SOURCES CARD ─── */
+        .sources-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .source-row {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .source-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .source-name {
+            font-size: 12.5px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .source-pct {
+            font-size: 11.5px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            font-family: 'DM Mono', monospace;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .source-track {
+            height: 5px;
+            background: var(--bg);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .source-fill {
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .card-divider {
+            height: 1px;
+            background: var(--border-soft);
+            margin: 15px -20px;
+        }
+
+        .status-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 11px;
+        }
+
+        .status-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .status-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .status-key {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+        }
+
+        .status-val {
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'DM Mono', monospace;
+        }
+
+        .status-val.good {
+            color: var(--green);
+        }
+
+        .status-val.neutral {
+            color: var(--text-primary);
+        }
+
+        /* ─── BADGE ─── */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 10.5px;
+            font-weight: 600;
+            padding: 2.5px 7px;
+            border-radius: 20px;
+            letter-spacing: 0.01em;
+        }
+
+        .badge-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: currentColor;
+            flex-shrink: 0;
+        }
+
+        .badge-success {
+            background: var(--green-bg);
+            color: var(--green);
+            border: 1px solid var(--green-border);
+        }
+
+        .badge-warning {
+            background: var(--amber-bg);
+            color: var(--amber);
+            border: 1px solid var(--amber-border);
+        }
+
+        /* ─── BOTTOM GRID ─── */
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 13px;
+        }
+
+        /* ─── ACTIVITY ─── */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .activity-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 9px 0;
+            border-bottom: 1px solid var(--border-soft);
+        }
+
+        .activity-item:first-child {
+            padding-top: 0;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .activity-ava-wrap {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .activity-ava {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1.5px solid var(--border);
+            background: var(--bg);
+        }
+
+        .activity-ava img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .activity-pip {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            border: 1.5px solid var(--surface);
+            position: absolute;
+            bottom: -1px;
+            right: -1px;
+        }
+
+        .activity-body {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-text {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            line-height: 1.45;
+        }
+
+        .activity-text strong {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .activity-time {
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-top: 2px;
+        }
+
+        /* ─── TASKS ─── */
+        .tasks-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 7px 8px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: background var(--dur-fast) var(--ease);
+            user-select: none;
+        }
+
+        .task-item:hover {
+            background: var(--bg);
+        }
+
+        .task-check {
+            width: 15px;
+            height: 15px;
+            border-radius: 4px;
+            border: 1.5px solid var(--border);
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease);
+        }
+
+        .task-check svg {
+            display: none;
+            width: 8px;
+            height: 8px;
+            color: white;
+        }
+
+        .task-item:hover .task-check {
+            border-color: var(--accent);
+        }
+
+        .task-check.checked {
+            background: var(--accent);
+            border-color: var(--accent);
+            box-shadow: 0 1px 3px rgba(47, 110, 247, 0.3);
+        }
+
+        .task-check.checked svg {
+            display: block;
+        }
+
+        .task-text {
+            flex: 1;
+            font-size: 13px;
+            color: var(--text-primary);
+            min-width: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: color var(--dur-fast) var(--ease);
+        }
+
+        .task-item.done .task-text {
+            text-decoration: line-through;
+            color: var(--text-disabled);
+        }
+
+        .task-tag {
+            font-size: 10.5px;
+            font-weight: 500;
+            padding: 2px 7px;
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+
+        .tag-blue {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .tag-green {
+            background: var(--green-bg);
+            color: var(--green);
+        }
+
+        .tag-amber {
+            background: var(--amber-bg);
+            color: var(--amber);
+        }
+
+        /* ─── TEAM ─── */
+        .team-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+        }
+
+        .team-member {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 6px 8px;
+            border-radius: var(--radius-sm);
+            transition: background var(--dur-fast) var(--ease);
+            cursor: pointer;
+        }
+
+        .team-member:hover {
+            background: var(--bg);
+        }
+
+        .team-ava {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1.5px solid var(--border);
+        }
+
+        .team-ava img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .team-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .team-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.3;
+        }
+
+        .team-role {
+            font-size: 11px;
+            color: var(--text-tertiary);
+        }
+
+        .status-pip {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            border: 1.5px solid var(--surface);
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.06);
+        }
+
+        .pip-online {
+            background: var(--green);
+        }
+
+        .pip-away {
+            background: #f59e0b;
+        }
+
+        .pip-offline {
+            background: var(--text-disabled);
+        }
+
+        .team-footer {
+            margin-top: 12px;
+            padding-top: 11px;
+            border-top: 1px solid var(--border-soft);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .team-meta {
+            font-size: 11.5px;
+            color: var(--text-tertiary);
+        }
+
+        .online-count {
+            color: var(--green);
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="layout">
+
+        <!-- ═══ TOP NAV ═══ -->
+        <header class="topnav">
+            <div class="logo">
+                <div class="logo-mark">
+                    <svg viewBox="0 0 16 16">
+                        <path d="M8 1L2 4.5v7L8 15l6-3.5v-7L8 1zm0 2.1l4 2.3v4.6L8 12.9 4 10V5.4l4-2.3z" />
+                    </svg>
+                </div>
+                <span class="logo-name">Meridian</span>
+            </div>
+
+            <div class="search-wrap">
+                <svg class="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="6.5" cy="6.5" r="4.5" />
+                    <path d="M11.5 11.5l2.5 2.5" />
+                </svg>
+                <input class="search-input" type="text" placeholder="Search anything…" aria-label="Search">
+                <div class="kbd-hint" aria-hidden="true"><span>⌘</span><span>K</span></div>
+            </div>
+
+            <div class="topnav-right">
+                <button class="icon-btn notif-pip" title="Notifications" aria-label="Notifications">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                        <path d="M8 1.5a5 5 0 00-5 5c0 2.2-.7 3.5-1.7 4.5h13.4C13.7 10 13 8.7 13 6.5a5 5 0 00-5-5z" />
+                        <path d="M8 14.5a1.5 1.5 0 01-1.5-1.5h3A1.5 1.5 0 018 14.5z" />
+                    </svg>
+                </button>
+                <button class="icon-btn" title="Settings" aria-label="Settings">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+                        <circle cx="8" cy="8" r="2.2" />
+                        <path
+                            d="M8 1v2M8 13v2M1 8h2M13 8h2M2.9 2.9l1.4 1.4M11.7 11.7l1.4 1.4M2.9 13.1l1.4-1.4M11.7 4.3l1.4-1.4" />
+                    </svg>
+                </button>
+                <div class="nav-sep" aria-hidden="true"></div>
+                <button class="avatar-btn" aria-label="User menu">
+                    <div class="avatar-img">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&q=80&fit=crop&crop=face"
+                            alt="Alex Morgan">
+                    </div>
+                    <span class="avatar-name">Alex M.</span>
+                    <svg class="avatar-caret" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <path d="M2.5 4L5 6.5 7.5 4" />
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- ═══ SIDEBAR ═══ -->
+        <aside class="sidebar" role="navigation" aria-label="Main navigation">
+            <div class="nav-group">
+                <span class="nav-section-label">Overview</span>
+                <a class="nav-item active" href="#" aria-current="page">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6">
+                        <rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1.2" />
+                        <rect x="9" y="1.5" width="5.5" height="5.5" rx="1.2" />
+                        <rect x="1.5" y="9" width="5.5" height="5.5" rx="1.2" />
+                        <rect x="9" y="9" width="5.5" height="5.5" rx="1.2" />
+                    </svg>
+                    Dashboard
+                </a>
+                <a class="nav-item" href="#">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6">
+                        <polyline points="1.5,12 5,7 8,9.5 11,5 14.5,9" />
+                        <line x1="1.5" y1="14.5" x2="14.5" y2="14.5" />
+                    </svg>
+                    Analytics
+                    <span class="nav-badge">New</span>
+                </a>
+                <a class="nav-item" href="#">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6">
+                        <rect x="1.5" y="3.5" width="13" height="10" rx="1.2" />
+                        <path d="M1.5 7h13" />
+                        <path d="M5.5 1.5v3M10.5 1.5v3" />
+                    </svg>
+                    Revenue
+                </a>
+                <a class="nav-item" href="#">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6">
+                        <circle cx="6" cy="5" r="3" />
+                        <path d="M1 14.5c0-2.8 2.2-4.8 5-4.8s5 2 5 4.8" />
+                        <circle cx="12.5" cy="5" r="2" />
+                        <path d="M12.5 9.5c1.8.3 3 1.7 3 4" />
+                    </svg>
+                    Customers
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <span class="nav-section-label">Product</span>
+                <a class="nav-item" href="#">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6">
+                        <rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1" />
+                        <rect x="9" y="1.5" width="5.5" height="5.5" rx="1" />
+                        <rect x="1.5" y="9" width="5.5" height="5.5" rx="1" />
+                        <path d="M11.8 9v5.5M9 11.8h5.5" />
+                    </svg>
+                    Projects
+                </a>
+                <a class="nav-item" href="#">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6">
+                        <path d="M7 3H4.5a2 2 0 00-2 2v7.5a2 2 0 002 2h7.5a2 2 0 002-2V10" />
+                        <path d="M11 1.5h3.5v3.5M8.5 8.5l6-6" />
+                    </svg>
+                    Integrations
+                </a>
+                <a class="nav-item" href="#">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6">
+                        <circle cx="8" cy="8" r="6.5" />
+                        <path d="M8 4.5v4l2.5 2" />
+                    </svg>
+                    Reports
+                </a>
+            </div>
+
+            <div class="nav-group">
+                <span class="nav-section-label">Account</span>
+                <a class="nav-item" href="#">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6">
+                        <circle cx="8" cy="5.5" r="3" />
+                        <path d="M2.5 14.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5" />
+                    </svg>
+                    Profile
+                </a>
+                <a class="nav-item" href="#">
+                    <svg viewBox="0 0 16 16" stroke-width="1.6">
+                        <circle cx="8" cy="8" r="2.2" />
+                        <path
+                            d="M8 1v2M8 13v2M1 8h2M13 8h2M2.9 2.9l1.4 1.4M11.7 11.7l1.4 1.4M2.9 13.1l1.4-1.4M11.7 4.3l1.4-1.4" />
+                    </svg>
+                    Settings
+                </a>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="plan-card">
+                    <div class="plan-row">
+                        <span class="plan-label">Pro Plan</span>
+                        <span class="plan-action">Upgrade</span>
+                    </div>
+                    <div class="plan-sub">8.2 GB of 20 GB used</div>
+                    <div class="plan-bar-bg">
+                        <div class="plan-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ═══ MAIN ═══ -->
+        <main class="main">
+
+            <!-- Page Header -->
+            <div class="page-header">
+                <div>
+                    <div class="page-title">Good morning, Alex 👋</div>
+                    <div class="page-sub">Here's what's happening with your product today.</div>
+                </div>
+                <div class="header-actions">
+                    <div class="date-filter" role="group" aria-label="Time range">
+                        <div class="date-opt" tabindex="0">7D</div>
+                        <div class="date-opt active" tabindex="0">30D</div>
+                        <div class="date-opt" tabindex="0">90D</div>
+                        <div class="date-opt" tabindex="0">1Y</div>
+                    </div>
+                    <button class="btn btn-secondary">
+                        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.7">
+                            <path d="M1 3h12M3 7h8M5 11h4" />
+                        </svg>
+                        Filter
+                    </button>
+                    <button class="btn btn-primary">
+                        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8">
+                            <path d="M7 1.5v8M3.5 6.5l3.5 4 3.5-4" />
+                            <path d="M1 12.5h12" />
+                        </svg>
+                        Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- ── METRICS ── -->
+            <div class="metrics-grid">
+
+                <div class="card metric-card">
+                    <div class="metric-header">
+                        <span class="metric-label">Monthly Revenue</span>
+                        <div class="metric-icon blue">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6">
+                                <path
+                                    d="M7 1v12M4.5 4.5c0-1 .8-1.8 1.8-1.8h1.4a1.8 1.8 0 010 3.6H5.8a1.8 1.8 0 000 3.6h1.4a1.8 1.8 0 001.8-1.8" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="metric-value">$48,391</div>
+                    <div class="metric-spark">
+                        <svg viewBox="0 0 120 34" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#2f6ef7" stop-opacity="0.14" />
+                                    <stop offset="100%" stop-color="#2f6ef7" stop-opacity="0.01" />
+                                </linearGradient>
+                            </defs>
+                            <polygon points="0,30 15,25 30,28 45,19 60,21 75,13 90,9 105,7 120,4 120,34 0,34"
+                                fill="url(#g1)" />
+                            <polyline points="0,30 15,25 30,28 45,19 60,21 75,13 90,9 105,7 120,4" fill="none"
+                                stroke="#2f6ef7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="120" cy="4" r="2.5" fill="#2f6ef7" />
+                        </svg>
+                    </div>
+                    <div class="metric-footer">
+                        <span class="metric-change up">
+                            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 8V2M2 5l3-3 3 3" />
+                            </svg>
+                            +12.4%
+                        </span>
+                        <span class="metric-period">vs last month</span>
+                    </div>
+                </div>
+
+                <div class="card metric-card">
+                    <div class="metric-header">
+                        <span class="metric-label">Active Users</span>
+                        <div class="metric-icon green">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6">
+                                <circle cx="5" cy="4.5" r="2.2" />
+                                <path d="M1 12.5c0-2.5 1.8-4.2 4-4.2s4 1.7 4 4.2" />
+                                <circle cx="11" cy="4.5" r="1.8" />
+                                <path d="M11 8.8c1.5.2 2.5 1.4 2.5 3.7" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="metric-value">9,248</div>
+                    <div class="metric-spark">
+                        <svg viewBox="0 0 120 34" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#16a34a" stop-opacity="0.13" />
+                                    <stop offset="100%" stop-color="#16a34a" stop-opacity="0.01" />
+                                </linearGradient>
+                            </defs>
+                            <polygon points="0,28 15,24 30,27 45,20 60,22 75,16 90,14 105,10 120,8 120,34 0,34"
+                                fill="url(#g2)" />
+                            <polyline points="0,28 15,24 30,27 45,20 60,22 75,16 90,14 105,10 120,8" fill="none"
+                                stroke="#16a34a" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="120" cy="8" r="2.5" fill="#16a34a" />
+                        </svg>
+                    </div>
+                    <div class="metric-footer">
+                        <span class="metric-change up">
+                            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 8V2M2 5l3-3 3 3" />
+                            </svg>
+                            +8.1%
+                        </span>
+                        <span class="metric-period">vs last month</span>
+                    </div>
+                </div>
+
+                <div class="card metric-card">
+                    <div class="metric-header">
+                        <span class="metric-label">Churn Rate</span>
+                        <div class="metric-icon amber">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6">
+                                <circle cx="7" cy="7" r="5.5" />
+                                <path d="M7 4v3.5l2 2" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="metric-value">2.4%</div>
+                    <div class="metric-spark">
+                        <svg viewBox="0 0 120 34" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#b45309" stop-opacity="0.1" />
+                                    <stop offset="100%" stop-color="#b45309" stop-opacity="0.01" />
+                                </linearGradient>
+                            </defs>
+                            <polygon points="0,12 15,16 30,13 45,18 60,15 75,20 90,17 105,22 120,20 120,34 0,34"
+                                fill="url(#g3)" />
+                            <polyline points="0,12 15,16 30,13 45,18 60,15 75,20 90,17 105,22 120,20" fill="none"
+                                stroke="#b45309" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="120" cy="20" r="2.5" fill="#b45309" />
+                        </svg>
+                    </div>
+                    <div class="metric-footer">
+                        <span class="metric-change down">
+                            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 2v6M2 5l3 3 3-3" />
+                            </svg>
+                            +0.3%
+                        </span>
+                        <span class="metric-period">vs last month</span>
+                    </div>
+                </div>
+
+                <div class="card metric-card">
+                    <div class="metric-header">
+                        <span class="metric-label">New Signups</span>
+                        <div class="metric-icon blue">
+                            <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6">
+                                <circle cx="5.5" cy="4.5" r="2.5" />
+                                <path d="M1 12.5c0-2.8 2-4.5 4.5-4.5" />
+                                <path d="M10 8v5M7.5 10.5h5" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="metric-value">1,482</div>
+                    <div class="metric-spark">
+                        <svg viewBox="0 0 120 34" preserveAspectRatio="none">
+                            <defs>
+                                <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="0%" stop-color="#2f6ef7" stop-opacity="0.14" />
+                                    <stop offset="100%" stop-color="#2f6ef7" stop-opacity="0.01" />
+                                </linearGradient>
+                            </defs>
+                            <polygon points="0,27 15,23 30,25 45,18 60,16 75,10 90,12 105,6 120,4 120,34 0,34"
+                                fill="url(#g4)" />
+                            <polyline points="0,27 15,23 30,25 45,18 60,16 75,10 90,12 105,6 120,4" fill="none"
+                                stroke="#2f6ef7" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="120" cy="4" r="2.5" fill="#2f6ef7" />
+                        </svg>
+                    </div>
+                    <div class="metric-footer">
+                        <span class="metric-change up">
+                            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 8V2M2 5l3-3 3 3" />
+                            </svg>
+                            +23.7%
+                        </span>
+                        <span class="metric-period">vs last month</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── MID SECTION ── -->
+            <div class="mid-grid">
+
+                <!-- Bar Chart -->
+                <div class="card">
+                    <div class="chart-header-row">
+                        <div>
+                            <div class="card-title">Revenue Overview</div>
+                            <div class="card-desc">Monthly recurring vs. annual run rate</div>
+                        </div>
+                        <div style="display:flex;align-items:center;gap:14px;">
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <div class="legend-swatch" style="background:var(--accent)"></div>MRR
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-swatch" style="background:var(--accent-dim)"></div>ARR
+                                </div>
+                            </div>
+                            <a class="card-action" href="#">
+                                View all
+                                <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
+                                    <path d="M2 5h6M5 2l3 3-3 3" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="bar-chart-wrap">
+                        <div class="bar-chart" id="barChart">
+                            <div class="bar-grid">
+                                <div class="bar-grid-line"></div>
+                                <div class="bar-grid-line"></div>
+                                <div class="bar-grid-line"></div>
+                                <div class="bar-grid-line"></div>
+                                <div class="bar-grid-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Traffic + Status -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Traffic Sources</div>
+                            <div class="card-desc">Last 30 days</div>
+                        </div>
+                        <a class="card-action" href="#">
+                            Details
+                            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M2 5h6M5 2l3 3-3 3" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="sources-list">
+                        <div class="source-row">
+                            <div class="source-meta"><span class="source-name">Organic Search</span><span
+                                    class="source-pct">42%</span></div>
+                            <div class="source-track">
+                                <div class="source-fill" style="width:42%;background:var(--accent)"></div>
+                            </div>
+                        </div>
+                        <div class="source-row">
+                            <div class="source-meta"><span class="source-name">Direct</span><span
+                                    class="source-pct">28%</span></div>
+                            <div class="source-track">
+                                <div class="source-fill" style="width:28%;background:#7ba8fb"></div>
+                            </div>
+                        </div>
+                        <div class="source-row">
+                            <div class="source-meta"><span class="source-name">Referral</span><span
+                                    class="source-pct">17%</span></div>
+                            <div class="source-track">
+                                <div class="source-fill" style="width:17%;background:var(--accent-dim)"></div>
+                            </div>
+                        </div>
+                        <div class="source-row">
+                            <div class="source-meta"><span class="source-name">Social Media</span><span
+                                    class="source-pct">9%</span></div>
+                            <div class="source-track">
+                                <div class="source-fill" style="width:9%;background:#c8d9fd"></div>
+                            </div>
+                        </div>
+                        <div class="source-row">
+                            <div class="source-meta"><span class="source-name">Email</span><span
+                                    class="source-pct">4%</span></div>
+                            <div class="source-track">
+                                <div class="source-fill" style="width:4%;background:#dde8fe"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-divider"></div>
+
+                    <div class="status-header">
+                        <span class="card-title" style="font-size:13px;">System Status</span>
+                        <span class="badge badge-success"><span class="badge-dot"></span>Operational</span>
+                    </div>
+                    <div class="status-grid">
+                        <div class="status-row">
+                            <span class="status-key">API Uptime</span>
+                            <span class="status-val good">99.98%</span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-key">Avg. Response</span>
+                            <span class="status-val neutral">142 ms</span>
+                        </div>
+                        <div class="status-row">
+                            <span class="status-key">Error Rate</span>
+                            <span class="status-val neutral">0.12%</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ── BOTTOM SECTION ── -->
+            <div class="bottom-grid">
+
+                <!-- Activity -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Recent Activity</div>
+                            <div class="card-desc">User events &amp; upgrades</div>
+                        </div>
+                        <a class="card-action" href="#">
+                            View all
+                            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M2 5h6M5 2l3 3-3 3" />
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="activity-list">
+
+                        <div class="activity-item">
+                            <div class="activity-ava-wrap">
+                                <div class="activity-ava"><img
+                                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80&fit=crop&crop=face"
+                                        alt="Sara Chen"></div>
+                                <div class="activity-pip" style="background:var(--green)"></div>
+                            </div>
+                            <div class="activity-body">
+                                <div class="activity-text"><strong>Sara Chen</strong> upgraded to the Pro plan</div>
+                                <div class="activity-time">2 minutes ago</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-ava-wrap">
+                                <div class="activity-ava"><img
+                                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80&fit=crop&crop=face"
+                                        alt="Marcus Torres"></div>
+                                <div class="activity-pip" style="background:var(--accent)"></div>
+                            </div>
+                            <div class="activity-body">
+                                <div class="activity-text"><strong>Marcus T.</strong> submitted a new support ticket
+                                </div>
+                                <div class="activity-time">14 minutes ago</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-ava-wrap">
+                                <div class="activity-ava"><img
+                                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&q=80&fit=crop&crop=face"
+                                        alt="Linda Park"></div>
+                                <div class="activity-pip" style="background:var(--amber)"></div>
+                            </div>
+                            <div class="activity-body">
+                                <div class="activity-text"><strong>Linda Park</strong> cancelled her subscription</div>
+                                <div class="activity-time">1 hour ago</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-ava-wrap">
+                                <div class="activity-ava"><img
+                                        src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&fit=crop&crop=face"
+                                        alt="James Reeves"></div>
+                                <div class="activity-pip" style="background:var(--green)"></div>
+                            </div>
+                            <div class="activity-body">
+                                <div class="activity-text"><strong>James R.</strong> completed onboarding flow</div>
+                                <div class="activity-time">3 hours ago</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-ava-wrap">
+                                <div class="activity-ava"><img
+                                        src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&q=80&fit=crop&crop=face"
+                                        alt="Priya Kumar"></div>
+                                <div class="activity-pip" style="background:var(--accent)"></div>
+                            </div>
+                            <div class="activity-body">
+                                <div class="activity-text"><strong>Priya K.</strong> connected Slack integration</div>
+                                <div class="activity-time">5 hours ago</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Tasks -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">My Tasks</div>
+                            <div class="card-desc" id="taskDesc">2 of 6 completed</div>
+                        </div>
+                        <button class="btn btn-secondary btn-sm">
+                            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2v8M2 6h8" />
+                            </svg>
+                            Add
+                        </button>
+                    </div>
+                    <div class="tasks-list" id="taskList">
+
+                        <div class="task-item done" onclick="toggleTask(this)">
+                            <div class="task-check checked"><svg viewBox="0 0 9 7" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 3.5l2.5 2.5 5-5" />
+                                </svg></div>
+                            <span class="task-text">Review Q2 pricing strategy</span>
+                            <span class="task-tag tag-blue">Strategy</span>
+                        </div>
+
+                        <div class="task-item done" onclick="toggleTask(this)">
+                            <div class="task-check checked"><svg viewBox="0 0 9 7" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 3.5l2.5 2.5 5-5" />
+                                </svg></div>
+                            <span class="task-text">Update onboarding email sequence</span>
+                            <span class="task-tag tag-green">Email</span>
+                        </div>
+
+                        <div class="task-item" onclick="toggleTask(this)">
+                            <div class="task-check"><svg viewBox="0 0 9 7" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 3.5l2.5 2.5 5-5" />
+                                </svg></div>
+                            <span class="task-text">Audit inactive accounts (90d+)</span>
+                            <span class="task-tag tag-amber">Ops</span>
+                        </div>
+
+                        <div class="task-item" onclick="toggleTask(this)">
+                            <div class="task-check"><svg viewBox="0 0 9 7" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 3.5l2.5 2.5 5-5" />
+                                </svg></div>
+                            <span class="task-text">Prepare investor deck for Series B</span>
+                            <span class="task-tag tag-blue">Finance</span>
+                        </div>
+
+                        <div class="task-item" onclick="toggleTask(this)">
+                            <div class="task-check"><svg viewBox="0 0 9 7" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 3.5l2.5 2.5 5-5" />
+                                </svg></div>
+                            <span class="task-text">Launch referral program beta</span>
+                            <span class="task-tag tag-green">Growth</span>
+                        </div>
+
+                        <div class="task-item" onclick="toggleTask(this)">
+                            <div class="task-check"><svg viewBox="0 0 9 7" fill="none" stroke="currentColor"
+                                    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M1 3.5l2.5 2.5 5-5" />
+                                </svg></div>
+                            <span class="task-text">Sync with design on new billing UI</span>
+                            <span class="task-tag tag-amber">Design</span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Team -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Team Members</div>
+                            <div class="card-desc">5 members · 4 roles</div>
+                        </div>
+                        <a class="card-action" href="#">
+                            Manage
+                            <svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.8">
+                                <path d="M2 5h6M5 2l3 3-3 3" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <div class="team-list">
+                        <div class="team-member">
+                            <div class="team-ava"><img
+                                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=80&q=80&fit=crop&crop=face"
+                                    alt="Alex Morgan"></div>
+                            <div class="team-info">
+                                <div class="team-name">Alex Morgan</div>
+                                <div class="team-role">Product Lead</div>
+                            </div>
+                            <div class="status-pip pip-online" title="Online"></div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-ava"><img
+                                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&q=80&fit=crop&crop=face"
+                                    alt="Sara Chen"></div>
+                            <div class="team-info">
+                                <div class="team-name">Sara Chen</div>
+                                <div class="team-role">Growth Marketing</div>
+                            </div>
+                            <div class="status-pip pip-online" title="Online"></div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-ava"><img
+                                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&q=80&fit=crop&crop=face"
+                                    alt="Marcus Torres"></div>
+                            <div class="team-info">
+                                <div class="team-name">Marcus Torres</div>
+                                <div class="team-role">Engineering</div>
+                            </div>
+                            <div class="status-pip pip-away" title="Away"></div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-ava"><img
+                                    src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=80&q=80&fit=crop&crop=face"
+                                    alt="Priya Kumar"></div>
+                            <div class="team-info">
+                                <div class="team-name">Priya Kumar</div>
+                                <div class="team-role">Customer Success</div>
+                            </div>
+                            <div class="status-pip pip-online" title="Online"></div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-ava"><img
+                                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&q=80&fit=crop&crop=face"
+                                    alt="James Reeves"></div>
+                            <div class="team-info">
+                                <div class="team-name">James Reeves</div>
+                                <div class="team-role">Design</div>
+                            </div>
+                            <div class="status-pip pip-offline" title="Offline"></div>
+                        </div>
+                    </div>
+
+                    <div class="team-footer">
+                        <span class="team-meta"><span class="online-count">3 online</span> · 5 total</span>
+                        <button class="btn btn-secondary btn-sm">
+                            <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2v8M2 6h8" />
+                            </svg>
+                            Invite
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        /* ── Date filter ── */
+        document.querySelectorAll('.date-opt').forEach(opt => {
+            opt.addEventListener('click', () => {
+                document.querySelectorAll('.date-opt').forEach(o => o.classList.remove('active'));
+                opt.classList.add('active');
+            });
+            opt.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') opt.click(); });
+        });
+
+        /* ── Task toggle ── */
+        const TOTAL = 6;
+        let completed = 2;
+        function toggleTask(item) {
+            const cb = item.querySelector('.task-check');
+            const isDone = item.classList.toggle('done');
+            cb.classList.toggle('checked', isDone);
+            completed += isDone ? 1 : -1;
+            const desc = document.getElementById('taskDesc');
+            if (desc) desc.textContent = `${completed} of ${TOTAL} completed`;
+        }
+
+        /* ── Bar chart ── */
+        const months = ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+        const mrrData = [28, 31, 34, 30, 36, 39, 42, 38, 44, 41, 47, 48];
+        const arrData = [20, 22, 24, 22, 26, 28, 30, 28, 32, 30, 34, 36];
+        const maxVal = Math.max(...mrrData, ...arrData);
+        const chartH = 138;
+
+        const chart = document.getElementById('barChart');
+
+        months.forEach((m, i) => {
+            const mH = Math.round((mrrData[i] / maxVal) * chartH);
+            const aH = Math.round((arrData[i] / maxVal) * chartH);
+
+            const group = document.createElement('div');
+            group.className = 'bar-group';
+            group.innerHTML = `
+    <div class="bar primary"   style="height:0" data-h="${mH}"></div>
+    <div class="bar secondary" style="height:0" data-h="${aH}"></div>
+    <span class="bar-lbl">${m}</span>
+    <div class="chart-tip">$${mrrData[i]}k MRR · $${arrData[i]}k ARR</div>
+  `;
+            chart.appendChild(group);
+        });
+
+        /* Staggered entrance */
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                document.querySelectorAll('#barChart .bar').forEach((b, i) => {
+                    b.style.transition = `height 0.55s cubic-bezier(0.16,1,0.3,1) ${i * 28}ms`;
+                    b.style.height = b.dataset.h + 'px';
+                });
+            });
+        });
+
+        /* Animate source bars */
+        setTimeout(() => {
+            document.querySelectorAll('.source-fill').forEach(el => {
+                const target = el.style.width;
+                el.style.width = '0';
+                el.style.transition = 'width 0.9s cubic-bezier(0.16,1,0.3,1)';
+                requestAnimationFrame(() => requestAnimationFrame(() => { el.style.width = target; }));
+            });
+        }, 80);
+    </script>
+</body>
+
+</html>
