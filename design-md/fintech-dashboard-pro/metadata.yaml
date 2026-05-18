@@ -1,0 +1,22 @@
+# yaml-language-server: $schema=../../metadata.schema.yaml
+
+author:
+  name: "albemala"
+  website: "https://github.com/albemala"
+  avatar: "https://avatars.githubusercontent.com/u/2332860?v=4"
+
+design_md:
+  title: "Meridian Capital Portfolio"
+  description: "A dark, terminal-inspired fintech dashboard design system optimized for high-density financial data. Features deep cool tones, IBM Plex typography, and stark semantic colors for portfolio performance."
+  tags:
+    - fintech
+    - dashboard
+    - portfolio
+    - dark-mode
+    - data-dense
+    - terminal-inspired
+    - pro
+
+preview:
+  file_name: "preview.html"
+  image_name: "preview.webp"
