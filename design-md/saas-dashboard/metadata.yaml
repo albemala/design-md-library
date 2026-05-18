@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../../metadata.schema.yaml
+
+author:
+  name: "albemala"
+  website: "https://github.com/albemala"
+  avatar: "https://avatars.githubusercontent.com/u/2332860?v=4"
+
+design_md:
+  title: "Meridian Dashboard"
+  description: "A clean, professional, and data-dense modular SaaS dashboard design system optimized for high efficiency, clarity, and scanning key metrics."
+  tags:
+    - saas
+    - dashboard
+    - modular
+    - clean
+    - professional
+    - data-dense
+
+preview:
+  file_name: "preview.html"
+  image_name: "preview.webp"
