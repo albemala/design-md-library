@@ -15,6 +15,7 @@ design_md:
     - product-detail-page
     - checkout
     - conversion
+
 preview:
   file_name: "preview.html"
   image_name: "preview.webp"

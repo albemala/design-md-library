@@ -5,6 +5,7 @@ author:                  # Information about the design author
   name: "string"         # The name of the design author
   website: "string"      # The URL to the author's website (URI format)
   avatar: "string"       # The URL to the author's avatar image (URI format)
+
 design_md:               # Information about the design file
   title: "string"        # The title of the design
   description: "|"       # string - A brief description of the design
@@ -12,6 +13,7 @@ design_md:               # Information about the design file
     - tag1
     - tag2
     - tag3
+
 preview:                 # Information about the design preview
   file_name: "preview.html" # The filename of the design preview
   image_name: "preview.webp" # The filename of the design preview image

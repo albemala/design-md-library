@@ -4,6 +4,7 @@ author:
   name: "Donald Edinam"
   website: "https://github.com/Donald-Edinam"
   avatar: "https://github.com/Donald-Edinam.png"
+
 design_md:
   title: "Fintech Dashboard — Clean"
   description: "A precision-first fintech dashboard design system focused on trust, numeric clarity, and structured financial workflows. Clean, institutional visual language for banking and finance interfaces."
@@ -14,6 +15,7 @@ design_md:
     - data-dense
     - dark-mode
     - clean
+
 preview:
   file_name: "preview.html"
   image_name: "preview.webp"
